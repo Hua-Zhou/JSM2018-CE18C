@@ -27,4 +27,29 @@ There are several ways to follow the lectures, most of which are prepared as Jup
 ### Run Jupyter notebooks in a server
 
 The **easiest** way is to run Jupyter notebooks on a server dedicated to this course.  
-* 
+
+0. Point your browser to [localhost:8000]().  
+
+0. You'll be greeted by a JupyterHub login page:
+<p align="center">
+![](./jupyterlab_login.png){width=300px}
+</p>
+Your username is initial of your first name + your last name. For example, if your name is `Joe Bruin`, then your username is `jbruin`. Your password is `jsmce18c`. Of course you can change password after you log in, e.g., by `passwd` command at Bash terminal.
+
+0. After login, you will see the self-explanatory JupyterLab interface:
+<p align="center">
+![](./jupyterlab_home.png){width=300px}
+</p>
+
+0. To transfer the course materials to your home directory on the server, click `Terminal` in JupyterLab and type command 
+```bash
+git clone https://github.com/Hua-Zhou/JSM2018-CE18C.git
+```
+You should see the folder `JSM2018-CE18C` in the `Files` tab on the left of JupyterLab. Now youc can open any Jupyter notebooks in that folder and run the examples.
+
+### Run Jupyter notebooks on your own laptop
+
+This is **not** recommended for Julia beginners, since your software environment (OS, Julia version, pcckages versions, etc.) may be quite different. But if you want to run Jupyter notebooks on your own machine. Simply `git clone https://github.com/Hua-Zhou/JSM2018-CE18C.git` to sync the most recent lectures.
+
+
+
