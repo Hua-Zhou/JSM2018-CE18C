@@ -1,12 +1,12 @@
-# Julia meets Mendel: Algorithms and Software for Modern Genomic Data
+# Julia Meets Mendel: Algorithms and Software for Modern Genomic Data
 
-This repo contains the materials for short course [_Julia meets Mendel: Algorithms and Software for Modern Genomic Data_](http://ww2.amstat.org/meetings/jsm/2018/onlineprogram/ActivityDetails.cfm?SessionID=215388) at 2018 Joint Statistical Meeting (JSM), Vancouver, Canada.
+This repo contains the materials for short course [_Julia Meets Mendel: Algorithms and Software for Modern Genomic Data_](http://ww2.amstat.org/meetings/jsm/2018/onlineprogram/ActivityDetails.cfm?SessionID=215388) at 2018 Joint Statistical Meeting (JSM), Vancouver, Canada.
 
 ## Syllabus
 
 | Time | Topic | Instructor |  
 |:-----------|:------------|:------------|  
-| 8:30-9:00 | participants introduction, intro. to OpenMendel | Eric Sobel |  
+| 8:30-9:00 | participants intro., intro. to OpenMendel | Eric Sobel |  
 | 9:00-9:30 | Julia: more than just fast R | Hua Zhou |  
 | 9:30-10:15 | Julia: linear algebra, optimization | Hua Zhou |  
 | 10:15-10:30 | coffee break | |  
@@ -22,9 +22,9 @@ This repo contains the materials for short course [_Julia meets Mendel: Algorith
 
 ## Getting started
 
-There are several ways to follow the lectures, most of which are prepared as Jupyter notebooks.
+There are several ways run Jupyter notebooks in this course.
 
-### Run Jupyter notebooks in a server
+### Run Jupyter notebooks on the dedicated server
 
 The **easiest** way is to run Jupyter notebooks on a server dedicated to this course.  
 
@@ -32,13 +32,13 @@ The **easiest** way is to run Jupyter notebooks on a server dedicated to this co
 
 0. You'll be greeted by a JupyterHub login page:
 <p align="center">
-![](./jupyterlab_login.png){width=300px}
+![](https://raw.githubusercontent.com/Hua-Zhou/JSM2018-CE18C/master/jupyterlab_login.png)
 </p>
 Your username is initial of your first name + your last name. For example, if your name is `Joe Bruin`, then your username is `jbruin`. Your password is `jsmce18c`. Of course you can change password after you log in, e.g., by `passwd` command at Bash terminal.
 
 0. After login, you will see the self-explanatory JupyterLab interface:
 <p align="center">
-![](./jupyterlab_home.png){width=300px}
+![](https://raw.githubusercontent.com/Hua-Zhou/JSM2018-CE18C/master/jupyterlab_home.png)
 </p>
 
 0. To transfer the course materials to your home directory on the server, click `Terminal` in JupyterLab and type command 
