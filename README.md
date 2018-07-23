@@ -18,7 +18,7 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 | 9:30-10:15 | Julia: linear algebra, optimization | Hua Zhou |  
 | 10:15-10:30 | coffee break | |  
 | 10:30-11:15 | Julia: parallel computing | Hua Zhou |  
-| 11:15-noon | review of genetic and genomic concepts | Janet Sinsheimer |  
+| 11:15-noon | review of genetic and genomic concepts \[[pdf](./lectures/09-geneticsreview/reviewofGGconcepts07212018.pdf)\] | Janet Sinsheimer |  
 | noon-1:00 | lunch | |  
 | 1:00-1:30 | handling big genomic data in OpenMendel | Hua Zhou |  
 | 1:30-2:30 | GWAS for population and genetic analysis | Eric Sobel |  
