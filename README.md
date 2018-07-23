@@ -50,6 +50,9 @@ git clone https://github.com/Hua-Zhou/JSM2018-CE18C.git
 ```
 You should see the folder `JSM2018-CE18C` in the `Files` tab on the left of JupyterLab. Now you can open any Jupyter notebooks in that folder and run the examples.
 
+5. If you prefer the Jupyter Notebook interface instead of JupyterLab, change the address from `http://35.233.157.190:8000/user/jbruin/lab` to `http://35.233.157.190:8000/user/jbruin/tree`.  
+![](./jupyternb_home.png)
+
 ### Run Jupyter notebooks on your own laptop
 
 This is **not** recommended for Julia beginners, since your software environment (OS, Julia version, package versions, etc.) may be quite different from that assumed by the Jupyter notebooks. But in case you want to run Jupyter notebooks on your own machine, simply `git clone https://github.com/Hua-Zhou/JSM2018-CE18C.git` to sync the most recent course materials to your computer.
