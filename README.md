@@ -31,15 +31,11 @@ The **easiest** way is to run Jupyter notebooks on a server dedicated to this co
 1. Point your browser to [123.45.67.89:8000](123.45.67.89:8000).  
 
 2. You'll be greeted by a JupyterHub login page:  
-<p align="center">
-![](https://raw.githubusercontent.com/Hua-Zhou/JSM2018-CE18C/master/jupyterlab_login.png)
-</p>
+![](./jupyterlab_login.png)
 Your username is initial of your first name + your last name. For example, if your name is `Joe Bruin`, then your username is `jbruin`. Your password is `jsmce18c`. Of course you can change password after you log in, e.g., by `passwd` command at Bash terminal.
 
 3. After login, you will see the JupyterLab interface:
-<p align="center">
-![](https://raw.githubusercontent.com/Hua-Zhou/JSM2018-CE18C/master/jupyterlab_home.png)
-</p>
+![](./jupyterlab_home.png)
 
 4. To transfer the course materials to your home directory on the server, click `Terminal` in JupyterLab and type command
 ```bash
