@@ -2,6 +2,13 @@
 
 This repo contains the materials for short course [_Julia Meets Mendel: Algorithms and Software for Modern Genomic Data_](http://ww2.amstat.org/meetings/jsm/2018/onlineprogram/ActivityDetails.cfm?SessionID=215388) at 2018 Joint Statistical Meeting (JSM), Vancouver, Canada.
 
+## Instructors
+
+* Janet Sinsheimer, Professor, Biomathematics, Biostatistics, Human Genetics, and Statistics, UCLA  
+* Eric Sobel, Professor, Human Genetics, UCLA  
+
+* Hua Zhou, Associate Professor, Biostatistics, UCLA  
+
 ## Syllabus
 
 | Time | Topic | Instructor |  
