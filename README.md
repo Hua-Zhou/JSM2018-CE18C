@@ -13,8 +13,8 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 
 | Time | Topic | Instructor |  
 |:-----------|:------------|:------------|  
-| 8:30-9:00 | participants intro., intro. to OpenMendel | Eric Sobel |  
-| 9:00-9:30 | Julia intro. | Hua Zhou |  
+| 8:30-9:00 | participants intro., OpenMendel | Eric Sobel |  
+| 9:00-9:30 | Julia: intro. | Hua Zhou |  
 | 9:30-10:15 | Julia: linear algebra, optimization | Hua Zhou |  
 | 10:15-10:30 | coffee break | |  
 | 10:30-11:15 | Julia: parallel computing | Hua Zhou |  
@@ -49,6 +49,7 @@ Your username is initial of your first name + your last name. For example, if yo
 git clone https://github.com/Hua-Zhou/JSM2018-CE18C.git
 ```
 You should see the folder `JSM2018-CE18C` in the `Files` tab on the left of JupyterLab. Now you can open any Jupyter notebooks in that folder and run the examples.
+![](./jupyterlab_gitclone.png)
 
 5. If you prefer the Jupyter Notebook interface instead of JupyterLab, change the address from `http://35.233.157.190:8000/user/jbruin/lab` to `http://35.233.157.190:8000/user/jbruin/tree`.  
 ![](./jupyternb_home.png)
