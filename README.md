@@ -24,7 +24,7 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 | 1:30-2:30 | GWAS for population and genetic analysis | Eric Sobel |  
 | 2:30-3:15 | linear mixed models for genetic analysis | Hua Zhou |  
 | 3:15-3:30 | coffee break | |  
-| 3:30-4:30 | mendelian randomization | Janet Sinsheimer |  
+| 3:30-4:30 | mendelian randomization \[[pdf](./lectures/13-mr/MendelRandom07302018JSM.pdf), [ipynb](./lectures/13-mr/MR_VCMnotebookWGCAC07102018.ipynb) \] | Janet Sinsheimer |  
 | 4:30-5:00 | how to contribute to OpenMendel project | Eric Sobel |  
 
 ## Getting started
