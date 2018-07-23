@@ -14,7 +14,7 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 | Time | Topic | Instructor |  
 |:-----------|:------------|:------------|  
 | 8:30-9:00 | participants intro., OpenMendel | Eric Sobel |  
-| 9:00-9:30 | Julia: intro. | Hua Zhou |  
+| 9:00-9:30 | Julia intro. \[[ipynb](./lectures/02-juliaintro/juliaintro.ipynb), [html](./lectures/02-juliaintro/juliaintro.html)\] | Hua Zhou |  
 | 9:30-10:15 | Julia: linear algebra, optimization | Hua Zhou |  
 | 10:15-10:30 | coffee break | |  
 | 10:30-11:15 | Julia: parallel computing | Hua Zhou |  
