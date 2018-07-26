@@ -11755,7 +11755,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h1><p><p><div class="lev1 toc-item"><a href="#Julia:-Functions,-Type-System,-Multiple-Dispatch,-JIT,-and-Profiling" data-toc-modified-id="Julia:-Functions,-Type-System,-Multiple-Dispatch,-JIT,-and-Profiling-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Julia: Functions, Type System, Multiple Dispatch, JIT, and Profiling</a></div><div class="lev2 toc-item"><a href="#Control-flow-and-loops" data-toc-modified-id="Control-flow-and-loops-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Control flow and loops</a></div><div class="lev2 toc-item"><a href="#Functions" data-toc-modified-id="Functions-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Functions</a></div><div class="lev2 toc-item"><a href="#Type-system" data-toc-modified-id="Type-system-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Type system</a></div><div class="lev2 toc-item"><a href="#Multiple-dispatch" data-toc-modified-id="Multiple-dispatch-14"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Multiple dispatch</a></div><div class="lev2 toc-item"><a href="#Just-in-time-compilation-(JIT)" data-toc-modified-id="Just-in-time-compilation-(JIT)-15"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Just-in-time compilation (JIT)</a></div><div class="lev2 toc-item"><a href="#Profiling-Julia-code" data-toc-modified-id="Profiling-Julia-code-16"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Profiling Julia code</a></div><div class="lev2 toc-item"><a href="#Memory-profiling" data-toc-modified-id="Memory-profiling-17"><span class="toc-item-num">1.7&nbsp;&nbsp;</span>Memory profiling</a></div><div class="lev2 toc-item"><a href="#Type-stability" data-toc-modified-id="Type-stability-18"><span class="toc-item-num">1.8&nbsp;&nbsp;</span>Type stability</a></div><div class="lev2 toc-item"><a href="#Machine-information" data-toc-modified-id="Machine-information-19"><span class="toc-item-num">1.9&nbsp;&nbsp;</span>Machine information</a></div></p>
+<h1 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h1><p><p><div class="lev1 toc-item"><a href="#Julia:-Functions,-Type-System,-Multiple-Dispatch,-JIT,-and-Profiling" data-toc-modified-id="Julia:-Functions,-Type-System,-Multiple-Dispatch,-JIT,-and-Profiling-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Julia: Functions, Type System, Multiple Dispatch, JIT, and Profiling</a></div><div class="lev2 toc-item"><a href="#Control-flow-and-loops" data-toc-modified-id="Control-flow-and-loops-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Control flow and loops</a></div><div class="lev2 toc-item"><a href="#Functions" data-toc-modified-id="Functions-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Functions</a></div><div class="lev2 toc-item"><a href="#Type-system" data-toc-modified-id="Type-system-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Type system</a></div><div class="lev2 toc-item"><a href="#Multiple-dispatch" data-toc-modified-id="Multiple-dispatch-14"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Multiple dispatch</a></div><div class="lev2 toc-item"><a href="#Just-in-time-compilation-(JIT)" data-toc-modified-id="Just-in-time-compilation-(JIT)-15"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Just-in-time compilation (JIT)</a></div><div class="lev2 toc-item"><a href="#Profiling-Julia-code" data-toc-modified-id="Profiling-Julia-code-16"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>Profiling Julia code</a></div><div class="lev2 toc-item"><a href="#Memory-profiling" data-toc-modified-id="Memory-profiling-17"><span class="toc-item-num">1.7&nbsp;&nbsp;</span>Memory profiling</a></div><div class="lev2 toc-item"><a href="#Type-stability" data-toc-modified-id="Type-stability-18"><span class="toc-item-num">1.8&nbsp;&nbsp;</span>Type stability</a></div></p>
 
 </div>
 </div>
@@ -11765,16 +11765,32 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Julia:-Functions,-Type-System,-Multiple-Dispatch,-JIT,-and-Profiling">Julia: Functions, Type System, Multiple Dispatch, JIT, and Profiling<a class="anchor-link" href="#Julia:-Functions,-Type-System,-Multiple-Dispatch,-JIT,-and-Profiling">&#182;</a></h1>
+<h1 id="Julia:-Functions,-Type-System,-Multiple-Dispatch,-JIT,-and-Profiling">Julia: Functions, Type System, Multiple Dispatch, JIT, and Profiling<a class="anchor-link" href="#Julia:-Functions,-Type-System,-Multiple-Dispatch,-JIT,-and-Profiling">&#182;</a></h1><p>In this lecture, we try to understand why Julia is fast.</p>
+<p>Machine information</p>
+
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">versioninfo</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Control-flow-and-loops">Control flow and loops<a class="anchor-link" href="#Control-flow-and-loops">&#182;</a></h2>
+<h2 id="Control-flow-and-loops">Control flow and loops<a class="anchor-link" href="#Control-flow-and-loops">&#182;</a></h2><p>Building blocks of a function:</p>
+
 </div>
 </div>
 </div>
@@ -11885,7 +11901,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <span class="k">end</span>
 </pre></div>
 </li>
-<li><p>Functions can be vectorized using the Dot syntax:</p>
+<li><p>Functions can be vectorized using the <strong>dot syntax</strong>:</p>
 </li>
 </ul>
 
@@ -11894,7 +11910,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">myfunc</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -11913,18 +11929,160 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>5×3 Array{Float64,2}:
- 0.0088112  0.999085   0.00769028
- 0.0328711  0.0397845  0.0567341 
- 0.188959   0.934609   0.911546  
- 0.0621648  0.135054   0.189796  
- 0.490486   0.667097   0.0218079 </pre>
+ 0.524972   0.746257     0.476279   
+ 0.0560822  0.103261     0.998187   
+ 0.663381   0.66395      0.471585   
+ 0.884399   0.000571193  0.000139895
+ 0.975571   0.974248     0.932335   </pre>
 </div>
 
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Julia Version 0.6.4
+Commit 9d11f62bcb (2018-07-09 19:09 UTC)
+Platform Info:
+  OS: macOS (x86_64-apple-darwin14.5.0)
+  CPU: Intel(R) Core(TM) i7-6920HQ CPU @ 2.90GHz
+  WORD_SIZE: 64
+  BLAS: libopenblas (USE64BITINT DYNAMIC_ARCH NO_AFFINITY Haswell MAX_THREADS=16)
+  LAPACK: libopenblas64_
+  LIBM: libopenlibm
+  LLVM: libLLVM-3.9.1 (ORCJIT, skylake)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Dot operations are fused into a single loop:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">myfunc</span><span class="o">.</span><span class="p">(</span><span class="n">x</span> <span class="o">.+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>5×3 Array{Float64,2}:
+  0.0657827  -0.511128  0.0871686 
+  0.549991    0.444115  0.0524418 
+  0.0220023   0.414438  0.0894151 
+  0.187253    0.815025  0.854088  
+ -0.999204   -0.998702  0.00918096</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">BenchmarkTools</span>
+
+<span class="c"># allocate new array for z</span>
+<span class="nd">@benchmark</span> <span class="n">z</span> <span class="o">=</span> <span class="n">myfunc</span><span class="o">.</span><span class="p">(</span><span class="n">x</span> <span class="o">.+</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># sin((x + 1)^2)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>BenchmarkTools.Trial: 
+  memory estimate:  1.30 KiB
+  allocs estimate:  25
+  --------------
+  minimum time:     4.053 μs (0.00% GC)
+  median time:      4.203 μs (0.00% GC)
+  mean time:        4.482 μs (2.42% GC)
+  maximum time:     287.771 μs (95.73% GC)
+  --------------
+  samples:          10000
+  evals/sample:     8</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="c"># use same z</span>
+<span class="nd">@benchmark</span> <span class="n">z</span> <span class="o">.=</span> <span class="n">myfunc</span><span class="o">.</span><span class="p">(</span><span class="n">x</span> <span class="o">.+</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># sin(x^2) + 1</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg">UndefVarError: z not defined</span>
+
+Stacktrace:
+ [1] <span class="ansi-bold">##core#679</span><span class="ansi-bold">(</span><span class="ansi-bold">)</span> at <span class="ansi-bold">/Users/huazhou/.julia/v0.6/BenchmarkTools/src/execution.jl:316</span>
+ [2] <span class="ansi-bold">##sample#680</span><span class="ansi-bold">(</span>::BenchmarkTools.Parameters<span class="ansi-bold">)</span> at <span class="ansi-bold">/Users/huazhou/.julia/v0.6/BenchmarkTools/src/execution.jl:322</span>
+ [3] <span class="ansi-bold">#_run#7</span><span class="ansi-bold">(</span>::Bool, ::String, ::Array{Any,1}, ::Function, ::BenchmarkTools.Benchmark{Symbol(&#34;##benchmark#678&#34;)}, ::BenchmarkTools.Parameters<span class="ansi-bold">)</span> at <span class="ansi-bold">/Users/huazhou/.julia/v0.6/BenchmarkTools/src/execution.jl:350</span>
+ [4] <span class="ansi-bold">(::BenchmarkTools.#kw##_run)</span><span class="ansi-bold">(</span>::Array{Any,1}, ::BenchmarkTools.#_run, ::BenchmarkTools.Benchmark{Symbol(&#34;##benchmark#678&#34;)}, ::BenchmarkTools.Parameters<span class="ansi-bold">)</span> at <span class="ansi-bold">./&lt;missing&gt;:0</span>
+ [5] <span class="ansi-bold">anonymous</span> at <span class="ansi-bold">./&lt;missing&gt;:?</span>
+ [6] <span class="ansi-bold">#run_result#19</span><span class="ansi-bold">(</span>::Array{Any,1}, ::Function, ::BenchmarkTools.Benchmark{Symbol(&#34;##benchmark#678&#34;)}, ::BenchmarkTools.Parameters<span class="ansi-bold">)</span> at <span class="ansi-bold">/Users/huazhou/.julia/v0.6/BenchmarkTools/src/execution.jl:44</span>
+ [7] <span class="ansi-bold">(::BenchmarkTools.#kw##run_result)</span><span class="ansi-bold">(</span>::Array{Any,1}, ::BenchmarkTools.#run_result, ::BenchmarkTools.Benchmark{Symbol(&#34;##benchmark#678&#34;)}, ::BenchmarkTools.Parameters<span class="ansi-bold">)</span> at <span class="ansi-bold">./&lt;missing&gt;:0</span>
+ [8] <span class="ansi-bold">#run#21</span><span class="ansi-bold">(</span>::Array{Any,1}, ::Function, ::BenchmarkTools.Benchmark{Symbol(&#34;##benchmark#678&#34;)}, ::BenchmarkTools.Parameters<span class="ansi-bold">)</span> at <span class="ansi-bold">/Users/huazhou/.julia/v0.6/BenchmarkTools/src/execution.jl:67</span>
+ [9] <span class="ansi-bold">(::Base.#kw##run)</span><span class="ansi-bold">(</span>::Array{Any,1}, ::Base.#run, ::BenchmarkTools.Benchmark{Symbol(&#34;##benchmark#678&#34;)}, ::BenchmarkTools.Parameters<span class="ansi-bold">)</span> at <span class="ansi-bold">./&lt;missing&gt;:0</span>
+ [10] <span class="ansi-bold">warmup</span><span class="ansi-bold">(</span>::BenchmarkTools.Benchmark{Symbol(&#34;##benchmark#678&#34;)}<span class="ansi-bold">)</span> at <span class="ansi-bold">/Users/huazhou/.julia/v0.6/BenchmarkTools/src/execution.jl:100</span></pre>
+</div>
 </div>
 
 </div>
@@ -11953,7 +12111,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>
@@ -11967,16 +12125,16 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>5×3 Array{Float64,2}:
- 0.0088112  0.999085   0.00769028
- 0.0328711  0.0397845  0.0567341 
- 0.188959   0.934609   0.911546  
- 0.0621648  0.135054   0.189796  
- 0.490486   0.667097   0.0218079 </pre>
+ 0.524972   0.746257     0.476279   
+ 0.0560822  0.103261     0.998187   
+ 0.663381   0.66395      0.471585   
+ 0.884399   0.000571193  0.000139895
+ 0.975571   0.974248     0.932335   </pre>
 </div>
 
 </div>
@@ -11987,7 +12145,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">map</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">do</span> <span class="n">elem</span>
@@ -12004,16 +12162,16 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>5×3 Array{Float64,2}:
- 0.0088112  0.999085   0.00769028
- 0.0328711  0.0397845  0.0567341 
- 0.188959   0.934609   0.911546  
- 0.0621648  0.135054   0.189796  
- 0.490486   0.667097   0.0218079 </pre>
+ 0.524972   0.746257     0.476279   
+ 0.0560822  0.103261     0.998187   
+ 0.663381   0.66395      0.471585   
+ 0.884399   0.000571193  0.000139895
+ 0.975571   0.974248     0.932335   </pre>
 </div>
 
 </div>
@@ -12024,7 +12182,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># Mapreduce</span>
@@ -12039,11 +12197,11 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>4.746494952634678</pre>
+<pre>8.471218856560176</pre>
 </div>
 
 </div>
@@ -12054,7 +12212,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># same as</span>
@@ -12069,11 +12227,11 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>4.746494952634678</pre>
+<pre>8.471218856560176</pre>
 </div>
 
 </div>
@@ -12096,7 +12254,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="p">[</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">5</span><span class="p">,</span> <span class="n">j</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="p">]</span> <span class="c"># similar to Python</span>
@@ -12110,7 +12268,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12154,7 +12312,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">typeof</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">typeof</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -12168,7 +12326,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12183,7 +12341,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">supertype</span><span class="p">(</span><span class="kt">Float64</span><span class="p">)</span>
@@ -12197,7 +12355,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12212,7 +12370,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">subtypes</span><span class="p">(</span><span class="kt">AbstractFloat</span><span class="p">)</span>
@@ -12226,7 +12384,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12245,7 +12403,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># Is Float64 a subtype of AbstractFloat?</span>
@@ -12260,7 +12418,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12275,7 +12433,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># On 64bit machine, Int == Int64</span>
@@ -12290,7 +12448,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12305,10 +12463,10 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">convert</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">convert</span><span class="p">(</span><span class="kt">Float64</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c"># same as Float(64)</span>
 </pre></div>
 
 </div>
@@ -12319,7 +12477,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12334,10 +12492,10 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">randn</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12348,16 +12506,16 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>5-element Array{Float32,1}:
-  0.143357
-  0.934769
- -0.983426
-  1.63045 
- -1.07732 </pre>
+ -1.02514 
+  3.15216 
+  0.201127
+ -0.540697
+  1.0141  </pre>
 </div>
 
 </div>
@@ -12368,10 +12526,10 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">convert</span><span class="p">(</span><span class="kt">Vector</span><span class="p">{</span><span class="kt">Float64</span><span class="p">},</span> <span class="n">randn</span><span class="p">(</span><span class="kt">Float32</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">convert</span><span class="p">(</span><span class="kt">Vector</span><span class="p">{</span><span class="kt">Float64</span><span class="p">},</span> <span class="n">x</span><span class="p">)</span> <span class="c"># same as Float64.(x)</span>
 </pre></div>
 
 </div>
@@ -12382,16 +12540,16 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>5-element Array{Float64,1}:
-  1.46484  
- -0.196964 
-  0.745805 
-  1.6128   
- -0.0256618</pre>
+ -1.02514 
+  3.15216 
+  0.201127
+ -0.540697
+  1.0141  </pre>
 </div>
 
 </div>
@@ -12402,10 +12560,10 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">convert</span><span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">convert</span><span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span> <span class="c"># exact conversion</span>
 </pre></div>
 
 </div>
@@ -12416,7 +12574,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12431,7 +12589,7 @@ Multiple outputs can be returned as a <strong>tuple</strong>, e.g., <code>return
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">convert</span><span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span> <span class="c"># should use round(1.5)</span>
@@ -12461,7 +12619,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">round</span><span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
@@ -12475,7 +12633,7 @@ Stacktrace:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12514,7 +12672,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span>
@@ -12528,7 +12686,7 @@ Stacktrace:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12543,7 +12701,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">g</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
@@ -12557,7 +12715,7 @@ Stacktrace:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12582,7 +12740,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">g</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span>
@@ -12604,7 +12762,7 @@ Closest candidates are:
   +(::Any, ::Any, <span class="ansi-red-intense-fg">::Any</span>, <span class="ansi-red-intense-fg">::Any...</span>) at operators.jl:424
 
 Stacktrace:
- [1] <span class="ansi-bold">g</span><span class="ansi-bold">(</span>::String<span class="ansi-bold">)</span> at <span class="ansi-bold">./In[18]:1</span></pre>
+ [1] <span class="ansi-bold">g</span><span class="ansi-bold">(</span>::String<span class="ansi-bold">)</span> at <span class="ansi-bold">./In[22]:1</span></pre>
 </div>
 </div>
 
@@ -12626,7 +12784,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="kt">Float64</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span>
@@ -12640,7 +12798,7 @@ Stacktrace:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[25]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12667,7 +12825,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="kt">Number</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span>
@@ -12681,7 +12839,7 @@ Stacktrace:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[26]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12726,7 +12884,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">methods</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
@@ -12740,10 +12898,10 @@ Stacktrace:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-3 methods for generic function <b>g</b>:<ul><li> g(x::<b>Float64</b>) at In[21]:1</li> <li> g(x::<b>Number</b>) at In[22]:1</li> <li> g(x) at In[18]:1</li> </ul>
+3 methods for generic function <b>g</b>:<ul><li> g(x::<b>Float64</b>) at In[25]:1</li> <li> g(x::<b>Number</b>) at In[26]:1</li> <li> g(x) at In[22]:1</li> </ul>
 </div>
 
 </div>
@@ -12766,7 +12924,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
@@ -12781,7 +12939,7 @@ Stacktrace:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[24]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12796,7 +12954,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -12810,7 +12968,7 @@ Stacktrace:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[25]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[29]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12825,7 +12983,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@which</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -12839,10 +12997,10 @@ Stacktrace:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[26]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[30]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-g(x::<b>Number</b>) at In[22]:1
+g(x::<b>Number</b>) at In[26]:1
 </div>
 
 </div>
@@ -12853,7 +13011,7 @@ g(x::<b>Number</b>) at In[22]:1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -12868,10 +13026,10 @@ g(x::<b>Number</b>) at In[22]:1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[31]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-g(x) at In[18]:1
+g(x) at In[22]:1
 </div>
 
 </div>
@@ -12882,7 +13040,7 @@ g(x) at In[18]:1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -12896,16 +13054,16 @@ g(x) at In[18]:1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[32]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>5-element Array{Float64,1}:
- -0.773494 
-  3.0985   
- -0.966569 
- -0.346755 
-  0.0858148</pre>
+  0.367699
+ -0.711863
+  0.804975
+  1.37155 
+ -0.38264 </pre>
 </div>
 
 </div>
@@ -12951,7 +13109,7 @@ g(x) at In[18]:1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">workspace</span><span class="p">()</span> <span class="c"># clear previous definition of g</span>
@@ -12966,7 +13124,7 @@ g(x) at In[18]:1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[29]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[33]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12991,7 +13149,7 @@ g(x) at In[18]:1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@show</span> <span class="n">g</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -13002,9 +13160,44 @@ g(x) at In[18]:1
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is the <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">abstract syntax tree (AST)</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_lowered</span> <span class="n">g</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area"><div class="prompt output_prompt">Out[35]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>CodeInfo(:(begin 
+        nothing
+        return x + x
+    end))</pre>
+</div>
+
+</div>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
@@ -13023,39 +13216,33 @@ g(2.0) = 4.0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This is the <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">abstract syntax tree (AST)</a>.</p>
+<p>Type inference:</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_lowered</span> <span class="n">g</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_warntype</span> <span class="n">g</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[31]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>CodeInfo(:(begin 
-        nothing
-        return x + x
-    end))</pre>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_warntype</span> <span class="n">g</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
 
 </div>
-
 </div>
 </div>
 
@@ -13065,17 +13252,17 @@ g(2.0) = 4.0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Type inference:</p>
+<p>Peek at the compiled <strong>LLVM bitcode</strong> with <code>@code_llvm</code></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_warntype</span> <span class="n">g</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_llvm</span> <span class="n">g</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13096,33 +13283,7 @@ Body:
   begin 
       return (Base.add_int)(x::Int64, x::Int64)::Int64
   end::Int64
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_warntype</span> <span class="n">g</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Variables:
+Variables:
   #self# &lt;optimized out&gt;
   x::Float64
 
@@ -13138,51 +13299,9 @@ Body:
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Peek at the compiled <strong>LLVM bitcode</strong> with <code>@code_llvm</code></p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_llvm</span> <span class="n">g</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-define i64 @julia_g_63272(i64) #0 !dbg !5 {
-top:
-  %1 = shl i64 %0, 1
-  ret i64 %1
-}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_llvm</span> <span class="n">g</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
@@ -13192,32 +13311,13 @@ top:
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-define double @julia_g_63338(double) #0 !dbg !5 {
-top:
-  %1 = fadd double %0, %0
-  ret double %1
-}
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We didn't provide a type annotation. But different LLVM code gets generated depending on the argument type!</p>
+<p>We didn't provide a type annotation. But different LLVM code is generated according to the argument type!</p>
 <ul>
 <li><p>In R or Python, <code>g(2)</code> and <code>g(2.0)</code> would use the same code for both.</p>
 </li>
@@ -13233,7 +13333,7 @@ top:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_native</span> <span class="n">g</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
@@ -13243,73 +13343,16 @@ top:
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>	.section	__TEXT,__text,regular,pure_instructions
-Filename: In[22]
-	pushl	%ebp
-	decl	%eax
-	movl	%esp, %ebp
-Source line: 1
-	decl	%eax
-	leal	(%edi,%edi), %eax
-	popl	%ebp
-	retl
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_native</span> <span class="n">g</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>	.section	__TEXT,__text,regular,pure_instructions
-Filename: In[21]
-	pushl	%ebp
-	decl	%eax
-	movl	%esp, %ebp
-Source line: 1
-	addsd	%xmm0, %xmm0
-	popl	%ebp
-	retl
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -13326,7 +13369,7 @@ Source line: 1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">tally</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -13350,7 +13393,56 @@ Source line: 1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[38]:</div>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+define i64 @julia_g_63477(i64) #0 !dbg !5 {
+top:
+  %1 = shl i64 %0, 1
+  ret i64 %1
+}
+
+define double @julia_g_63534(double) #0 !dbg !5 {
+top:
+  %1 = fadd double %0, %0
+  ret double %1
+}
+	.section	__TEXT,__text,regular,pure_instructions
+Filename: In[26]
+	pushl	%ebp
+	decl	%eax
+	movl	%esp, %ebp
+Source line: 1
+	decl	%eax
+	leal	(%edi,%edi), %eax
+	popl	%ebp
+	retl
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	.section	__TEXT,__text,regular,pure_instructions
+Filename: In[25]
+	pushl	%ebp
+	decl	%eax
+	movl	%esp, %ebp
+Source line: 1
+	addsd	%xmm0, %xmm0
+	popl	%ebp
+	retl
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[42]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13359,20 +13451,13 @@ Source line: 1
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>  0.013933 seconds (31.42 k allocations: 545.117 KiB)
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@time</span> <span class="n">tally</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -13386,20 +13471,13 @@ Source line: 1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[39]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[43]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>4997.572183650806</pre>
 </div>
 
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>  0.000282 seconds (30.00 k allocations: 468.906 KiB)
-</pre>
-</div>
 </div>
 
 </div>
@@ -13418,7 +13496,7 @@ Source line: 1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">BenchmarkTools</span>
@@ -13434,7 +13512,7 @@ Source line: 1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[40]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[44]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13442,15 +13520,23 @@ Source line: 1
   memory estimate:  468.75 KiB
   allocs estimate:  30000
   --------------
-  minimum time:     170.517 μs (0.00% GC)
-  median time:      186.225 μs (0.00% GC)
-  mean time:        201.438 μs (6.24% GC)
-  maximum time:     1.431 ms (75.19% GC)
+  minimum time:     170.506 μs (0.00% GC)
+  median time:      187.218 μs (0.00% GC)
+  mean time:        203.266 μs (6.55% GC)
+  maximum time:     1.781 ms (84.70% GC)
   --------------
   samples:          10000
   evals/sample:     1</pre>
 </div>
 
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  0.010372 seconds (31.35 k allocations: 539.400 KiB)
+  0.000276 seconds (30.00 k allocations: 468.906 KiB)
+</pre>
+</div>
 </div>
 
 <div class="output_area"><div class="prompt"></div>
@@ -13553,6 +13639,8 @@ WARNING: Method definition (::Type{Main.Base.SparseArrays.SparseMatrixCSC{Tv, Ti
 WARNING: Method definition (::Type{Array{T, N} where N})(Main.Base.LinAlg.UniformScaling{T} where T&lt;:Number, Tuple{Int64, Int64}) in module Compat at /Users/huazhou/.julia/v0.6/Compat/src/Compat.jl:1012 overwritten in module Compat at /Users/huazhou/.julia/v0.6/Compat/src/Compat.jl:1012.
 WARNING: Method definition (::Type{Array{T, N} where N})(Main.Base.LinAlg.UniformScaling{T} where T&lt;:Number, Integer, Integer) in module Compat at /Users/huazhou/.julia/v0.6/Compat/src/Compat.jl:1013 overwritten in module Compat at /Users/huazhou/.julia/v0.6/Compat/src/Compat.jl:1013.
 WARNING: Method definition (::Type{Array{T, 2} where T})(Main.Base.LinAlg.UniformScaling{T}, Any...) in module Compat at /Users/huazhou/.julia/v0.6/Compat/src/Compat.jl:1016 overwritten in module Compat at /Users/huazhou/.julia/v0.6/Compat/src/Compat.jl:1016.
+WARNING: using BenchmarkTools.BenchmarkTools in module Main conflicts with an existing identifier.
+WARNING: using BenchmarkTools.@benchmark in module Main conflicts with an existing identifier.
 </pre>
 </div>
 </div>
@@ -13574,7 +13662,7 @@ WARNING: Method definition (::Type{Array{T, 2} where T})(Main.Base.LinAlg.Unifor
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">srand</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
@@ -13585,50 +13673,6 @@ WARNING: Method definition (::Type{Array{T, 2} where T})(Main.Base.LinAlg.Unifor
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre> Count File                        Line Function                               
-   489 ./&lt;missing&gt;                   -1 anonymous                              
-    13 ./In[38]                       3 tally(::Array{Float64,1})              
-   476 ./In[38]                       4 tally(::Array{Float64,1})              
-     3 ./abstractarray.jl           573 copy!(::Array{Any,1}, ::Core.Infere... 
-     3 ./array.jl                   391 _collect(::Type{Any}, ::Core.Infere... 
-     3 ./array.jl                   388 collect(::Type{Any}, ::Core.Inferen... 
-     9 ./float.jl                   375 +(::Float64, ::Float64)                
-     3 ./generator.jl                45 next(::Core.Inference.Generator{Arr... 
-     1 ./inference.jl              1701 abstract_call(::Any, ::Array{Any,1}... 
-     2 ./inference.jl              1897 abstract_call(::Any, ::Array{Any,1}... 
-     2 ./inference.jl              1420 abstract_call_gf_by_type(::Any, ::A... 
-     6 ./inference.jl              1950 abstract_eval(::Any, ::Array{Any,1}... 
-     3 ./inference.jl              1901 abstract_eval_call(::Expr, ::Array{... 
-     3 ./inference.jl              1927 abstract_eval_call(::Expr, ::Array{... 
-     1 ./inference.jl              1065 apply_type_tfunc(::Any, ::Any, ::Va... 
-     1 ./inference.jl              1133 builtin_tfunction(::Any, ::Array{An... 
-     1 ./inference.jl              1215 builtin_tfunction(::Any, ::Array{An... 
-     3 ./inference.jl              2787 typeinf(::Core.Inference.InferenceS... 
-     1 ./inference.jl              2583 typeinf_code(::Core.MethodInstance,... 
-     2 ./inference.jl              2535 typeinf_edge(::Method, ::Any, ::Sim... 
-     1 ./inference.jl              2622 typeinf_ext(::Core.MethodInstance, ... 
-     1 ./inference.jl              2504 typeinf_frame(::Core.MethodInstance... 
-     3 ./inference.jl              2722 typeinf_work(::Core.Inference.Infer... 
-   490 ./loading.jl                 522 include_string(::String, ::String)     
-   489 ./profile.jl                  23 macro expansion                        
-   490 ./task.jl                    335 (::LastMain.IJulia.##15#18)()          
-     2 ...lia/lib/julia/sys.dylib    -1 +(::Float64, ::Float64)                
-   490 ....6/Compat/src/Compat.jl   332 (::LastMain.Compat.#inner#14{Array{... 
-   490 ...IJulia/src/eventloop.jl     8 eventloop(::LastMain.ZMQ.Socket)       
-   490 .../src/execute_request.jl   180 execute_request(::LastMain.ZMQ.Sock... 
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -13649,7 +13693,7 @@ WARNING: Method definition (::Type{Array{T, 2} where T})(Main.Base.LinAlg.Unifor
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_warntype</span> <span class="n">tally</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -13665,7 +13709,25 @@ WARNING: Method definition (::Type{Array{T, 2} where T})(Main.Base.LinAlg.Unifor
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Variables:
+<pre> Count File                        Line Function                               
+   504 ./&lt;missing&gt;                   -1 anonymous                              
+    13 ./In[42]                       3 tally(::Array{Float64,1})              
+   491 ./In[42]                       4 tally(::Array{Float64,1})              
+     8 ./float.jl                   375 +(::Float64, ::Float64)                
+     1 ./inference.jl               238 Core.Inference.InferenceState(::Cor... 
+     1 ./inference.jl               300 Core.Inference.InferenceState(::Cor... 
+     1 ./inference.jl              2309 find_ssavalue_uses(::Array{Any,1})     
+     1 ./inference.jl              2583 typeinf_code(::Core.MethodInstance,... 
+     1 ./inference.jl              2622 typeinf_ext(::Core.MethodInstance, ... 
+     1 ./inference.jl              2501 typeinf_frame(::Core.MethodInstance... 
+   505 ./loading.jl                 522 include_string(::String, ::String)     
+   504 ./profile.jl                  23 macro expansion                        
+   505 ./task.jl                    335 (::LastMain.IJulia.##15#18)()          
+     3 ...lia/lib/julia/sys.dylib    -1 +(::Float64, ::Float64)                
+   505 ....6/Compat/src/Compat.jl   332 (::LastMain.Compat.#inner#14{Array{... 
+   505 ...IJulia/src/eventloop.jl     8 eventloop(::LastMain.ZMQ.Socket)       
+   505 .../src/execute_request.jl   180 execute_request(::LastMain.ZMQ.Sock... 
+Variables:
   #self# &lt;optimized out&gt;
   x::Array{Float64,1}
   v::Float64
@@ -13685,7 +13747,43 @@ Body:
       v::Float64 = SSAValue(2)
       #temp#@_4::Int64 = SSAValue(3) # line 4:
       unless (s<span class="ansi-red-intense-fg ansi-bold">::Union{Float64, Int64}</span> isa Int64)::Bool goto 14
-      #temp#@_6::Core.MethodInstance = MethodInstance for +(::Int64, ::Float64)
+      #temp#@_6::Core.MethodInstance = </pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Memory-profiling">Memory profiling<a class="anchor-link" href="#Memory-profiling">&#182;</a></h2><p>Detailed memory profiling requires a detour. First let's write a script <a href="./bar.jl"><code>bar.jl</code></a>, which contains the workload function <code>tally</code> and a wrapper for profiling.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="p">;</span><span class="n">cat</span> <span class="n">bar</span><span class="o">.</span><span class="n">jl</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>MethodInstance for +(::Int64, ::Float64)
       goto 23
       14: 
       unless (s<span class="ansi-red-intense-fg ansi-bold">::Union{Float64, Int64}</span> isa Float64)::Bool goto 18
@@ -13718,17 +13816,17 @@ Body:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Memory-profiling">Memory profiling<a class="anchor-link" href="#Memory-profiling">&#182;</a></h2><p>Detailed memory profiling requires a detour. First let's write a script <a href="./bar.jl"><code>bar.jl</code></a>, which contains the workload function <code>tally</code> and a wrapper for profiling.</p>
+<p>Next, in terminal, we run the script with <code>--track-allocation=user</code> option.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="p">;</span><span class="n">cat</span> <span class="n">bar</span><span class="o">.</span><span class="n">jl</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="p">;</span><span class="n">julia</span> <span class="o">--</span><span class="n">track</span><span class="o">-</span><span class="n">allocation</span><span class="o">=</span><span class="n">user</span> <span class="n">bar</span><span class="o">.</span><span class="n">jl</span>
 </pre></div>
 
 </div>
@@ -13761,44 +13859,8 @@ function wrapper()
 end
 
 wrapper()
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, in terminal, we run the script with <code>--track-allocation=user</code> option.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="p">;</span><span class="n">julia</span> <span class="o">--</span><span class="n">track</span><span class="o">-</span><span class="n">allocation</span><span class="o">=</span><span class="n">user</span> <span class="n">bar</span><span class="o">.</span><span class="n">jl</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>5025.932539687167
-5025.932539687167
+5002.816774956824
+5002.816774956824
 </pre>
 </div>
 </div>
@@ -13819,47 +13881,13 @@ wrapper()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="p">;</span><span class="n">cat</span> <span class="n">bar</span><span class="o">.</span><span class="n">jl</span><span class="o">.</span><span class="n">mem</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>        - function tally(x)
-        0     s = 0
-        0     for v in x
-   479984         s += v
-        -     end
-        0     s
-        - end
-        - 
-        - # call workload from wrapper to avoid misattribution bug
-        - function wrapper()
-        0     y = rand(10000)
-        -     # force compilation
-        0     println(tally(y))
-        -     # clear allocation counters
-        0     Profile.clear_malloc_data()
-        -     # run compiled workload
-      192     println(tally(y))
-        - end
-        - 
-        - wrapper()
-        - 
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -13887,10 +13915,65 @@ wrapper()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_warntype</span> <span class="n">tally</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this case, Julia fails to infer the type of the reduction variable <code>s</code>, which has to be <strong>boxed</strong> in heap memory at run time.</p>
+<p><img src="https://www.codeproject.com/KB/dotnet/6importentStepsDotNet/14.jpg" width="400" align="center"/></p>
+<p><img src="https://i-msdn.sec.s-msft.com/dynimg/IC97798.jpeg" width="300" align="center"/></p>
+<p>This is the generated LLVM bitcode, which is unsually long and contains lots of <em>box</em>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_llvm</span> <span class="n">tally</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What's the fix?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">tally2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">zero</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="kp">in</span> <span class="n">x</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">v</span>
+    <span class="k">end</span>
+    <span class="n">s</span>
+<span class="k">end</span>
 </pre></div>
 
 </div>
@@ -13901,9 +13984,39 @@ wrapper()
 <div class="output">
 
 
+<div class="output_area"><div class="prompt output_prompt">Out[52]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tally2 (generic function with 1 method)</pre>
+</div>
+
+</div>
+
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Variables:
+<pre>        - function tally(x)
+        0     s = 0
+        0     for v in x
+   479984         s += v
+        -     end
+        0     s
+        - end
+        - 
+        - # call workload from wrapper to avoid misattribution bug
+        - function wrapper()
+        0     y = rand(10000)
+        -     # force compilation
+        0     println(tally(y))
+        -     # clear allocation counters
+        0     Profile.clear_malloc_data()
+        -     # run compiled workload
+      192     println(tally(y))
+        - end
+        - 
+        - wrapper()
+        - 
+Variables:
   #self# &lt;optimized out&gt;
   x::Array{Float64,1}
   v::Float64
@@ -13943,47 +14056,8 @@ Body:
       29:  # line 6:
       return s<span class="ansi-red-intense-fg ansi-bold">::Union{Float64, Int64}</span>
   end<span class="ansi-red-intense-fg ansi-bold">::Union{Float64, Int64}</span>
-</pre>
-</div>
-</div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In this case, Julia fails to infer the type of the reduction variable <code>s</code>, which has to be <strong>boxed</strong> in heap memory at run time.</p>
-<p><img src="https://www.codeproject.com/KB/dotnet/6importentStepsDotNet/14.jpg" width="400" align="center"/></p>
-<p><img src="https://i-msdn.sec.s-msft.com/dynimg/IC97798.jpeg" width="300" align="center"/></p>
-<p>This is the generated LLVM bitcode, which is unsually long and contains lots of <em>box</em>:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_llvm</span> <span class="n">tally</span><span class="p">(</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>
-define { i8**, i8 } @julia_tally_63455([8 x i8]* noalias nocapture, i8** dereferenceable(40)) #0 !dbg !5 {
+define { i8**, i8 } @julia_tally_63647([8 x i8]* noalias nocapture, i8** dereferenceable(40)) #0 !dbg !5 {
 top:
   %2 = call i8**** @jl_get_ptls_states() #5
   %3 = alloca [8 x i8**], align 8
@@ -14053,9 +14127,9 @@ idxend:                                           ; preds = %if
   %31 = bitcast double* %30 to i64*
   %32 = load i64, i64* %31, align 8
   %33 = icmp eq i8 %.033, 1
-  %. = select i1 %33, i8** inttoptr (i64 4863449104 to i8**), i8** inttoptr (i64 4583636240 to i8**)
+  %. = select i1 %33, i8** inttoptr (i64 4938707600 to i8**), i8** inttoptr (i64 4651449616 to i8**)
   store i8** %., i8*** %5, align 8
-  store i8** inttoptr (i64 4540608968 to i8**), i8*** %4, align 8
+  store i8** inttoptr (i64 4608422344 to i8**), i8*** %4, align 8
   %trunc = trunc i8 %.033 to i2
   switch i2 %trunc, label %box_union_isboxed [
     i2 1, label %box_union
@@ -14074,7 +14148,7 @@ box_union4:                                       ; preds = %idxend
   %35 = call i8** @jl_gc_pool_alloc(i8* %24, i32 1384, i32 16)
   %36 = getelementptr i8*, i8** %35, i64 -1
   %37 = bitcast i8** %36 to i8***
-  store i8** inttoptr (i64 4540930352 to i8**), i8*** %37, align 8
+  store i8** inttoptr (i64 4608743728 to i8**), i8*** %37, align 8
   %38 = bitcast i8** %35 to i64*
   store i64 %s.sroa.0.031, i64* %38, align 8
   br label %L25
@@ -14086,7 +14160,7 @@ L25:                                              ; preds = %box_union, %box_uni
   %41 = call i8** @jl_gc_pool_alloc(i8* %24, i32 1384, i32 16)
   %42 = getelementptr i8*, i8** %41, i64 -1
   %43 = bitcast i8** %42 to i8***
-  store i8** inttoptr (i64 4540930352 to i8**), i8*** %43, align 8
+  store i8** inttoptr (i64 4608743728 to i8**), i8*** %43, align 8
   %44 = bitcast i8** %41 to i64*
   store i64 %32, i64* %44, align 8
   store i8** %41, i8*** %19, align 8
@@ -14128,54 +14202,9 @@ union_move14:                                     ; preds = %L29
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>What's the fix?</p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">tally2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">zero</span><span class="p">(</span><span class="n">eltype</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">v</span> <span class="kp">in</span> <span class="n">x</span>
-        <span class="n">s</span> <span class="o">+=</span> <span class="n">v</span>
-    <span class="k">end</span>
-    <span class="n">s</span>
-<span class="k">end</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[48]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>tally2 (generic function with 1 method)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@benchmark</span> <span class="n">tally2</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -14189,7 +14218,7 @@ union_move14:                                     ; preds = %L29
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[49]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[53]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -14197,12 +14226,12 @@ union_move14:                                     ; preds = %L29
   memory estimate:  16 bytes
   allocs estimate:  1
   --------------
-  minimum time:     21.423 ms (0.00% GC)
-  median time:      22.545 ms (0.00% GC)
-  mean time:        22.821 ms (0.00% GC)
-  maximum time:     29.851 ms (0.00% GC)
+  minimum time:     21.551 ms (0.00% GC)
+  median time:      23.119 ms (0.00% GC)
+  mean time:        23.393 ms (0.00% GC)
+  maximum time:     27.454 ms (0.00% GC)
   --------------
-  samples:          220
+  samples:          214
   evals/sample:     1</pre>
 </div>
 
@@ -14224,7 +14253,7 @@ union_move14:                                     ; preds = %L29
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[54]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_llvm</span> <span class="n">tally2</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -14241,7 +14270,7 @@ union_move14:                                     ; preds = %L29
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-define double @julia_tally2_63895(i8** dereferenceable(40)) #0 !dbg !5 {
+define double @julia_tally2_63997(i8** dereferenceable(40)) #0 !dbg !5 {
 top:
   %1 = getelementptr inbounds i8*, i8** %0, i64 1
   %2 = bitcast i8** %1 to i64*
@@ -14285,51 +14314,6 @@ idxend:                                           ; preds = %if
   %17 = icmp eq i64 %&#34;#temp#.05&#34;, %3
   br i1 %17, label %L14.loopexit, label %if
 }
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Machine-information">Machine information<a class="anchor-link" href="#Machine-information">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">versioninfo</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Julia Version 0.6.4
-Commit 9d11f62bcb (2018-07-09 19:09 UTC)
-Platform Info:
-  OS: macOS (x86_64-apple-darwin14.5.0)
-  CPU: Intel(R) Core(TM) i7-6920HQ CPU @ 2.90GHz
-  WORD_SIZE: 64
-  BLAS: libopenblas (USE64BITINT DYNAMIC_ARCH NO_AFFINITY Haswell MAX_THREADS=16)
-  LAPACK: libopenblas64_
-  LIBM: libopenlibm
-  LLVM: libLLVM-3.9.1 (ORCJIT, skylake)
 </pre>
 </div>
 </div>
