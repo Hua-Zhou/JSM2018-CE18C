@@ -5,6 +5,7 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 ## Instructors
 
 * Janet Sinsheimer, Professor, Biomathematics, Biostatistics, Human Genetics, and Statistics, UCLA  
+
 * Eric Sobel, Professor, Human Genetics, UCLA  
 
 * Hua Zhou, Associate Professor, Biostatistics, UCLA  
@@ -22,9 +23,9 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 | noon-1:00 | lunch | |  
 | 1:00-1:30 | handling big genomic data in OpenMendel | Hua Zhou |  
 | 1:30-2:30 | GWAS for population and genetic analysis | Eric Sobel |  
-| 2:30-3:15 | linear mixed models for genetic analysis | Hua Zhou |  
+| 2:30-3:15 | linear mixed models for genetic analysis \[[pdf](./lectures/12-lmm/linearmixedmodelJSM07302018.pdf), [ipynb](./lectures/12-lmm/LMM07132018JSM.ipynb)\] | Janet Sinsheimer |  
 | 3:15-3:30 | coffee break | |  
-| 3:30-4:30 | mendelian randomization \[[pdf](./lectures/13-mr/MendelRandom07302018JSM.pdf)\] | Janet Sinsheimer |  
+| 3:30-4:30 | mendelian randomization \[[pdf](./lectures/13-mr/MendelRandom07302018JSM.pdf), [ipynb](./lectures/13-mr/MR_VCMnotebookWGCAC07102018.ipynb)\] | Janet Sinsheimer |  
 | 4:30-5:00 | how to contribute to OpenMendel project | Eric Sobel |  
 
 ## Getting started
