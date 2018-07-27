@@ -18,7 +18,7 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 | 9:00-9:30 | Julia intro. \[[ipynb](./lectures/02-juliaintro/juliaintro.ipynb)\], multiple dispatch/JIT/profiling \[[ipynb](./lectures/02-juliafun/juliafun.ipynb)\] | Hua Zhou |  
 | 9:30-10:15 | Julia: linear algebra \[[ipynb](./lectures/03-julialinalg/numlinalg.ipynb)\], optimization \[[ipynb](./lectures/04-juliaopt/juliaopt.ipynb)\] | Hua Zhou |  
 | 10:15-10:30 | coffee break | |  
-| 10:30-11:15 | Julia: parallel computing | Hua Zhou |  
+| 10:30-11:15 | Julia: parallel computing \[[ipynb](./lectures/05-juliaparallel/juliaparallel.ipynb)\], GPU \[[ipynb](./lectures/06-juliagpu/juliagpu.ipynb)\] | Hua Zhou |  
 | 11:15-noon | review of genetic and genomic concepts \[[pdf](./lectures/09-geneticsreview/reviewofGGconcepts07212018.pdf)\] | Janet Sinsheimer |  
 | noon-1:00 | lunch | |  
 | 1:00-1:30 | handling big genomic data in OpenMendel | Hua Zhou |  
