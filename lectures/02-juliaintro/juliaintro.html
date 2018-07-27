@@ -13350,7 +13350,7 @@ attr(,&#34;class&#34;)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">srand</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span> <span class="c"># seed</span>
@@ -13367,7 +13367,7 @@ attr(,&#34;class&#34;)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[34]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13378,8 +13378,8 @@ attr(,&#34;class&#34;)
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  0.035734 seconds (9.88 k allocations: 545.223 KiB)
-  0.004045 seconds (5 allocations: 176 bytes)
+<pre>  0.033586 seconds (10.36 k allocations: 578.023 KiB)
+  0.004473 seconds (5 allocations: 176 bytes)
 </pre>
 </div>
 </div>
@@ -13390,7 +13390,7 @@ attr(,&#34;class&#34;)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@elapsed</span> <span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -13404,11 +13404,11 @@ attr(,&#34;class&#34;)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[35]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.006489112</pre>
+<pre>0.005249483</pre>
 </div>
 
 </div>
@@ -13419,7 +13419,7 @@ attr(,&#34;class&#34;)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@allocated</span> <span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -13433,7 +13433,7 @@ attr(,&#34;class&#34;)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[36]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13458,7 +13458,7 @@ attr(,&#34;class&#34;)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">BenchmarkTools</span>
@@ -13474,7 +13474,7 @@ attr(,&#34;class&#34;)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[37]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13482,12 +13482,12 @@ attr(,&#34;class&#34;)
   memory estimate:  0 bytes
   allocs estimate:  0
   --------------
-  minimum time:     4.720 ms (0.00% GC)
-  median time:      4.793 ms (0.00% GC)
-  mean time:        4.907 ms (0.00% GC)
-  maximum time:     6.589 ms (0.00% GC)
+  minimum time:     4.719 ms (0.00% GC)
+  median time:      4.795 ms (0.00% GC)
+  mean time:        4.878 ms (0.00% GC)
+  maximum time:     5.692 ms (0.00% GC)
   --------------
-  samples:          1018
+  samples:          1024
   evals/sample:     1</pre>
 </div>
 
@@ -13508,7 +13508,7 @@ attr(,&#34;class&#34;)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">RCall</span>
@@ -13527,14 +13527,14 @@ attr(,&#34;class&#34;)
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[38]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>RCall.RObject{RCall.VecSxp}
 Unit: milliseconds
-         expr      min       lq     mean   median       uq      max neval
- sum(`#JL`$x) 8.650309 8.900707 9.226273 9.036881 9.383665 11.48902   100
+         expr      min       lq    mean   median       uq      max neval
+ sum(`#JL`$x) 8.778604 8.965208 9.24255 9.049018 9.302955 10.47723   100
 </pre>
 </div>
 
@@ -13565,7 +13565,7 @@ Unit: milliseconds
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">C_code</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
@@ -13585,7 +13585,7 @@ Unit: milliseconds
 <span class="c"># compile to a shared library by piping C_code to gcc</span>
 <span class="c"># (works only if you have gcc installed):</span>
 
-<span class="n">open</span><span class="p">(</span><span class="sb">`gcc -fPIC -O3 -msse3 -xc -shared -o </span><span class="si">$</span><span class="p">(</span><span class="n">Clib</span> <span class="o">*</span> <span class="s">&quot;.&quot;</span> <span class="o">*</span> <span class="n">Libdl</span><span class="o">.</span><span class="n">dlext</span><span class="p">)</span><span class="sb"> -`</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="n">f</span>
+<span class="n">open</span><span class="p">(</span><span class="sb">`gcc -std=c99 -fPIC -O3 -msse3 -xc -shared -o </span><span class="si">$</span><span class="p">(</span><span class="n">Clib</span> <span class="o">*</span> <span class="s">&quot;.&quot;</span> <span class="o">*</span> <span class="n">Libdl</span><span class="o">.</span><span class="n">dlext</span><span class="p">)</span><span class="sb"> -`</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="n">f</span>
     <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">C_code</span><span class="p">)</span> 
 <span class="k">end</span>
 
@@ -13601,7 +13601,7 @@ Unit: milliseconds
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[39]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13610,13 +13610,20 @@ Unit: milliseconds
 
 </div>
 
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>WARNING: redefining constant Clib
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@benchmark</span> <span class="n">c_sum</span><span class="p">(</span><span class="o">$</span><span class="n">x</span><span class="p">)</span>
@@ -13630,7 +13637,7 @@ Unit: milliseconds
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[40]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13638,12 +13645,12 @@ Unit: milliseconds
   memory estimate:  0 bytes
   allocs estimate:  0
   --------------
-  minimum time:     11.080 ms (0.00% GC)
-  median time:      11.703 ms (0.00% GC)
-  mean time:        11.810 ms (0.00% GC)
-  maximum time:     15.473 ms (0.00% GC)
+  minimum time:     11.414 ms (0.00% GC)
+  median time:      12.034 ms (0.00% GC)
+  mean time:        12.108 ms (0.00% GC)
+  maximum time:     15.308 ms (0.00% GC)
   --------------
-  samples:          424
+  samples:          413
   evals/sample:     1</pre>
 </div>
 
