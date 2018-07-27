@@ -15,13 +15,13 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 | Time | Topic | Instructor |  
 |:-----------|:------------|:------------|  
 | 8:30-9:00 | participants intro., OpenMendel | Eric Sobel |  
-| 9:00-9:30 | Julia intro. \[[ipynb](./lectures/02-juliaintro/juliaintro.ipynb)\], multiple dispatch/JIT/profiling \[[ipynb](./lectures/02-juliafun/juliafun.ipynb)\] | Hua Zhou |  
+| 9:00-9:30 | Julia intro. \[[ipynb](./lectures/02-juliaintro/juliaintro.ipynb)\], multiple dispatch/JIT/profiling \[[ipynb](./lectures/02-juliaintro/juliafun.ipynb)\] | Hua Zhou |  
 | 9:30-10:15 | Julia: linear algebra \[[ipynb](./lectures/03-julialinalg/numlinalg.ipynb)\], optimization \[[ipynb](./lectures/04-juliaopt/juliaopt.ipynb)\] | Hua Zhou |  
 | 10:15-10:30 | coffee break | |  
 | 10:30-11:15 | Julia: parallel computing \[[ipynb](./lectures/05-juliaparallel/juliaparallel.ipynb)\], GPU \[[ipynb](./lectures/06-juliagpu/juliagpu.ipynb)\] | Hua Zhou |  
 | 11:15-noon | review of genetic and genomic concepts \[[pdf](./lectures/09-geneticsreview/reviewofGGconcepts07212018.pdf)\] | Janet Sinsheimer |  
 | noon-1:00 | lunch | |  
-| 1:00-1:30 | handling genetic data in OpenMendel \[[ipynb](./lectures/lectures/10-snparray/genedata.ipynb)\] | Hua Zhou |  
+| 1:00-1:30 | handling genetic data in OpenMendel \[[ipynb](./lectures/10-snparray/genedata.ipynb)\] | Hua Zhou |  
 | 1:30-2:30 | GWAS for population and genetic analysis | Eric Sobel |  
 | 2:30-3:15 | linear mixed models for genetic analysis \[[pdf](./lectures/12-lmm/linearmixedmodelJSM07302018.pdf), [ipynb](./lectures/12-lmm/LMM07132018JSM.ipynb)\] | Janet Sinsheimer |  
 | 3:15-3:30 | coffee break | |  
