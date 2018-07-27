@@ -15,7 +15,7 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 | Time | Topic | Instructor |  
 |:-----------|:------------|:------------|  
 | 8:30-9:00 | participants intro., OpenMendel | Eric Sobel |  
-| 9:00-9:30 | Julia intro. \[[ipynb](./lectures/02-juliaintro/juliaintro.ipynb)\], multiple dispatch/JIT/profiling \[[ipynb](./lectures/02-juliaintro/juliafun.ipynb)\] | Hua Zhou |  
+| 9:00-9:30 | Julia: intro. \[[ipynb](./lectures/02-juliaintro/juliaintro.ipynb)\], multiple dispatch/JIT/profiling \[[ipynb](./lectures/02-juliaintro/juliafun.ipynb)\] | Hua Zhou |  
 | 9:30-10:15 | Julia: linear algebra \[[ipynb](./lectures/03-julialinalg/numlinalg.ipynb)\], optimization \[[ipynb](./lectures/04-juliaopt/juliaopt.ipynb)\] | Hua Zhou |  
 | 10:15-10:30 | coffee break | |  
 | 10:30-11:15 | Julia: parallel computing \[[ipynb](./lectures/05-juliaparallel/juliaparallel.ipynb)\], GPU \[[ipynb](./lectures/06-juliagpu/juliagpu.ipynb)\] | Hua Zhou |  
@@ -49,12 +49,12 @@ Your username is initial of your first name + your last name. For example, if yo
 ```bash
 git clone https://github.com/Hua-Zhou/JSM2018-CE18C.git
 ```
-You should see the folder `JSM2018-CE18C` in the `Files` tab on the left of JupyterLab. Now you can open any Jupyter notebooks in that folder and run the examples.
 ![](./jupyterlab_gitclone.png)
+You should see the folder `JSM2018-CE18C` in the `Files` tab on the left of JupyterLab. Now you can open any Jupyter notebooks in that folder and run the examples.
 
 5. If you prefer the Jupyter Notebook interface instead of JupyterLab, change the address from `http://35.233.157.190:8000/user/jbruin/lab` to `http://35.233.157.190:8000/user/jbruin/tree`.  
 ![](./jupyternb_home.png)
 
 ### Run Jupyter notebooks on your own laptop
 
-This is **not** recommended for Julia beginners, since your software environment (OS, Julia version, package versions, etc.) may be quite different from that assumed by the Jupyter notebooks. But in case you want to run Jupyter notebooks on your own machine, simply `git clone https://github.com/Hua-Zhou/JSM2018-CE18C.git` to sync the most recent course materials to your computer.
+This is **not** recommended during this short course, since your software environment (OS, Julia version, package versions, etc.) may be quite different from that assumed by the Jupyter notebooks. In case you want to run Jupyter notebooks on your own machine, simply `git clone https://github.com/Hua-Zhou/JSM2018-CE18C.git` to sync the most recent course materials to your computer and install all needed Julia packages.
