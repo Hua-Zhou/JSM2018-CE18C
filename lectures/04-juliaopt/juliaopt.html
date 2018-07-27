@@ -11755,13 +11755,26 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Optimization-in-Julia">Optimization in Julia<a class="anchor-link" href="#Optimization-in-Julia">&#182;</a></h1>
+<h1 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h1><p><p><div class="lev1 toc-item"><a href="#Optimization-in-Julia" data-toc-modified-id="Optimization-in-Julia-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Optimization in Julia</a></div><div class="lev2 toc-item"><a href="#Flowchart" data-toc-modified-id="Flowchart-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Flowchart</a></div><div class="lev2 toc-item"><a href="#DCP-Using-Convex.jl" data-toc-modified-id="DCP-Using-Convex.jl-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>DCP Using Convex.jl</a></div><div class="lev3 toc-item"><a href="#Example:-microbiome-regression-analysis" data-toc-modified-id="Example:-microbiome-regression-analysis-121"><span class="toc-item-num">1.2.1&nbsp;&nbsp;</span>Example: microbiome regression analysis</a></div><div class="lev3 toc-item"><a href="#Sum-to-zero-regression" data-toc-modified-id="Sum-to-zero-regression-122"><span class="toc-item-num">1.2.2&nbsp;&nbsp;</span>Sum-to-zero regression</a></div><div class="lev3 toc-item"><a href="#Sum-to-zero-lasso" data-toc-modified-id="Sum-to-zero-lasso-123"><span class="toc-item-num">1.2.3&nbsp;&nbsp;</span>Sum-to-zero lasso</a></div><div class="lev3 toc-item"><a href="#Sum-to-zero-group-lasso" data-toc-modified-id="Sum-to-zero-group-lasso-124"><span class="toc-item-num">1.2.4&nbsp;&nbsp;</span>Sum-to-zero group lasso</a></div><div class="lev3 toc-item"><a href="#Example:-matrix-completion" data-toc-modified-id="Example:-matrix-completion-125"><span class="toc-item-num">1.2.5&nbsp;&nbsp;</span>Example: matrix completion</a></div><div class="lev2 toc-item"><a href="#Nonlinear-programming-(NLP)" data-toc-modified-id="Nonlinear-programming-(NLP)-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Nonlinear programming (NLP)</a></div></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Optimization-in-Julia">Optimization in Julia<a class="anchor-link" href="#Optimization-in-Julia">&#182;</a></h1><p>This lecture gives an overview of some optimization tools in Julia.</p>
+<p><strong>Warning</strong>: Some code chunks will not run on the server because Mosek/Gurobi (commercial software) are not available on the server.</p>
+<p>Machine information:</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">versioninfo</span><span class="p">()</span>
@@ -11771,16 +11784,29 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Julia Version 0.6.4
+Commit 9d11f62bcb (2018-07-09 19:09 UTC)
+Platform Info:
+  OS: macOS (x86_64-apple-darwin14.5.0)
+  CPU: Intel(R) Core(TM) i7-6920HQ CPU @ 2.90GHz
+  WORD_SIZE: 64
+  BLAS: libopenblas (USE64BITINT DYNAMIC_ARCH NO_AFFINITY Haswell MAX_THREADS=16)
+  LAPACK: libopenblas64_
+  LIBM: libopenlibm
+  LLVM: libLLVM-3.9.1 (ORCJIT, skylake)
+</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Warning</strong>: Some code chunks will not run on the server because Mosek/Gurobi (commercial) are not available on the server.</p>
 
 </div>
 </div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -11788,13 +11814,13 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Flowchart">Flowchart<a class="anchor-link" href="#Flowchart">&#182;</a></h2><ul>
-<li><p>We statisticians do optimizations everyday: maximum likelihood estimation, machine learning, ...</p>
+<li><p>Statisticians do optimizations in daily life: maximum likelihood estimation, machine learning, ...</p>
 </li>
 <li><p>Category of optimization problems:</p>
 <ol>
 <li><p>Problems with analytical solutions: least squares, principle component analysis, canonical correlation analysis, ...</p>
 </li>
-<li><p>Problems subject to Disciplined Convex Programming (DCP): LP, QP, SOCP, SDP, and GP.</p>
+<li><p>Problems subject to Disciplined Convex Programming (DCP): linear programming (LP), quadratic programming (QP), second-order cone programming (SOCP), semidefinite programming (SDP), and geometric programming (GP).</p>
 </li>
 <li><p>Nonlinear programming (NLP): Newton type algorithms, Fisher scoring algorithm, EM algorithm, MM algorithms.</p>
 </li>
@@ -11822,7 +11848,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="DCP-Using-Convex.jl">DCP Using Convex.jl<a class="anchor-link" href="#DCP-Using-Convex.jl">&#182;</a></h1>
+<h2 id="DCP-Using-Convex.jl">DCP Using Convex.jl<a class="anchor-link" href="#DCP-Using-Convex.jl">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -11842,7 +11868,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Getting familiar with <strong>good</strong> optimization softwares broadens the scope and scale of problems we are able to solve in statistics. Following table lists some of the best optimization softwares. My favorite ones are: Mosek/Gurobi/SCS for DCP and Ipopt/NLopt for nonlinear programming. Mosek and Gurobi are commercial software but free for academic use. SCS/Ipopt/NLopt are open source.</p>
+<p>Getting familiar with <strong>good</strong> optimization softwares broadens the scope and scale of problems we are able to solve in statistics. Following table lists some of the best optimization softwares.</p>
 <table>
 <thead><tr>
 <th style="text-align:center"></th>
@@ -12166,7 +12192,18 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Link to <a href="./convex.jl/convex.ipynb">Jupyter Notebook</a></p>
+<ul>
+<li><p>Difference between <strong>modeling tool</strong> and <strong>solvers</strong></p>
+<ul>
+<li><p><strong>Modeling tools</strong> such as cvx (for Matlab) and Convex.jl (Julia analog of cvx) implement the disciplined convex programming (DCP) paradigm proposed by Grant and Boyd (2008) <a href="http://stanford.edu/~boyd/papers/disc_cvx_prog.html">http://stanford.edu/~boyd/papers/disc_cvx_prog.html</a>. DCP prescribes a set of simple rules from which users can construct convex optimization problems easily.</p>
+</li>
+<li><p><strong>Solvers</strong> (Mosek, Gurobi, Cplex, SCS, ...) are concrete software implementation of optimization algorithms. My favorite ones are: Mosek/Gurobi/SCS for DCP and Ipopt/NLopt for nonlinear programming. Mosek and Gurobi are commercial software but free for academic use. SCS/Ipopt/NLopt are open source.</p>
+</li>
+<li><p>Modeling tools usually have the capability to use a variety of solvers. But modeling tools are solver agnostic so users do not have to worry about specific solver interface.</p>
+</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -12176,7 +12213,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Example:-microbiome-regression-analysis">Example: microbiome regression analysis<a class="anchor-link" href="#Example:-microbiome-regression-analysis">&#182;</a></h2><p>We illustrate optimization tools in Julia using a microbiome analysis example.</p>
+<h3 id="Example:-microbiome-regression-analysis">Example: microbiome regression analysis<a class="anchor-link" href="#Example:-microbiome-regression-analysis">&#182;</a></h3><p>We illustrate optimization tools in Julia using a microbiome analysis example.</p>
 <p>16S microbiome sequencing techonology generates sequence counts of various organisms (OTUs, operational taxonomic units) in samples.</p>
 <p><img src="./microbiome_data.png" alt="Microbiome Data"></p>
 <p>For statistical analysis, counts are normalized into proportions for each sample, resulting in a covariate matrix $\mathbf{X}$ with all rows summing to 1. Because of the degeneracy in the covariates, we need to add a sum-to-zero constraint to the regression cofficients. In other words, we need to solve a constrained least squares problem<br>
@@ -12191,7 +12228,7 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$. For simplicity we ignore i
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">srand</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span> <span class="c"># seed</span>
@@ -12219,7 +12256,7 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$. For simplicity we ignore i
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">Convex</span>
@@ -12248,7 +12285,7 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$. For simplicity we ignore i
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[98]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12266,14 +12303,14 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$. For simplicity we ignore i
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Sum-to-zero-regression">Sum-to-zero regression<a class="anchor-link" href="#Sum-to-zero-regression">&#182;</a></h2><p>The sum-to-zero contrained least squares is a standard quadratic programming (QP) problem so should be solved easily by any QP solver.</p>
+<h3 id="Sum-to-zero-regression">Sum-to-zero regression<a class="anchor-link" href="#Sum-to-zero-regression">&#182;</a></h3><p>The sum-to-zero contrained least squares is a standard quadratic programming (QP) problem so should be solved easily by any QP solver.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">β̂cls</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
@@ -12292,7 +12329,7 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$. For simplicity we ignore i
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  0.008367 seconds (2.84 k allocations: 1.690 MiB)
+<pre>  0.008839 seconds (2.91 k allocations: 1.691 MiB)
 ----------------------------------------------------------------------------
 	SCS v1.2.6 - Splitting Conic Solver
 	(c) Brendan O&#39;Donoghue, Stanford University, 2012-2016
@@ -12303,19 +12340,19 @@ Variables n = 53, constraints m = 107
 Cones:	primal zero / dual free vars: 2
 	linear vars: 1
 	soc vars: 104, soc blks: 2
-Setup time: 6.40e-04s
+Setup time: 6.32e-04s
 ----------------------------------------------------------------------------
  Iter | pri res | dua res | rel gap | pri obj | dua obj | kap/tau | time (s)
 ----------------------------------------------------------------------------
-     0|      inf       inf       nan      -inf       inf       inf  6.66e-05 
-   100| 4.91e-03  1.72e-02  4.51e-03  2.58e+01  2.60e+01  0.00e+00  2.07e-03 
-   200| 2.05e-04  7.10e-04  1.82e-04  2.64e+01  2.64e+01  0.00e+00  4.01e-03 
-   280| 1.59e-05  5.51e-05  1.41e-05  2.64e+01  2.64e+01  0.00e+00  5.54e-03 
+     0|      inf       inf       nan      -inf       inf       inf  7.24e-05 
+   100| 4.91e-03  1.72e-02  4.51e-03  2.58e+01  2.60e+01  0.00e+00  2.30e-03 
+   200| 2.05e-04  7.10e-04  1.82e-04  2.64e+01  2.64e+01  0.00e+00  4.44e-03 
+   280| 1.59e-05  5.51e-05  1.41e-05  2.64e+01  2.64e+01  0.00e+00  6.15e-03 
 ----------------------------------------------------------------------------
 Status: Solved
-Timing: Solve time: 5.54e-03s
-	Lin-sys: nnz in L factor: 7666, avg solve time: 1.75e-05s
-	Cones: avg projection time: 2.85e-07s
+Timing: Solve time: 6.15e-03s
+	Lin-sys: nnz in L factor: 7666, avg solve time: 1.95e-05s
+	Cones: avg projection time: 2.59e-07s
 ----------------------------------------------------------------------------
 Error metrics:
 dist(s, K) = 3.8326e-15, dist(y, K*) = 1.7764e-15, s&#39;y/|s||y| = -6.3925e-17
@@ -12338,7 +12375,7 @@ c&#39;x = 26.4485, -b&#39;y = 26.4493
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Sum-to-zero-lasso">Sum-to-zero lasso<a class="anchor-link" href="#Sum-to-zero-lasso">&#182;</a></h2><p>Suppose we want to know which organisms (OTU) are associated with the response. We can answer this question using a sum-to-zero contrained lasso
+<h3 id="Sum-to-zero-lasso">Sum-to-zero lasso<a class="anchor-link" href="#Sum-to-zero-lasso">&#182;</a></h3><p>Suppose we want to know which organisms (OTU) are associated with the response. We can answer this question using a sum-to-zero contrained lasso
 $$
     \text{minimize} \frac 12 \|\mathbf{y} - \mathbf{X} \beta\|_2^2 + \lambda \|\beta\|_1
 $$
@@ -12349,7 +12386,7 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$. Varying $\lambda$ from sma
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[122]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># Use SCS solver</span>
@@ -12370,7 +12407,6 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$. Varying $\lambda$ from sma
     <span class="n">solve!</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
     <span class="n">β̂path</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="o">:</span><span class="p">]</span> <span class="o">=</span> <span class="n">β̂classo</span><span class="o">.</span><span class="n">value</span>
 <span class="k">end</span>
-<span class="n">β̂path</span>
 </pre></div>
 
 </div>
@@ -12381,39 +12417,11 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$. Varying $\lambda$ from sma
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[122]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>36×50 Array{Float64,2}:
- 20.1618       2.11767      1.03653     …  24.1202      -4.50714   
- 16.0268      -1.24988e-6   0.398586       17.5866      -0.26424   
- 13.6024      -4.61933e-7   0.00100998     12.6716      -1.70764e-6
- 11.2868      -3.50521e-7   1.83226e-7      8.45039      0.035578  
-  9.57899     -1.05338e-6   7.91138e-7      4.88789      0.871905  
-  7.98786     -1.04687e-6   3.48591e-7  …   1.62084      1.67453   
-  6.87812     -2.86303e-6   8.68113e-7      5.11708e-6   1.63845   
-  5.96576     -2.67878e-6   1.07269e-6      4.71701e-6   1.4077    
-  5.02226     -2.14143e-6   1.94746e-6      4.43241e-6   1.16319   
-  4.05519      1.05394e-6   3.54675e-6      4.13777e-6   0.838587  
-  3.00212      5.09393e-7   2.69485e-6  …   3.27651e-6   0.410055  
-  1.81341      3.1253e-7    2.39853e-6      2.57504e-6  -3.94663e-6
-  0.661258     1.85753e-6   7.30507e-7      8.8075e-7   -1.12614e-6
-  ⋮                                     ⋱                          
- -3.90657e-8  -3.06794e-7  -1.45994e-7     -6.33851e-8  -4.47499e-7
- -4.07614e-9  -3.37739e-7  -1.45408e-7  …  -5.24614e-8  -4.42437e-7
-  3.63464e-8  -3.74327e-7  -1.4682e-7      -4.37245e-8  -4.38898e-7
-  9.06875e-7  -2.13649e-8   2.42826e-7      1.83064e-7   2.92235e-8
-  9.67026e-7  -4.05476e-8   2.51249e-7      1.91891e-7   5.54073e-8
-  1.02202e-6  -5.95478e-8   2.58402e-7      1.99854e-7   8.202e-8  
-  1.0713e-6   -7.8179e-8    2.64199e-7  …   2.06841e-7   1.08626e-7
-  1.11367e-6  -9.80485e-8   2.67085e-7      2.11246e-7   1.33305e-7
-  8.51822e-7  -8.4733e-8    2.00453e-7      1.605e-7     1.18144e-7
- -1.83384e-6  -1.85758e-6  -1.84624e-6     -1.84175e-6  -1.82144e-6
- -1.8202e-6   -1.85398e-6  -1.8382e-6      -1.83222e-6  -1.80403e-6
- -1.57986e-6  -1.63103e-6  -1.609e-6    …  -1.60315e-6  -1.56563e-6</pre>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  1.025079 seconds (1.60 M allocations: 853.660 MiB, 19.00% gc time)
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -12422,7 +12430,7 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$. Varying $\lambda$ from sma
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[123]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">Plots</span><span class="p">,</span> <span class="n">LaTeXStrings</span>
@@ -12441,148 +12449,148 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$. Varying $\lambda$ from sma
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[123]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
 
 <div class="output_svg output_subarea output_execute_result">
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 600 400">
 <defs>
-  <clipPath id="clip8700">
+  <clipPath id="clip2400">
     <rect x="0" y="0" width="600" height="400"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip8700)" points="
+<polygon clip-path="url(#clip2400)" points="
 0,400 600,400 600,0 0,0 
   " fill="#ffffff" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip8701">
+  <clipPath id="clip2401">
     <rect x="120" y="0" width="421" height="400"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip8700)" points="
+<polygon clip-path="url(#clip2400)" points="
 59.7788,360.121 580.315,360.121 580.315,31.4961 59.7788,31.4961 
   " fill="#ffffff" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip8702">
+  <clipPath id="clip2402">
     <rect x="59" y="31" width="522" height="330"/>
   </clipPath>
 </defs>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   74.5109,360.121 74.5109,31.4961 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   214.817,360.121 214.817,31.4961 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   355.123,360.121 355.123,31.4961 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   495.43,360.121 495.43,31.4961 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,314.43 580.315,314.43 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,267.907 580.315,267.907 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,221.384 580.315,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,174.862 580.315,174.862 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,128.339 580.315,128.339 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,81.816 580.315,81.816 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,35.2932 580.315,35.2932 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,360.121 580.315,360.121 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,360.121 59.7788,31.4961 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,360.121 74.5109,355.191 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   214.817,360.121 214.817,355.191 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   355.123,360.121 355.123,355.191 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   495.43,360.121 495.43,355.191 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,314.43 67.5868,314.43 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,267.907 67.5868,267.907 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,221.384 67.5868,221.384 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,174.862 67.5868,174.862 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,128.339 67.5868,128.339 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,81.816 67.5868,81.816 
   "/>
-<polyline clip-path="url(#clip8700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2400)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,35.2932 67.5868,35.2932 
   "/>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:middle;" transform="rotate(0, 74.5109, 373.921)" x="74.5109" y="373.921">0.0</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:middle;" transform="rotate(0, 214.817, 373.921)" x="214.817" y="373.921">0.1</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:middle;" transform="rotate(0, 355.123, 373.921)" x="355.123" y="373.921">0.2</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:middle;" transform="rotate(0, 495.43, 373.921)" x="495.43" y="373.921">0.3</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 318.93)" x="53.7788" y="318.93">-20</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 272.407)" x="53.7788" y="272.407">-10</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 225.884)" x="53.7788" y="225.884">0</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 179.362)" x="53.7788" y="179.362">10</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 132.839)" x="53.7788" y="132.839">20</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 86.316)" x="53.7788" y="86.316">30</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 39.7932)" x="53.7788" y="39.7932">40</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:21; text-anchor:middle;" transform="rotate(0, 320.047, 18)" x="320.047" y="18">Sum-to-Zero Lasso</text>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <image width="8" height="12" xlink:href="data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAAgAAAAMCAYAAABfnvydAAAAZElEQVQYlZWPyw3AIAxD7YrRGIFZ
 GIqZGIINXi9F5ddDLeXgJM5TBKhXzpnRA7o0qLUm24w9w+RlG8DdTxdO2hZijBNmQ6yY/whJSim9
 mPXvWisPFkDhi70h1mEpRbYxcEz20A2wyFZ3xpB/7wAAAABJRU5ErkJggg==
 " transform="translate(316, 389)"/>
 </g>
-<g clip-path="url(#clip8700)">
+<g clip-path="url(#clip2400)">
 <image width="19" height="9" xlink:href="data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAABMAAAAJCAYAAADQHRcxAAAAh0lEQVQokZWS0Q0DIQxD7U7AcMzC
 DGEVdmEDZoAR3J+CWo6cepEsRYl5CQJIwkmtNXk9TysppazDACQJIQTNfNanXFhK6XYLADKz5Ykx
@@ -12590,301 +12598,301 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
 3+lHVGJbpqSsAAAAAElFTkSuQmCC
 " transform="translate(0, 191)"/>
 </g>
-<polyline clip-path="url(#clip8702)" style="stroke:#009af9; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#009af9; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,127.586 88.5416,146.823 102.572,158.102 116.603,168.875 130.633,176.82 144.664,184.223 158.695,189.385 172.725,193.63 186.756,198.019 200.787,202.519 
   214.817,207.418 228.848,212.948 242.878,218.308 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#e26f46; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#e26f46; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,211.532 88.5416,221.384 102.572,221.384 116.603,221.384 130.633,221.384 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#3da44d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#3da44d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,216.562 88.5416,219.53 102.572,221.38 116.603,221.384 130.633,221.384 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#c271d2; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#c271d2; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,316.488 88.5416,314.457 102.572,311.88 116.603,313.758 130.633,310.566 144.664,305.745 158.695,300.72 172.725,296.117 186.756,292.761 200.787,290.088 
   214.817,287.657 228.848,285.324 242.878,282.391 256.909,279.266 270.94,276.642 284.97,274.788 299.001,272.768 313.032,270.885 327.062,269.328 341.093,266.876 
   355.123,264.208 369.154,261.536 383.185,258.837 397.215,254.711 411.246,250.595 425.277,246.469 439.307,242.343 453.338,239.155 467.368,236.18 481.399,233.205 
   495.43,230.231 509.46,227.256 523.491,224.291 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#ac8d18; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#ac8d18; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,350.82 88.5416,324.255 102.572,309.808 116.603,298.41 130.633,286.606 144.664,275.451 158.695,269.256 172.725,265.181 186.756,261.275 200.787,257.673 
   214.817,254.56 228.848,251.508 242.878,248.148 256.909,245.231 270.94,242.795 284.97,240.792 299.001,238.17 313.032,235.63 327.062,233.444 341.093,230.572 
   355.123,227.496 369.154,224.414 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#00a9ad; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#00a9ad; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,106.585 88.5416,116.059 102.572,125.192 116.603,135.101 130.633,142.652 144.664,150.741 158.695,158.126 172.725,165.278 186.756,171.656 200.787,178.208 
   214.817,185.02 228.848,191.869 242.878,198.717 256.909,204.941 270.94,209.973 284.97,214.904 299.001,218.938 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#ed5d92; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#ed5d92; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,260.341 88.5416,253.956 102.572,252.767 116.603,251.45 130.633,249.473 144.664,246.933 158.695,245.698 172.725,242.828 186.756,239.423 200.787,235.453 
   214.817,231.497 228.848,227.727 242.878,223.382 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#c68125; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#c68125; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,237.997 88.5416,244.793 102.572,247.607 116.603,246.788 130.633,243.402 144.664,237.584 158.695,233.494 172.725,231.082 186.756,229.358 200.787,228.005 
   214.817,226.741 228.848,224.931 242.878,223.44 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#00a98d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#00a98d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,266.809 88.5416,250.64 102.572,235.808 116.603,228.222 130.633,224.365 144.664,222.697 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#8e971d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#8e971d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,245.123 88.5416,238.954 102.572,236.94 116.603,235.839 130.633,236.979 144.664,238.713 158.695,239.01 172.725,238.096 186.756,236.564 200.787,235.377 
   214.817,234.08 228.848,232.641 242.878,230.722 256.909,228.165 270.94,225.308 284.97,222.303 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#00a8cb; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#00a8cb; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,94.8414 88.5416,110.878 102.572,122.391 116.603,134.178 130.633,141.041 144.664,144.086 158.695,148.41 172.725,151.863 186.756,155.887 200.787,160.14 
   214.817,164.412 228.848,168.265 242.878,171.999 256.909,176.059 270.94,181.072 284.97,185.937 299.001,190.033 313.032,194.009 327.062,198.114 341.093,201.536 
   355.123,204.835 369.154,208.14 383.185,211.431 397.215,213.811 411.246,216.185 425.277,218.565 439.307,220.945 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#9b7fe8; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#9b7fe8; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,174.041 88.5416,187.5 102.572,198.248 116.603,210.177 130.633,220.318 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#608cf6; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#608cf6; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,189.826 88.5416,200.146 102.572,205.542 116.603,208.879 130.633,212.056 144.664,215.48 158.695,216.738 172.725,217.82 186.756,220.879 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#f05f73; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#f05f73; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,184.492 88.5416,189.318 102.572,199.63 116.603,210.921 130.633,220.256 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#dd64b5; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#dd64b5; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,208.873 88.5416,210.912 102.572,207.121 116.603,203.91 130.633,206.702 144.664,212.56 158.695,216.358 172.725,220.463 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#6b9e32; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#6b9e32; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,40.7968 88.5416,62.8795 102.572,78.1451 116.603,97.5289 130.633,117.516 144.664,137.269 158.695,153.864 172.725,165.186 186.756,174.37 200.787,184.101 
   214.817,193.708 228.848,203.407 242.878,211.865 256.909,218.075 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#718c69; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#718c69; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,179.911 88.5416,200.487 102.572,217.358 116.603,221.384 130.633,221.384 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#47988b; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#47988b; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,253.133 88.5416,247.992 102.572,244.387 116.603,241.676 130.633,241.906 144.664,244.379 158.695,243.577 172.725,241.745 186.756,240.375 200.787,238.985 
   214.817,237.701 228.848,236.049 242.878,234.165 256.909,232.263 270.94,230.351 284.97,228.701 299.001,225.931 313.032,223.215 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#1ea68c; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#1ea68c; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,332.491 88.5416,316.268 102.572,307.558 116.603,295.884 130.633,282.364 144.664,269.04 158.695,259.216 172.725,251.286 186.756,244.4 200.787,237.755 
   214.817,231.407 228.848,225.43 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#af78dd; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#af78dd; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,196.893 88.5416,210.059 102.572,220.099 116.603,221.384 130.633,221.384 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#868d87; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#868d87; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,305.61 88.5416,285.364 102.572,265.947 116.603,250.375 130.633,240.873 144.664,232.63 158.695,223.852 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#47a065; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#47a065; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,200.171 88.5416,217.954 102.572,221.384 116.603,221.384 130.633,221.384 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#7683af; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#7683af; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,256.231 88.5416,248.105 102.572,244.075 116.603,240.242 130.633,235.934 144.664,230.62 158.695,227.741 172.725,226.211 186.756,225.305 200.787,223.971 
   214.817,222.398 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#b08086; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#b08086; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,186.138 88.5416,176.014 102.572,165.81 116.603,157.681 130.633,150.934 144.664,146.482 158.695,144.865 172.725,146.255 186.756,149.66 200.787,153.903 
   214.817,158.481 228.848,163.02 242.878,167.459 256.909,170.772 270.94,173.312 284.97,175.88 299.001,178.244 313.032,180.842 327.062,183.984 341.093,186.554 
   355.123,188.999 369.154,191.448 383.185,193.886 397.215,195.632 411.246,197.374 425.277,199.119 439.307,200.865 453.338,203.614 467.368,206.589 481.399,209.564 
   495.43,212.539 509.46,215.514 523.491,218.478 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#309ac1; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#309ac1; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,223.733 88.5416,224.654 102.572,221.384 116.603,221.384 130.633,221.904 144.664,225.128 158.695,227.235 172.725,228.002 186.756,228.081 200.787,228.266 
   214.817,228.459 228.848,229.378 242.878,230.373 256.909,230.121 270.94,228.874 284.97,227.457 299.001,225.606 313.032,223.725 327.062,222.051 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#788490; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#788490; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,285.289 88.5416,268.598 102.572,261.185 116.603,256.237 130.633,251.673 144.664,246.212 158.695,239.646 172.725,234.441 186.756,230.465 200.787,226.473 
   214.817,222.732 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#e561a4; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#e561a4; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,264.432 88.5416,249.621 102.572,239.856 116.603,235.106 130.633,231.201 144.664,228.187 158.695,226.471 172.725,223.493 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#99902c; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#99902c; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,206.76 88.5416,212.509 102.572,215.955 116.603,221.301 130.633,221.384 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#389a7b; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#389a7b; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,134.486 88.5416,149.198 102.572,162.747 116.603,177.491 130.633,190.883 144.664,203.792 158.695,214.627 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#d968a2; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#d968a2; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,167.246 88.5416,194.216 102.572,212.345 116.603,221.384 130.633,221.384 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#009af9; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#009af9; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,173.234 88.5416,183.769 102.572,193.681 116.603,198.527 130.633,201.82 144.664,204.391 158.695,207.223 172.725,210.538 186.756,214.424 200.787,218.172 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#e26f46; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#e26f46; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,163.609 88.5416,170.525 102.572,181.007 116.603,190.845 130.633,197.49 144.664,206.757 158.695,214.782 172.725,220.781 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#3da44d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#3da44d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,189.655 88.5416,193.96 102.572,199.81 116.603,205.966 130.633,210.514 144.664,214.685 158.695,220.709 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#c271d2; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#c271d2; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,176.787 88.5416,185.137 102.572,193.357 116.603,201.404 130.633,209.749 144.664,219.467 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#ac8d18; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#ac8d18; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,261.518 88.5416,251.886 102.572,247.35 116.603,240.718 130.633,232.786 144.664,224.603 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#00a9ad; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#00a9ad; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,215.097 88.5416,210.774 102.572,205.533 116.603,204.103 130.633,208.093 144.664,211.78 158.695,214.905 172.725,217.771 186.756,220.017 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#ed5d92; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#ed5d92; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,278.415 88.5416,267.634 102.572,259.239 116.603,251.804 130.633,247.627 144.664,243.974 158.695,238.663 172.725,235.269 186.756,233.172 200.787,230.754 
   214.817,228.134 228.848,224.96 242.878,221.714 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#c68125; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#c68125; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,326.133 88.5416,302.566 102.572,289.215 116.603,277.455 130.633,267.055 144.664,256.805 158.695,249.777 172.725,244.775 186.756,241.114 200.787,237.136 
   214.817,233.088 228.848,229.655 242.878,226.467 256.909,223.025 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#00a98d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#00a98d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,309.991 88.5416,272.633 102.572,247.009 116.603,225.352 130.633,221.384 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#8e971d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#8e971d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,235.813 88.5416,223.403 102.572,221.384 116.603,221.384 130.633,221.384 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#00a8cb; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#00a8cb; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,318.861 88.5416,288.15 102.572,266.556 116.603,247.203 130.633,232.907 144.664,223.762 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#9b7fe8; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#9b7fe8; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,199.67 88.5416,221.384 102.572,224.048 116.603,230.019 130.633,230.883 144.664,231.383 158.695,230.469 172.725,229.322 186.756,228.738 200.787,228.736 
   214.817,228.886 228.848,229.122 242.878,228.531 256.909,226.622 270.94,224.133 284.97,221.698 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#608cf6; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#608cf6; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,219.996 88.5416,225.484 102.572,225.092 116.603,221.921 130.633,221.384 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#f05f73; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#f05f73; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,266.87 88.5416,267.03 102.572,264.519 116.603,261.401 130.633,254.215 144.664,244.107 158.695,235.841 172.725,231.016 186.756,228.551 200.787,226.117 
   214.817,223.929 228.848,221.785 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#dd64b5; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#dd64b5; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,259.961 88.5416,252.72 102.572,240.779 116.603,230.018 130.633,225.696 144.664,223.031 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#6b9e32; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#6b9e32; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,261.393 88.5416,259.963 102.572,257.811 116.603,253.925 130.633,248.713 144.664,241.813 158.695,237.11 172.725,234.095 186.756,232.762 200.787,231.142 
   214.817,229.291 228.848,226.903 242.878,224.471 256.909,222.072 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#718c69; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#718c69; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,284.406 88.5416,263.598 102.572,249.45 116.603,237.401 130.633,227.976 144.664,221.384 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#47988b; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#47988b; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,151.051 88.5416,172.898 102.572,187.527 116.603,196.765 130.633,207.455 144.664,219.274 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#1ea68c; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#1ea68c; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,109.171 88.5416,139.567 102.572,162.433 116.603,182.071 130.633,198.645 144.664,213.844 158.695,221.384 172.725,221.384 186.756,221.384 200.787,221.384 
   214.817,221.384 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
   495.43,221.384 509.46,221.384 523.491,221.384 537.522,221.384 551.552,221.384 565.583,221.384 
   "/>
-<polyline clip-path="url(#clip8702)" style="stroke:#af78dd; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2402)" style="stroke:#af78dd; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,242.353 88.5416,222.614 102.572,221.384 116.603,221.219 130.633,217.328 144.664,213.594 158.695,213.762 172.725,214.835 186.756,215.973 200.787,217.483 
   214.817,219.477 228.848,221.384 242.878,221.384 256.909,221.384 270.94,221.384 284.97,221.384 299.001,221.384 313.032,221.384 327.062,221.384 341.093,221.384 
   355.123,221.384 369.154,221.384 383.185,221.384 397.215,221.384 411.246,221.384 425.277,221.384 439.307,221.384 453.338,221.384 467.368,221.384 481.399,221.384 
@@ -12896,13 +12904,6 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>  1.455823 seconds (1.67 M allocations: 857.076 MiB, 25.15% gc time)
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -12912,7 +12913,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Sum-to-zero-group-lasso">Sum-to-zero group lasso<a class="anchor-link" href="#Sum-to-zero-group-lasso">&#182;</a></h2><p>Suppose we want to do variable selection not at the OTU level, but at the Phylum level. OTUs are clustered into various Phyla. We can answer this question using a sum-to-zero contrained group lasso
+<h3 id="Sum-to-zero-group-lasso">Sum-to-zero group lasso<a class="anchor-link" href="#Sum-to-zero-group-lasso">&#182;</a></h3><p>Suppose we want to do variable selection not at the OTU level, but at the Phylum level. OTUs are clustered into various Phyla. We can answer this question using a sum-to-zero contrained group lasso
 $$
     \text{minimize} \frac 12 \|\mathbf{y} - \mathbf{X} \beta\|_2^2 + \lambda \sum_j \|\mathbf{\beta}_j\|_2
 $$
@@ -12924,7 +12925,7 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$, where $\mathbf{\beta}_j$ a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[143]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># Use SCS solver</span>
@@ -12950,7 +12951,6 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$, where $\mathbf{\beta}_j$ a
     <span class="n">solve!</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
     <span class="n">β̂pathgrp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="o">:</span><span class="p">]</span> <span class="o">=</span> <span class="n">β̂classo</span><span class="o">.</span><span class="n">value</span>
 <span class="k">end</span>
-<span class="n">β̂pathgrp</span>
 </pre></div>
 
 </div>
@@ -12961,39 +12961,11 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$, where $\mathbf{\beta}_j$ a
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[143]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>81×50 Array{Float64,2}:
- 10.3004      -0.132268     1.05398     …   5.67148      3.877     
- 10.0548      -0.198684     1.06515         5.274        3.89933   
-  9.82115     -0.261136     1.07416         4.90708      3.90283   
-  9.59824     -0.319801     1.08112         4.56797      3.88968   
-  9.38508     -0.374849     1.08614         4.25416      3.86186   
-  9.18073     -0.426449     1.08936     …   3.96336      3.82111   
-  8.98436     -0.474759     1.09091         3.69348      3.76897   
-  8.79523     -0.519933     1.09093         3.44265      3.70682   
-  8.61266     -0.562115     1.08953         3.20915      3.63585   
-  8.43605     -0.601443     1.08684         2.99145      3.55712   
-  8.26486     -0.638044     1.08298     …   2.78818      3.47156   
-  8.0986      -0.672042     1.07804         2.59807      3.37999   
-  7.93682     -0.703548     1.07212         2.42001      3.28312   
-  ⋮                                     ⋱                          
-  0.306482    -0.0827435    0.0809971      -4.17178e-8  -7.14496e-7
-  0.177154    -0.0484224    0.047127    …   1.66864e-6   1.48364e-6
-  0.0841539   -0.0241584    0.0219567       2.05683e-6   1.88812e-6
-  0.00830933  -0.00252361   0.00210808      7.56635e-6   7.46425e-6
- -8.38737e-6  -8.02722e-6  -8.17261e-6     -8.18725e-6  -8.40952e-6
- -2.28383e-6  -2.04118e-6  -2.14457e-6     -2.17587e-6  -2.36215e-6
- -2.275e-6    -2.03549e-6  -2.13745e-6  …  -2.16848e-6  -2.35222e-6
- -2.26751e-6  -2.03123e-6  -2.13173e-6     -2.16248e-6  -2.34363e-6
- -2.26113e-6  -2.02819e-6  -2.12718e-6     -2.15764e-6  -2.33615e-6
- -2.2557e-6   -2.02617e-6  -2.12364e-6     -2.15378e-6  -2.32961e-6
- -2.25104e-6  -2.02502e-6  -2.12092e-6     -2.15075e-6  -2.32385e-6
- -2.24702e-6  -2.02459e-6  -2.1189e-6   …  -2.1484e-6   -2.31872e-6</pre>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  3.577693 seconds (2.31 M allocations: 337.761 MiB, 3.05% gc time)
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -13002,7 +12974,7 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$, where $\mathbf{\beta}_j$ a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[144]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">p2</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">collect</span><span class="p">(</span><span class="n">λgrid</span><span class="p">),</span> <span class="n">β̂pathgrp</span><span class="p">,</span> <span class="n">legend</span><span class="o">=:</span><span class="n">none</span><span class="p">)</span>
@@ -13019,157 +12991,157 @@ subject to the constraint $\sum_{j=1}^p \beta_j = 0$, where $\mathbf{\beta}_j$ a
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[144]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 <div class="output_svg output_subarea output_execute_result">
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 600 400">
 <defs>
-  <clipPath id="clip0700">
+  <clipPath id="clip2600">
     <rect x="0" y="0" width="600" height="400"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip0700)" points="
+<polygon clip-path="url(#clip2600)" points="
 0,400 600,400 600,0 0,0 
   " fill="#ffffff" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip0701">
+  <clipPath id="clip2601">
     <rect x="120" y="0" width="421" height="400"/>
   </clipPath>
 </defs>
-<polygon clip-path="url(#clip0700)" points="
+<polygon clip-path="url(#clip2600)" points="
 59.7788,360.121 580.315,360.121 580.315,31.4961 59.7788,31.4961 
   " fill="#ffffff" fill-opacity="1"/>
 <defs>
-  <clipPath id="clip0702">
+  <clipPath id="clip2602">
     <rect x="59" y="31" width="522" height="330"/>
   </clipPath>
 </defs>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   74.5109,360.121 74.5109,31.4961 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   197.279,360.121 197.279,31.4961 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   320.047,360.121 320.047,31.4961 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   442.815,360.121 442.815,31.4961 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   565.583,360.121 565.583,31.4961 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,327.184 580.315,327.184 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,283.206 580.315,283.206 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,239.227 580.315,239.227 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,195.249 580.315,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,151.27 580.315,151.27 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,107.292 580.315,107.292 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#000000; stroke-width:0.5; stroke-opacity:0.1; fill:none" points="
   59.7788,63.3134 580.315,63.3134 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,360.121 580.315,360.121 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,360.121 59.7788,31.4961 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,360.121 74.5109,355.191 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   197.279,360.121 197.279,355.191 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   320.047,360.121 320.047,355.191 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   442.815,360.121 442.815,355.191 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   565.583,360.121 565.583,355.191 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,327.184 67.5868,327.184 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,283.206 67.5868,283.206 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,239.227 67.5868,239.227 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,195.249 67.5868,195.249 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,151.27 67.5868,151.27 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,107.292 67.5868,107.292 
   "/>
-<polyline clip-path="url(#clip0700)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2600)" style="stroke:#000000; stroke-width:1; stroke-opacity:1; fill:none" points="
   59.7788,63.3134 67.5868,63.3134 
   "/>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:middle;" transform="rotate(0, 74.5109, 373.921)" x="74.5109" y="373.921">0.1</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:middle;" transform="rotate(0, 197.279, 373.921)" x="197.279" y="373.921">0.2</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:middle;" transform="rotate(0, 320.047, 373.921)" x="320.047" y="373.921">0.3</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:middle;" transform="rotate(0, 442.815, 373.921)" x="442.815" y="373.921">0.4</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:middle;" transform="rotate(0, 565.583, 373.921)" x="565.583" y="373.921">0.5</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 331.684)" x="53.7788" y="331.684">-15</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 287.706)" x="53.7788" y="287.706">-10</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 243.727)" x="53.7788" y="243.727">-5</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 199.749)" x="53.7788" y="199.749">0</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 155.77)" x="53.7788" y="155.77">5</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 111.792)" x="53.7788" y="111.792">10</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:12; text-anchor:end;" transform="rotate(0, 53.7788, 67.8134)" x="53.7788" y="67.8134">15</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <text style="fill:#000000; fill-opacity:1; font-family:Arial,Helvetica Neue,Helvetica,sans-serif; font-size:21; text-anchor:middle;" transform="rotate(0, 320.047, 18)" x="320.047" y="18">Sum-to-Zero Group Lasso</text>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <image width="8" height="12" xlink:href="data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAAgAAAAMCAYAAABfnvydAAAAZElEQVQYlZWPyw3AIAxD7YrRGIFZ
 GIqZGIINXi9F5ddDLeXgJM5TBKhXzpnRA7o0qLUm24w9w+RlG8DdTxdO2hZijBNmQ6yY/whJSim9
 mPXvWisPFkDhi70h1mEpRbYxcEz20A2wyFZ3xpB/7wAAAABJRU5ErkJggg==
 " transform="translate(316, 389)"/>
 </g>
-<g clip-path="url(#clip0700)">
+<g clip-path="url(#clip2600)">
 <image width="19" height="9" xlink:href="data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAABMAAAAJCAYAAADQHRcxAAAAh0lEQVQokZWS0Q0DIQxD7U7AcMzC
 DGEVdmEDZoAR3J+CWo6cepEsRYl5CQJIwkmtNXk9TysppazDACQJIQTNfNanXFhK6XYLADKz5Ykx
@@ -13177,7 +13149,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
 3+lHVGJbpqSsAAAAAElFTkSuQmCC
 " transform="translate(0, 191)"/>
 </g>
-<polyline clip-path="url(#clip0702)" style="stroke:#009af9; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#009af9; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,104.65 80.6493,106.81 86.7877,108.865 92.9261,110.826 99.0645,112.701 105.203,114.498 111.341,116.225 117.48,117.889 123.618,119.495 129.757,121.048 
   135.895,122.554 142.033,124.016 148.172,125.439 154.31,126.826 160.449,128.181 166.587,129.505 172.725,130.803 178.864,132.075 185.002,133.326 191.14,134.548 
   197.279,135.758 203.417,136.951 209.556,138.129 215.694,139.292 221.832,140.443 227.971,141.581 234.109,142.71 240.248,143.828 246.386,144.928 252.524,146.029 
@@ -13188,7 +13160,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,193.691 510.337,194.509 516.476,195.176 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#e26f46; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#e26f46; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,196.412 80.6493,196.996 86.7877,197.546 92.9261,198.062 99.0645,198.546 105.203,199 111.341,199.425 117.48,199.822 123.618,200.193 129.757,200.539 
   135.895,200.861 142.033,201.16 148.172,201.437 154.31,201.693 160.449,201.929 166.587,202.146 172.725,202.344 178.864,202.525 185.002,202.688 191.14,202.834 
   197.279,202.965 203.417,203.081 209.556,203.182 215.694,203.269 221.832,203.342 227.971,203.401 234.109,203.448 240.248,203.482 246.386,203.503 252.524,203.513 
@@ -13199,7 +13171,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.675 510.337,195.461 516.476,195.271 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#3da44d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#3da44d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,185.978 80.6493,185.88 86.7877,185.801 92.9261,185.74 99.0645,185.696 105.203,185.667 111.341,185.654 117.48,185.653 123.618,185.666 129.757,185.689 
   135.895,185.723 142.033,185.767 148.172,185.819 154.31,185.879 160.449,185.946 166.587,186.019 172.725,186.099 178.864,186.184 185.002,186.274 191.14,186.367 
   197.279,186.466 203.417,186.568 209.556,186.674 215.694,186.784 221.832,186.897 227.971,187.012 234.109,187.13 240.248,187.251 246.386,187.373 252.524,187.499 
@@ -13210,7 +13182,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,194.834 510.337,195.056 516.476,195.23 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#c271d2; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#c271d2; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,350.82 80.6493,348.753 86.7877,346.668 92.9261,344.568 99.0645,342.456 105.203,340.334 111.341,338.205 117.48,336.07 123.618,333.93 129.757,331.786 
   135.895,329.641 142.033,327.494 148.172,325.346 154.31,323.198 160.449,321.052 166.587,318.906 172.725,316.762 178.864,314.619 185.002,312.48 191.14,310.359 
   197.279,308.227 203.417,306.098 209.556,303.973 215.694,301.851 221.832,299.733 227.971,297.619 234.109,295.509 240.248,293.403 246.386,291.323 252.524,289.228 
@@ -13221,7 +13193,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,197.72 510.337,196.445 516.476,195.37 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#ac8d18; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#ac8d18; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,313.669 80.6493,310.79 86.7877,308.049 92.9261,305.432 99.0645,302.924 105.203,300.513 111.341,298.189 117.48,295.944 123.618,293.768 129.757,291.656 
   135.895,289.601 142.033,287.599 148.172,285.643 154.31,283.731 160.449,281.858 166.587,280.022 172.725,278.219 178.864,276.448 185.002,274.705 191.14,273.004 
   197.279,271.315 203.417,269.649 209.556,268.005 215.694,266.382 221.832,264.778 227.971,263.193 234.109,261.625 240.248,260.074 246.386,258.555 252.524,257.035 
@@ -13232,7 +13204,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,196.824 510.337,196.015 516.476,195.327 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#00a9ad; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#00a9ad; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,56.3307 80.6493,59.239 86.7877,62.0751 92.9261,64.8435 99.0645,67.5485 105.203,70.1943 111.341,72.7843 117.48,75.3221 123.618,77.8109 129.757,80.2534 
   135.895,82.6524 142.033,85.0103 148.172,87.3294 154.31,89.6116 160.449,91.859 166.587,94.0732 172.725,96.2558 178.864,98.4083 185.002,100.532 191.14,102.614 
   197.279,104.683 203.417,106.726 209.556,108.746 215.694,110.742 221.832,112.715 227.971,114.667 234.109,116.598 240.248,118.509 246.386,120.384 252.524,122.255 
@@ -13243,7 +13215,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,193.116 510.337,194.231 516.476,195.148 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#ed5d92; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#ed5d92; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,243.934 80.6493,243.069 86.7877,242.217 92.9261,241.378 99.0645,240.548 105.203,239.728 111.341,238.915 117.48,238.108 123.618,237.308 129.757,236.512 
   135.895,235.722 142.033,234.935 148.172,234.153 154.31,233.374 160.449,232.599 166.587,231.828 172.725,231.06 178.864,230.295 185.002,229.534 191.14,228.781 
   197.279,228.027 203.417,227.278 209.556,226.532 215.694,225.79 221.832,225.053 227.971,224.32 234.109,223.591 240.248,222.867 246.386,222.154 252.524,221.44 
@@ -13254,7 +13226,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.666 510.337,195.452 516.476,195.27 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#c68125; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#c68125; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,254.935 80.6493,254.472 86.7877,253.94 92.9261,253.35 99.0645,252.71 105.203,252.026 111.341,251.304 117.48,250.552 123.618,249.772 129.757,248.971 
   135.895,248.15 142.033,247.314 148.172,246.464 154.31,245.605 160.449,244.737 166.587,243.862 172.725,242.983 178.864,242.1 185.002,241.215 191.14,240.336 
   197.279,239.45 203.417,238.565 209.556,237.681 215.694,236.799 221.832,235.919 227.971,235.041 234.109,234.167 240.248,233.297 246.386,232.439 252.524,231.577 
@@ -13265,7 +13237,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,196.241 510.337,195.735 516.476,195.299 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#00a98d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#00a98d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,241.199 80.6493,239.911 86.7877,238.663 92.9261,237.454 99.0645,236.28 105.203,235.141 111.341,234.033 117.48,232.957 123.618,231.909 129.757,230.89 
   135.895,229.896 142.033,228.928 148.172,227.984 154.31,227.064 160.449,226.165 166.587,225.287 172.725,224.43 178.864,223.593 185.002,222.774 191.14,221.979 
   197.279,221.197 203.417,220.431 209.556,219.681 215.694,218.948 221.832,218.229 227.971,217.526 234.109,216.836 240.248,216.161 246.386,215.505 252.524,214.857 
@@ -13276,7 +13248,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.586 510.337,195.417 516.476,195.266 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#8e971d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#8e971d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,245.502 80.6493,245.625 86.7877,245.709 92.9261,245.753 99.0645,245.759 105.203,245.726 111.341,245.657 117.48,245.551 123.618,245.409 129.757,245.233 
   135.895,245.023 142.033,244.782 148.172,244.508 154.31,244.204 160.449,243.871 166.587,243.509 172.725,243.119 178.864,242.703 185.002,242.261 191.14,241.798 
   197.279,241.309 203.417,240.796 209.556,240.262 215.694,239.706 221.832,239.13 227.971,238.535 234.109,237.921 240.248,237.289 246.386,236.647 252.524,235.982 
@@ -13287,7 +13259,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,196.12 510.337,195.673 516.476,195.292 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#00a8cb; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#00a8cb; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,47.2957 80.6493,50.3476 86.7877,53.3288 92.9261,56.2454 99.0645,59.1028 105.203,61.9056 111.341,64.6578 117.48,67.3631 123.618,70.0243 129.757,72.6444 
   135.895,75.2255 142.033,77.7699 148.172,80.2793 154.31,82.7554 160.449,85.1997 166.587,87.6135 172.725,89.9979 178.864,92.3542 185.002,94.6833 191.14,96.9643 
   197.279,99.2405 203.417,101.492 209.556,103.72 215.694,105.925 221.832,108.108 227.971,110.269 234.109,112.409 240.248,114.529 246.386,116.608 252.524,118.688 
@@ -13298,7 +13270,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.248 534.891,195.248 541.029,195.248 547.168,195.248 553.306,195.248 559.444,195.248 
   565.583,195.248 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#9b7fe8; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#9b7fe8; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,145.597 80.6493,147.029 86.7877,148.427 92.9261,149.794 99.0645,151.13 105.203,152.436 111.341,153.713 117.48,154.962 123.618,156.184 129.757,157.38 
   135.895,158.549 142.033,159.693 148.172,160.812 154.31,161.907 160.449,162.977 166.587,164.023 172.725,165.046 178.864,166.045 185.002,167.022 191.14,167.968 
   197.279,168.9 203.417,169.811 209.556,170.7 215.694,171.568 221.832,172.416 227.971,173.244 234.109,174.052 240.248,174.84 246.386,175.601 252.524,176.352 
@@ -13309,7 +13281,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#608cf6; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#608cf6; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,150.386 80.6493,150.801 86.7877,151.227 92.9261,151.666 99.0645,152.118 105.203,152.584 111.341,153.064 117.48,153.56 123.618,154.07 129.757,154.594 
   135.895,155.133 142.033,155.685 148.172,156.251 154.31,156.83 160.449,157.422 166.587,158.025 172.725,158.639 178.864,159.264 185.002,159.899 191.14,160.537 
   197.279,161.189 203.417,161.849 209.556,162.516 215.694,163.189 221.832,163.868 227.971,164.552 234.109,165.241 240.248,165.934 246.386,166.623 252.524,167.322 
@@ -13320,7 +13292,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#f05f73; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#f05f73; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,158.228 80.6493,159.38 86.7877,160.49 92.9261,161.56 99.0645,162.59 105.203,163.584 111.341,164.541 117.48,165.465 123.618,166.356 129.757,167.217 
   135.895,168.047 142.033,168.85 148.172,169.625 154.31,170.375 160.449,171.1 166.587,171.802 172.725,172.482 178.864,173.14 185.002,173.779 191.14,174.393 
   197.279,174.994 203.417,175.578 209.556,176.146 215.694,176.698 221.832,177.235 227.971,177.759 234.109,178.27 240.248,178.769 246.386,179.25 252.524,179.726 
@@ -13331,7 +13303,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#dd64b5; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#dd64b5; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,163.987 80.6493,164.046 86.7877,164.115 92.9261,164.197 99.0645,164.289 105.203,164.394 111.341,164.511 117.48,164.641 123.618,164.785 129.757,164.942 
   135.895,165.112 142.033,165.297 148.172,165.497 154.31,165.711 160.449,165.94 166.587,166.184 172.725,166.442 178.864,166.715 185.002,167.003 191.14,167.302 
   197.279,167.618 203.417,167.947 209.556,168.29 215.694,168.647 221.832,169.016 227.971,169.398 234.109,169.793 240.248,170.199 246.386,170.613 252.524,171.042 
@@ -13342,7 +13314,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#6b9e32; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#6b9e32; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,40.7968 80.6493,46.8777 86.7877,52.7061 92.9261,58.2953 99.0645,63.658 105.203,68.8061 111.341,73.7506 117.48,78.5021 123.618,83.0701 129.757,87.4636 
   135.895,91.691 142.033,95.76 148.172,99.6779 154.31,103.451 160.449,107.087 166.587,110.59 172.725,113.967 178.864,117.222 185.002,120.361 191.14,123.362 
   197.279,126.281 203.417,129.097 209.556,131.814 215.694,134.436 221.832,136.967 227.971,139.41 234.109,141.768 240.248,144.046 246.386,146.224 252.524,148.347 
@@ -13353,7 +13325,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#718c69; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#718c69; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,185.917 80.6493,186.72 86.7877,187.409 92.9261,187.998 99.0645,188.499 105.203,188.924 111.341,189.283 117.48,189.585 123.618,189.837 129.757,190.047 
   135.895,190.22 142.033,190.362 148.172,190.478 154.31,190.572 160.449,190.647 166.587,190.707 172.725,190.754 178.864,190.792 185.002,190.821 191.14,190.845 
   197.279,190.864 203.417,190.88 209.556,190.894 215.694,190.907 221.832,190.921 227.971,190.935 234.109,190.952 240.248,190.97 246.386,190.99 252.524,191.013 
@@ -13364,7 +13336,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#47988b; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#47988b; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,247.302 80.6493,246.951 86.7877,246.567 92.9261,246.151 99.0645,245.703 105.203,245.224 111.341,244.715 117.48,244.179 123.618,243.615 129.757,243.027 
   135.895,242.414 142.033,241.78 148.172,241.125 154.31,240.45 160.449,239.758 166.587,239.05 172.725,238.326 178.864,237.589 185.002,236.84 191.14,236.087 
   197.279,235.317 203.417,234.538 209.556,233.752 215.694,232.958 221.832,232.159 227.971,231.354 234.109,230.545 240.248,229.733 246.386,228.926 252.524,228.109 
@@ -13375,7 +13347,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#1ea68c; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#1ea68c; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,292.743 80.6493,289.314 86.7877,286.015 92.9261,282.838 99.0645,279.775 105.203,276.82 111.341,273.967 117.48,271.209 123.618,268.543 129.757,265.963 
   135.895,263.467 142.033,261.05 148.172,258.709 154.31,256.442 160.449,254.246 166.587,252.118 172.725,250.056 178.864,248.057 185.002,246.121 191.14,244.261 
   197.279,242.443 203.417,240.681 209.556,238.973 215.694,237.318 221.832,235.713 227.971,234.158 234.109,232.65 240.248,231.189 246.386,229.787 252.524,228.414 
@@ -13386,7 +13358,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#af78dd; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#af78dd; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,179.478 80.6493,179.881 86.7877,180.23 92.9261,180.53 99.0645,180.788 105.203,181.01 111.341,181.2 117.48,181.362 123.618,181.501 129.757,181.62 
   135.895,181.723 142.033,181.812 148.172,181.892 154.31,181.963 160.449,182.028 166.587,182.09 172.725,182.15 178.864,182.209 185.002,182.27 191.14,182.333 
   197.279,182.399 203.417,182.469 209.556,182.543 215.694,182.624 221.832,182.711 227.971,182.805 234.109,182.906 240.248,183.015 246.386,183.131 252.524,183.256 
@@ -13397,7 +13369,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#868d87; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#868d87; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,237.771 80.6493,235.08 86.7877,232.577 92.9261,230.246 99.0645,228.075 105.203,226.051 111.341,224.162 117.48,222.399 123.618,220.75 129.757,219.208 
   135.895,217.764 142.033,216.411 148.172,215.142 154.31,213.952 160.449,212.834 166.587,211.784 172.725,210.796 178.864,209.868 185.002,208.993 191.14,208.175 
   197.279,207.399 203.417,206.669 209.556,205.979 215.694,205.329 221.832,204.716 227.971,204.137 234.109,203.591 240.248,203.075 246.386,202.591 252.524,202.131 
@@ -13408,7 +13380,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.484 510.337,195.392 516.476,195.267 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#47a065; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#47a065; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,197.727 80.6493,198.124 86.7877,198.462 92.9261,198.748 99.0645,198.988 105.203,199.187 111.341,199.35 117.48,199.481 123.618,199.584 129.757,199.662 
   135.895,199.718 142.033,199.753 148.172,199.772 154.31,199.774 160.449,199.763 166.587,199.739 172.725,199.705 178.864,199.66 185.002,199.607 191.14,199.545 
   197.279,199.477 203.417,199.403 209.556,199.324 215.694,199.241 221.832,199.153 227.971,199.062 234.109,198.968 240.248,198.872 246.386,198.773 252.524,198.673 
@@ -13419,7 +13391,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.219 510.337,195.24 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#7683af; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#7683af; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,224.934 80.6493,224.062 86.7877,223.243 92.9261,222.474 99.0645,221.749 105.203,221.064 111.341,220.417 117.48,219.802 123.618,219.218 129.757,218.662 
   135.895,218.131 142.033,217.622 148.172,217.134 154.31,216.665 160.449,216.213 166.587,215.777 172.725,215.356 178.864,214.947 185.002,214.55 191.14,214.165 
   197.279,213.789 203.417,213.422 209.556,213.063 215.694,212.712 221.832,212.367 227.971,212.029 234.109,211.696 240.248,211.368 246.386,211.046 252.524,210.728 
@@ -13430,7 +13402,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,196.414 510.337,195.898 516.476,195.324 522.614,195.251 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#b08086; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#b08086; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,109.947 80.6493,110.575 86.7877,111.259 92.9261,111.991 99.0645,112.764 105.203,113.57 111.341,114.407 117.48,115.268 123.618,116.15 129.757,117.05 
   135.895,117.966 142.033,118.894 148.172,119.834 154.31,120.784 160.449,121.742 166.587,122.708 172.725,123.68 178.864,124.659 185.002,125.642 191.14,126.633 
   197.279,127.626 203.417,128.624 209.556,129.625 215.694,130.631 221.832,131.64 227.971,132.653 234.109,133.669 240.248,134.689 246.386,135.714 252.524,136.74 
@@ -13441,7 +13413,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,190.173 510.337,192.501 516.476,194.939 522.614,195.238 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#309ac1; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#309ac1; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,224.965 80.6493,225.073 86.7877,225.131 92.9261,225.143 99.0645,225.113 105.203,225.048 111.341,224.949 117.48,224.821 123.618,224.667 129.757,224.489 
   135.895,224.289 142.033,224.069 148.172,223.832 154.31,223.578 160.449,223.31 166.587,223.028 172.725,222.733 178.864,222.427 185.002,222.11 191.14,221.782 
   197.279,221.447 203.417,221.103 209.556,220.751 215.694,220.393 221.832,220.028 227.971,219.656 234.109,219.279 240.248,218.897 246.386,218.509 252.524,218.117 
@@ -13452,7 +13424,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,197.117 510.337,196.277 516.476,195.367 522.614,195.253 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#788490; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#788490; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,241.492 80.6493,239.466 86.7877,237.557 92.9261,235.756 99.0645,234.056 105.203,232.449 111.341,230.929 117.48,229.49 123.618,228.125 129.757,226.83 
   135.895,225.599 142.033,224.428 148.172,223.312 154.31,222.249 160.449,221.235 166.587,220.265 172.725,219.339 178.864,218.452 185.002,217.602 191.14,216.791 
   197.279,216.009 203.417,215.258 209.556,214.537 215.694,213.843 221.832,213.174 227.971,212.531 234.109,211.911 240.248,211.313 246.386,210.739 252.524,210.181 
@@ -13463,7 +13435,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.682 510.337,195.495 516.476,195.278 522.614,195.25 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#e561a4; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#e561a4; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,227.606 80.6493,226.599 86.7877,225.652 92.9261,224.76 99.0645,223.917 105.203,223.118 111.341,222.358 117.48,221.634 123.618,220.943 129.757,220.281 
   135.895,219.645 142.033,219.034 148.172,218.445 154.31,217.876 160.449,217.325 166.587,216.792 172.725,216.274 178.864,215.77 185.002,215.28 191.14,214.803 
   197.279,214.337 203.417,213.882 209.556,213.436 215.694,213 221.832,212.572 227.971,212.153 234.109,211.742 240.248,211.338 246.386,210.942 252.524,210.551 
@@ -13474,7 +13446,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,196.107 510.337,195.725 516.476,195.304 522.614,195.251 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#99902c; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#99902c; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,174.684 80.6493,174.814 86.7877,174.942 92.9261,175.07 99.0645,175.199 105.203,175.329 111.341,175.46 117.48,175.593 123.618,175.729 129.757,175.866 
   135.895,176.006 142.033,176.148 148.172,176.292 154.31,176.438 160.449,176.588 166.587,176.739 172.725,176.893 178.864,177.05 185.002,177.21 191.14,177.373 
   197.279,177.538 203.417,177.706 209.556,177.878 215.694,178.052 221.832,178.229 227.971,178.41 234.109,178.594 240.248,178.782 246.386,178.974 252.524,179.169 
@@ -13485,7 +13457,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,193.381 510.337,194.243 516.476,195.137 522.614,195.245 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#389a7b; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#389a7b; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,137.981 80.6493,140.983 86.7877,143.794 92.9261,146.428 99.0645,148.895 105.203,151.209 111.341,153.38 117.48,155.418 123.618,157.334 129.757,159.135 
   135.895,160.832 142.033,162.43 148.172,163.938 154.31,165.361 160.449,166.707 166.587,167.98 172.725,169.185 178.864,170.328 185.002,171.412 191.14,172.437 
   197.279,173.416 203.417,174.347 209.556,175.234 215.694,176.079 221.832,176.886 227.971,177.656 234.109,178.392 240.248,179.096 246.386,179.766 252.524,180.411 
@@ -13496,7 +13468,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,194.436 510.337,194.822 516.476,195.202 522.614,195.247 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#d968a2; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#d968a2; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,182.578 80.6493,183.904 86.7877,185.102 92.9261,186.187 99.0645,187.17 105.203,188.064 111.341,188.878 117.48,189.621 123.618,190.299 129.757,190.919 
   135.895,191.488 142.033,192.01 148.172,192.489 154.31,192.93 160.449,193.336 166.587,193.711 172.725,194.056 178.864,194.375 185.002,194.669 191.14,194.939 
   197.279,195.19 203.417,195.422 209.556,195.636 215.694,195.833 221.832,196.015 227.971,196.183 234.109,196.337 240.248,196.479 246.386,196.608 252.524,196.727 
@@ -13507,7 +13479,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.494 510.337,195.394 516.476,195.267 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#009af9; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#009af9; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,149.377 80.6493,151.285 86.7877,153.152 92.9261,154.977 99.0645,156.762 105.203,158.506 111.341,160.211 117.48,161.876 123.618,163.502 129.757,165.09 
   135.895,166.641 142.033,168.156 148.172,169.634 154.31,171.078 160.449,172.488 166.587,173.863 172.725,175.207 178.864,176.518 185.002,177.797 191.14,179.038 
   197.279,180.257 203.417,181.447 209.556,182.609 215.694,183.743 221.832,184.851 227.971,185.933 234.109,186.989 240.248,188.021 246.386,189.021 252.524,190.005 
@@ -13518,7 +13490,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#e26f46; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#e26f46; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,155.849 80.6493,157.982 86.7877,160.015 92.9261,161.955 99.0645,163.808 105.203,165.58 111.341,167.275 117.48,168.898 123.618,170.453 129.757,171.944 
   135.895,173.374 142.033,174.746 148.172,176.063 154.31,177.328 160.449,178.543 166.587,179.71 172.725,180.832 178.864,181.909 185.002,182.944 191.14,183.931 
   197.279,184.886 203.417,185.803 209.556,186.685 215.694,187.531 221.832,188.344 227.971,189.124 234.109,189.874 240.248,190.593 246.386,191.277 252.524,191.939 
@@ -13529,7 +13501,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#3da44d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#3da44d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,164.436 80.6493,166.141 86.7877,167.795 92.9261,169.395 99.0645,170.941 105.203,172.431 111.341,173.865 117.48,175.242 123.618,176.562 129.757,177.827 
   135.895,179.037 142.033,180.193 148.172,181.297 154.31,182.348 160.449,183.35 166.587,184.302 172.725,185.208 178.864,186.067 185.002,186.881 191.14,187.647 
   197.279,188.378 203.417,189.068 209.556,189.72 215.694,190.334 221.832,190.914 227.971,191.459 234.109,191.971 240.248,192.453 246.386,192.9 252.524,193.322 
@@ -13540,7 +13512,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#c271d2; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#c271d2; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,165.384 80.6493,166.89 86.7877,168.313 92.9261,169.662 99.0645,170.941 105.203,172.159 111.341,173.319 117.48,174.428 123.618,175.49 129.757,176.509 
   135.895,177.489 142.033,178.434 148.172,179.347 154.31,180.23 160.449,181.086 166.587,181.917 172.725,182.726 178.864,183.514 185.002,184.282 191.14,185.027 
   197.279,185.762 203.417,186.481 209.556,187.185 215.694,187.877 221.832,188.557 227.971,189.224 234.109,189.882 240.248,190.529 246.386,191.161 252.524,191.789 
@@ -13551,7 +13523,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#ac8d18; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#ac8d18; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,230.699 80.6493,229.283 86.7877,227.893 92.9261,226.528 99.0645,225.189 105.203,223.875 111.341,222.585 117.48,221.32 123.618,220.079 129.757,218.863 
   135.895,217.672 142.033,216.505 148.172,215.363 154.31,214.245 160.449,213.151 166.587,212.081 172.725,211.034 178.864,210.011 185.002,209.011 191.14,208.042 
   197.279,207.087 203.417,206.154 209.556,205.242 215.694,204.351 221.832,203.48 227.971,202.628 234.109,201.796 240.248,200.982 246.386,200.193 252.524,199.414 
@@ -13562,7 +13534,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#00a9ad; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#00a9ad; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,172.294 80.6493,172.427 86.7877,172.607 92.9261,172.832 99.0645,173.101 105.203,173.413 111.341,173.766 117.48,174.159 123.618,174.59 129.757,175.057 
   135.895,175.56 142.033,176.097 148.172,176.665 154.31,177.265 160.449,177.894 166.587,178.55 172.725,179.233 178.864,179.941 185.002,180.672 191.14,181.419 
   197.279,182.192 203.417,182.985 209.556,183.796 215.694,184.624 221.832,185.468 227.971,186.326 234.109,187.198 240.248,188.082 246.386,188.971 252.524,189.877 
@@ -13573,7 +13545,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#ed5d92; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#ed5d92; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,241.573 80.6493,239.496 86.7877,237.477 92.9261,235.516 99.0645,233.609 105.203,231.756 111.341,229.956 117.48,228.206 123.618,226.506 129.757,224.854 
   135.895,223.249 142.033,221.69 148.172,220.176 154.31,218.706 160.449,217.277 166.587,215.89 172.725,214.543 178.864,213.234 185.002,211.963 191.14,210.738 
   197.279,209.539 203.417,208.374 209.556,207.242 215.694,206.142 221.832,205.073 227.971,204.033 234.109,203.022 240.248,202.038 246.386,201.088 252.524,200.157 
@@ -13584,7 +13556,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#c68125; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#c68125; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,255.163 80.6493,251.501 86.7877,248.054 92.9261,244.807 99.0645,241.745 105.203,238.854 111.341,236.122 117.48,233.538 123.618,231.092 129.757,228.773 
   135.895,226.573 142.033,224.485 148.172,222.501 154.31,220.614 160.449,218.818 166.587,217.107 172.725,215.477 178.864,213.922 185.002,212.439 191.14,211.032 
   197.279,209.679 203.417,208.386 209.556,207.149 215.694,205.966 221.832,204.833 227.971,203.748 234.109,202.709 240.248,201.713 246.386,200.765 252.524,199.849 
@@ -13595,7 +13567,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#00a98d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#00a98d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,209.006 80.6493,207.209 86.7877,205.647 92.9261,204.29 99.0645,203.111 105.203,202.089 111.341,201.202 117.48,200.434 123.618,199.769 129.757,199.193 
   135.895,198.695 142.033,198.265 148.172,197.893 154.31,197.571 160.449,197.293 166.587,197.053 172.725,196.844 178.864,196.664 185.002,196.507 191.14,196.371 
   197.279,196.25 203.417,196.144 209.556,196.05 215.694,195.966 221.832,195.889 227.971,195.819 234.109,195.753 240.248,195.692 246.386,195.633 252.524,195.576 
@@ -13606,7 +13578,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#8e971d; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#8e971d; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,183.883 80.6493,183.313 86.7877,182.849 92.9261,182.483 99.0645,182.21 105.203,182.021 111.341,181.913 117.48,181.877 123.618,181.91 129.757,182.005 
   135.895,182.158 142.033,182.363 148.172,182.618 154.31,182.918 160.449,183.258 166.587,183.636 172.725,184.048 178.864,184.492 185.002,184.964 191.14,185.457 
   197.279,185.978 203.417,186.52 209.556,187.081 215.694,187.659 221.832,188.252 227.971,188.86 234.109,189.479 240.248,190.11 246.386,190.746 252.524,191.395 
@@ -13617,7 +13589,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#00a8cb; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#00a8cb; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,238.411 80.6493,235.364 86.7877,232.541 92.9261,229.922 99.0645,227.49 105.203,225.229 111.341,223.125 117.48,221.166 123.618,219.338 129.757,217.632 
   135.895,216.038 142.033,214.547 148.172,213.151 154.31,211.843 160.449,210.617 166.587,209.466 172.725,208.385 178.864,207.369 185.002,206.413 191.14,205.52 
   197.279,204.674 203.417,203.875 209.556,203.123 215.694,202.413 221.832,201.742 227.971,201.109 234.109,200.51 240.248,199.943 246.386,199.411 252.524,198.903 
@@ -13628,7 +13600,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#9b7fe8; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#9b7fe8; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,219.998 80.6493,220.005 86.7877,219.893 92.9261,219.677 99.0645,219.372 105.203,218.991 111.341,218.543 117.48,218.039 123.618,217.487 129.757,216.894 
   135.895,216.266 142.033,215.608 148.172,214.925 154.31,214.222 160.449,213.502 166.587,212.768 172.725,212.023 178.864,211.269 185.002,210.508 191.14,209.747 
   197.279,208.979 203.417,208.208 209.556,207.436 215.694,206.664 221.832,205.894 227.971,205.125 234.109,204.358 240.248,203.595 246.386,202.84 252.524,202.084 
@@ -13639,7 +13611,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#608cf6; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#608cf6; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,214.708 80.6493,214.232 86.7877,213.729 92.9261,213.207 99.0645,212.67 105.203,212.124 111.341,211.571 117.48,211.016 123.618,210.459 129.757,209.904 
   135.895,209.35 142.033,208.8 148.172,208.253 154.31,207.711 160.449,207.174 166.587,206.641 172.725,206.113 178.864,205.59 185.002,205.071 191.14,204.561 
   197.279,204.052 203.417,203.547 209.556,203.046 215.694,202.548 221.832,202.055 227.971,201.564 234.109,201.077 240.248,200.593 246.386,200.115 252.524,199.636 
@@ -13650,7 +13622,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#f05f73; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#f05f73; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,235.587 80.6493,233.483 86.7877,231.479 92.9261,229.572 99.0645,227.759 105.203,226.035 111.341,224.396 117.48,222.837 123.618,221.353 129.757,219.94 
   135.895,218.594 142.033,217.31 148.172,216.084 154.31,214.911 160.449,213.789 166.587,212.714 172.725,211.682 178.864,210.691 185.002,209.737 191.14,208.823 
   197.279,207.937 203.417,207.08 209.556,206.25 215.694,205.447 221.832,204.667 227.971,203.909 234.109,203.171 240.248,202.452 246.386,201.755 252.524,201.069 
@@ -13661,7 +13633,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#dd64b5; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#dd64b5; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,223.339 80.6493,222.434 86.7877,221.571 92.9261,220.743 99.0645,219.944 105.203,219.169 111.341,218.413 117.48,217.672 123.618,216.943 129.757,216.223 
   135.895,215.511 142.033,214.803 148.172,214.098 154.31,213.396 160.449,212.694 166.587,211.993 172.725,211.292 178.864,210.59 185.002,209.886 191.14,209.185 
   197.279,208.479 203.417,207.771 209.556,207.06 215.694,206.348 221.832,205.634 227.971,204.918 234.109,204.2 240.248,203.48 246.386,202.764 252.524,202.041 
@@ -13672,7 +13644,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#6b9e32; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#6b9e32; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,239.185 80.6493,237.731 86.7877,236.31 92.9261,234.92 99.0645,233.561 105.203,232.229 111.341,230.924 117.48,229.642 123.618,228.382 129.757,227.143 
   135.895,225.922 142.033,224.719 148.172,223.532 154.31,222.359 160.449,221.2 166.587,220.053 172.725,218.918 178.864,217.793 185.002,216.677 191.14,215.577 
   197.279,214.479 203.417,213.389 209.556,212.305 215.694,211.228 221.832,210.156 227.971,209.09 234.109,208.029 240.248,206.972 246.386,205.927 252.524,204.88 
@@ -13683,7 +13655,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#718c69; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#718c69; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,231.069 80.6493,228.943 86.7877,226.932 92.9261,225.029 99.0645,223.226 105.203,221.515 111.341,219.892 117.48,218.35 123.618,216.885 129.757,215.492 
   135.895,214.168 142.033,212.908 148.172,211.709 154.31,210.569 160.449,209.484 166.587,208.452 172.725,207.47 178.864,206.537 185.002,205.65 191.14,204.813 
   197.279,204.013 203.417,203.254 209.556,202.534 215.694,201.852 221.832,201.206 227.971,200.595 234.109,200.017 240.248,199.473 246.386,198.963 252.524,198.479 
@@ -13694,7 +13666,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#47988b; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#47988b; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,161.123 80.6493,163.34 86.7877,165.408 92.9261,167.339 99.0645,169.144 105.203,170.835 111.341,172.421 117.48,173.91 123.618,175.309 129.757,176.626 
   135.895,177.866 142.033,179.036 148.172,180.14 154.31,181.182 160.449,182.167 166.587,183.099 172.725,183.981 178.864,184.817 185.002,185.608 191.14,186.353 
   197.279,187.064 203.417,187.738 209.556,188.378 215.694,188.985 221.832,189.561 227.971,190.109 234.109,190.628 240.248,191.122 246.386,191.588 252.524,192.033 
@@ -13705,7 +13677,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#1ea68c; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#1ea68c; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,145.364 80.6493,148.86 86.7877,152.088 92.9261,155.07 99.0645,157.831 105.203,160.388 111.341,162.762 117.48,164.968 123.618,167.022 129.757,168.937 
   135.895,170.725 142.033,172.397 148.172,173.963 154.31,175.432 160.449,176.813 166.587,178.111 172.725,179.334 178.864,180.488 185.002,181.578 191.14,182.603 
   197.279,183.579 203.417,184.505 209.556,185.385 215.694,186.22 221.832,187.016 227.971,187.773 234.109,188.496 240.248,189.186 246.386,189.84 252.524,190.47 
@@ -13716,7 +13688,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
   504.199,195.249 510.337,195.249 516.476,195.249 522.614,195.249 528.752,195.249 534.891,195.249 541.029,195.249 547.168,195.249 553.306,195.249 559.444,195.249 
   565.583,195.249 
   "/>
-<polyline clip-path="url(#clip0702)" style="stroke:#af78dd; stroke-width:1; stroke-opacity:1; fill:none" points="
+<polyline clip-path="url(#clip2602)" style="stroke:#af78dd; stroke-width:1; stroke-opacity:1; fill:none" points="
   74.5109,161.148 80.6493,160.951 86.7877,160.921 92.9261,161.036 99.0645,161.281 105.203,161.64 111.341,162.098 117.48,162.645 123.618,163.269 129.757,163.962 
   135.895,164.714 142.033,165.52 148.172,166.372 154.31,167.265 160.449,168.194 166.587,169.155 172.725,170.144 178.864,171.157 185.002,172.192 191.14,173.24 
   197.279,174.31 203.417,175.395 209.556,176.493 215.694,177.602 221.832,178.721 227.971,179.848 234.109,180.983 240.248,182.124 246.386,183.262 252.524,184.412 
@@ -13733,13 +13705,6 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
 
 </div>
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>  1.142366 seconds (432.35 k allocations: 243.776 MiB, 33.54% gc time)
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -13749,14 +13714,14 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Example:-matrix-completion">Example: matrix completion<a class="anchor-link" href="#Example:-matrix-completion">&#182;</a></h2><p>Load the $128 \times 128$ Lena picture with missing pixels.</p>
+<h3 id="Example:-matrix-completion">Example: matrix completion<a class="anchor-link" href="#Example:-matrix-completion">&#182;</a></h3><p>Load the $128 \times 128$ Lena picture with missing pixels.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[159]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">Images</span>
@@ -13772,7 +13737,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[159]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
 
 
 <div class="output_png output_subarea output_execute_result">
@@ -13788,7 +13753,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[155]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># convert to real matrices</span>
@@ -13803,7 +13768,7 @@ HoF/XcfdZKtDEnrvujU5sF38mC9BUpJ4bDrx8hoTRPI87QlshwJAzlkkNcZQrVWXQU//0rfM7OdV
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[155]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13855,13 +13820,14 @@ $$
     \text{subject to } x_{ij} = y_{ij} \text{ for all observed entries } (i, j).
 $$
 Here $\|\mathbf{M}\|_* = \sum_i \sigma_i(\mathbf{M})$ is the nuclear norm. In words we seek the matrix with minimal nuclear norm that agrees with the observed entries. This is a semidefinite programming (SDP) problem readily modeled by Convex.jl.</p>
+<p>This example takes long because of high dimensionality. <strong>Don't run on server</strong></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># Use Mosek solver</span>
@@ -13910,7 +13876,7 @@ Eliminator terminated.
 Eliminator - tries                  : 1                 time                   : 0.00            
 Lin. dep.  - tries                  : 1                 time                   : 0.01            
 Lin. dep.  - number                 : 0               
-Presolve terminated. Time: 0.05    
+Presolve terminated. Time: 0.06    
 Problem
   Name                   :                 
   Objective sense        : min             
@@ -13927,16 +13893,31 @@ Optimizer  - Constraints            : 32896
 Optimizer  - Cones                  : 1
 Optimizer  - Scalar variables       : 24769             conic                  : 24769           
 Optimizer  - Semi-definite variables: 1                 scalarized             : 32896           
-Factor     - setup time             : 237.92            dense det. time        : 0.00            
-Factor     - ML order time          : 210.25            GP order time          : 0.00            
+Factor     - setup time             : 252.15            dense det. time        : 0.00            
+Factor     - ML order time          : 221.92            GP order time          : 0.00            
 Factor     - nonzeros before factor : 5.41e+08          after factor           : 5.41e+08        
 Factor     - dense dim.             : 2                 flops                  : 1.19e+13        
 ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
-0   1.0e+00  1.0e+00  1.0e+00  0.00e+00   0.000000000e+00   0.000000000e+00   1.0e+00  238.03
-1   3.7e-01  3.7e-01  2.3e-01  -9.40e-01  2.723707186e+02   2.783663417e+02   3.7e-01  374.41
-2   3.1e-01  3.1e-01  5.4e-01  2.89e-01   1.669310739e+02   1.662436137e+02   3.1e-01  517.06
-3   5.4e-02  5.4e-02  5.3e-01  8.69e-01   1.629170332e+02   1.627092805e+02   5.4e-02  685.79
-</pre>
+0   1.0e+00  1.0e+00  1.0e+00  0.00e+00   0.000000000e+00   0.000000000e+00   1.0e+00  252.34
+1   3.7e-01  3.7e-01  2.3e-01  -9.40e-01  2.723707186e+02   2.783663417e+02   3.7e-01  394.89
+2   3.1e-01  3.1e-01  5.4e-01  2.89e-01   1.669310739e+02   1.662436137e+02   3.1e-01  574.30
+3   5.4e-02  5.4e-02  5.3e-01  8.69e-01   1.629170332e+02   1.627092805e+02   5.4e-02  750.80
+4   4.3e-03  4.3e-03  7.1e-02  1.20e+00   1.486177530e+02   1.486148653e+02   4.3e-03  919.19
+5   1.6e-03  1.6e-03  4.2e-02  1.01e+00   1.483660057e+02   1.483651653e+02   1.6e-03  1090.31
+6   4.5e-05  4.5e-05  2.9e-02  1.00e+00   1.479825741e+02   1.479824023e+02   4.5e-05  1248.56
+7   1.4e-05  1.4e-05  5.5e-03  1.00e+00   1.479752237e+02   1.479751933e+02   1.4e-05  1416.39
+8   3.5e-07  3.5e-07  2.4e-03  1.00e+00   1.479711706e+02   1.479711693e+02   3.5e-07  1591.82
+9   9.0e-08  8.2e-08  3.6e-04  1.00e+00   1.479711087e+02   1.479711086e+02   8.3e-08  1765.07
+10  1.6e-09  1.4e-09  8.7e-05  1.00e+00   1.479710826e+02   1.479710826e+02   1.3e-09  1928.59
+Optimizer terminated. Time: 1929.06 
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 1.4797108260e+02    nrm: 1e+02    Viol.  con: 3e-09    var: 0e+00    barvar: 0e+00  
+  Dual.    obj: 1.4797108259e+02    nrm: 1e+00    Viol.  con: 0e+00    var: 6e-10    barvar: 3e-09  
+1935</pre>
 </div>
 </div>
 
@@ -13946,13 +13927,30 @@ ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">grayim</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">colorview</span><span class="p">(</span><span class="n">Gray</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+
+
+<div class="output_png output_subarea output_execute_result">
+<img src="data:image/png;base64,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"
+>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -13962,19 +13960,307 @@ ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Nonlinear-programming-(NLP)">Nonlinear programming (NLP)<a class="anchor-link" href="#Nonlinear-programming-(NLP)">&#182;</a></h1>
+<h2 id="Nonlinear-programming-(NLP)">Nonlinear programming (NLP)<a class="anchor-link" href="#Nonlinear-programming-(NLP)">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We use MLE of Gamma distribution to illustrate some rudiments of nonlinear programming (NLP) in Julia.</p>
+<p>Let $x_1,\ldots,x_m$ be a random sample from the gamma density
+$$
+f(x) = \Gamma(\alpha)^{-1} \beta^{\alpha} x^{\alpha-1} e^{-\beta x}
+$$
+on $(0,\infty)$. The loglikelihood function is
+$$
+    L(\alpha, \beta) = m [- \ln \Gamma(\alpha) + \alpha \ln \beta + (\alpha - 1)\overline{\ln x} - \beta \bar x],
+$$
+where $\overline{x} = \frac{1}{m} \sum_{i=1}^m x_i$ and 
+$\overline{\ln x} = \frac{1}{m} \sum_{i=1}^m \ln x_i$. Following function 
+evaluates the log-pdf of one data point <code>x</code> at parameter <code>α</code> and <code>β</code>.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span>
+<div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">gamma_logpdf</span><span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="kt">Vector</span><span class="p">,</span> <span class="n">α</span><span class="o">::</span><span class="kt">Real</span><span class="p">,</span> <span class="n">β</span><span class="o">::</span><span class="kt">Real</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">avg</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">logavg</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span>
+    <span class="n">m</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span> <span class="n">lgamma</span><span class="p">(</span><span class="n">α</span><span class="p">)</span> <span class="o">+</span> <span class="n">α</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">β</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">α</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">logavg</span> <span class="o">-</span> <span class="n">β</span> <span class="o">*</span> <span class="n">avg</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">gamma_logpdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[20]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-3.4974694457742057</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Many optimization algorithms involve taking derivatives of the objective function. The <code>ForwardDiff</code> package implements automatic differentiation. For example, to compute the derivative and Hessian of the log-likelihood with data <code>x</code> at <code>α=1.0</code> and <code>β=1.0</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">ForwardDiff</span>
+<span class="n">ForwardDiff</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">r</span> <span class="o">-&gt;</span> <span class="n">gamma_logpdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">r</span><span class="o">...</span><span class="p">),</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">;</span> <span class="mf">1.0</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>2-element Array{Float64,1}:
+ 0.540624
+ 1.50253 </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">ForwardDiff</span><span class="o">.</span><span class="n">hessian</span><span class="p">(</span><span class="n">r</span> <span class="o">-&gt;</span> <span class="n">gamma_logpdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">r</span><span class="o">...</span><span class="p">),</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">;</span> <span class="mf">1.0</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>2×2 Array{Float64,2}:
+ -8.22467   5.0
+  5.0      -5.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Generate data:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">Distributions</span>
+
+<span class="n">srand</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">(</span><span class="n">α</span><span class="p">,</span> <span class="n">β</span><span class="p">)</span> <span class="o">=</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="n">rand</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="n">Gamma</span><span class="p">(</span><span class="n">α</span><span class="p">,</span> <span class="n">β</span><span class="p">),</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;True parameter values:&quot;</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;α = &quot;</span><span class="p">,</span> <span class="n">α</span><span class="p">,</span> <span class="s">&quot;, β = &quot;</span><span class="p">,</span> <span class="n">β</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>True parameter values:
+α = 3.8422383759828493, β = 4.7025750035759355
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We use JuMP.jl to define and solve our NLP problem.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">JuMP</span><span class="p">,</span> <span class="n">Ipopt</span><span class="p">,</span> <span class="n">NLopt</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">solver</span> <span class="o">=</span> <span class="n">IpoptSolver</span><span class="p">())</span>
+<span class="c"># m = Model(solver = NLoptSolver(algorithm=:LD_MMA))</span>
+
+<span class="n">myf</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">=</span> <span class="n">gamma_logpdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">JuMP</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="o">:</span><span class="n">myf</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">myf</span><span class="p">,</span> <span class="n">autodiff</span><span class="o">=</span><span class="kc">true</span><span class="p">)</span>
+<span class="nd">@variable</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">α</span> <span class="o">&gt;=</span> <span class="mf">1e-8</span><span class="p">)</span>
+<span class="nd">@variable</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">β</span> <span class="o">&gt;=</span> <span class="mf">1e-8</span><span class="p">)</span>
+<span class="nd">@NLobjective</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">Max</span><span class="p">,</span> <span class="n">myf</span><span class="p">(</span><span class="n">α</span><span class="p">,</span> <span class="n">β</span><span class="p">))</span>
+
+<span class="n">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="n">status</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;MLE (JuMP):&quot;</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;α = &quot;</span><span class="p">,</span> <span class="n">α</span><span class="p">,</span> <span class="s">&quot;, β = &quot;</span><span class="p">,</span> <span class="n">β</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Objective value: &quot;</span><span class="p">,</span> <span class="n">getobjectivevalue</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;α = &quot;</span><span class="p">,</span> <span class="n">getvalue</span><span class="p">(</span><span class="n">α</span><span class="p">),</span> <span class="s">&quot;, β = &quot;</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">getvalue</span><span class="p">(</span><span class="n">β</span><span class="p">))</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;MLE (Distribution package):&quot;</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="n">fit_mle</span><span class="p">(</span><span class="n">Gamma</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Max myf(α, β)
+Subject to
+ α ≥ 1.0e-8
+ β ≥ 1.0e-8
+This is Ipopt version 3.12.8, running with linear solver mumps.
+NOTE: Other linear solvers might be more efficient (see Ipopt documentation).
+
+Number of nonzeros in equality constraint Jacobian...:        0
+Number of nonzeros in inequality constraint Jacobian.:        0
+Number of nonzeros in Lagrangian Hessian.............:        0
+
+Total number of variables............................:        2
+                     variables with only lower bounds:        2
+                variables with lower and upper bounds:        0
+                     variables with only upper bounds:        0
+Total number of equality constraints.................:        0
+Total number of inequality constraints...............:        0
+        inequality constraints with only lower bounds:        0
+   inequality constraints with lower and upper bounds:        0
+        inequality constraints with only upper bounds:        0
+
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+   0  7.5698219e+03 0.00e+00 9.87e+04   0.0 0.00e+00    -  0.00e+00 0.00e+00   0
+   1  5.8732615e+03 0.00e+00 6.47e+05   0.0 9.78e+02    -  1.01e-05 5.78e-05f  1
+   2  4.6949128e+03 0.00e+00 1.10e+04  -1.4 2.64e-01    -  8.79e-03 1.00e+00f  1
+   3  4.6767773e+03 0.00e+00 1.09e+04  -3.8 7.76e-03    -  1.00e+00 1.00e+00f  1
+   4  4.2445697e+03 0.00e+00 7.30e+03  -4.3 2.70e-01    -  1.00e+00 1.00e+00f  1
+   5  4.0314255e+03 0.00e+00 4.87e+03  -5.8 2.38e-01    -  1.00e+00 1.00e+00f  1
+   6  3.8358281e+03 0.00e+00 1.90e+03  -6.1 3.79e-01    -  1.00e+00 1.00e+00f  1
+   7  3.7247593e+03 0.00e+00 1.83e+02  -6.7 4.20e-01    -  1.00e+00 1.00e+00f  1
+   8  3.7001817e+03 0.00e+00 2.93e+03  -6.0 5.85e+00    -  1.00e+00 6.25e-02f  5
+   9  3.6065608e+03 0.00e+00 5.01e+02  -6.6 7.66e-01    -  1.00e+00 1.00e+00f  1
+iter    objective    inf_pr   inf_du lg(mu)  ||d||  lg(rg) alpha_du alpha_pr  ls
+  10  3.5922093e+03 0.00e+00 7.90e+01  -7.3 3.92e-01    -  1.00e+00 1.00e+00f  1
+  11  3.5876013e+03 0.00e+00 3.60e+01  -8.2 3.39e-01    -  1.00e+00 1.00e+00f  1
+  12  3.5872627e+03 0.00e+00 2.30e+01  -9.6 1.09e-01    -  1.00e+00 1.00e+00f  1
+  13  3.5872531e+03 0.00e+00 7.71e+00 -11.0 1.80e-02    -  1.00e+00 1.00e+00f  1
+  14  3.5872528e+03 0.00e+00 5.21e-01 -11.0 4.15e-03    -  1.00e+00 2.50e-01f  3
+  15  3.5872528e+03 0.00e+00 2.35e-01 -11.0 3.32e-03    -  1.00e+00 5.00e-01f  2
+  16  3.5872528e+03 0.00e+00 9.05e-03 -11.0 1.34e-04    -  1.00e+00 1.00e+00f  1
+  17  3.5872528e+03 0.00e+00 1.66e-04 -11.0 1.22e-06    -  1.00e+00 1.00e+00f  1
+  18  3.5872528e+03 0.00e+00 1.95e-08 -11.0 7.86e-08    -  1.00e+00 1.00e+00f  1
+  19  3.5872528e+03 0.00e+00 2.00e-10 -11.0 3.85e-11    -  1.00e+00 1.00e+00f  1
+
+Number of Iterations....: 19
+
+                                   (scaled)                 (unscaled)
+Objective...............:   3.5872527661489071e+03    3.5872527661489071e+03
+Dual infeasibility......:   1.9980143468884604e-10    1.9980143468884604e-10
+Constraint violation....:   0.0000000000000000e+00    0.0000000000000000e+00
+Complementarity.........:   9.9999999999999994e-12    9.9999999999999994e-12
+Overall NLP error.......:   1.9980143468884604e-10    1.9980143468884604e-10
+
+
+Number of objective function evaluations             = 39
+Number of objective gradient evaluations             = 20
+Number of equality constraint evaluations            = 0
+Number of inequality constraint evaluations          = 0
+Number of equality constraint Jacobian evaluations   = 0
+Number of inequality constraint Jacobian evaluations = 0
+Number of Lagrangian Hessian evaluations             = 0
+Total CPU secs in IPOPT (w/o function evaluations)   =      0.025
+Total CPU secs in NLP function evaluations           =      0.002
+
+EXIT: Optimal Solution Found.
+MLE (JuMP):
+α = α, β = β
+Objective value: -3587.252766148907
+α = 3.6354635513744764, β = 5.058746017922499
+MLE (Distribution package):
+Distributions.Gamma{Float64}(α=3.635463551374483, θ=5.058746017922447)
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
