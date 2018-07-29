@@ -1,0 +1,14 @@
+#
+# Input and Output files.
+#
+pedigree_file = gwas_2_ped.txt
+snpdefinition_file = gwas_2_snpdef.txt
+snpdata_file = gwas_1_data.bed
+output_file = gwas_2_Output.txt
+manhattan_plot_file = gwas_2_Output_Manhattan_Plot.png
+#
+# Analysis parameters for GWAS option.
+#
+regression = logistic
+regression_formula = Case_Control ~ Sex + BMI
+affected_designator = 1
