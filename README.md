@@ -10,6 +10,14 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 
 * Hua Zhou, Associate Professor, Biostatistics, UCLA  
 
+## Course assistants
+
+* Chris German, PhD student, UCLA
+
+* Sarah Ji, PhD student, UCLA
+
+* Juhyun Kim, PhD student, UCLA
+
 ## Syllabus
 
 | Time | Topic | Instructor |  
