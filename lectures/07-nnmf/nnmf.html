@@ -11766,7 +11766,6 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Nonnegative-Matrix-Factorization---Put-It-Together">Nonnegative Matrix Factorization - Put It Together<a class="anchor-link" href="#Nonnegative-Matrix-Factorization---Put-It-Together">&#182;</a></h1><p>In this session, we use techniques (numerical linear algebra, profiling, GPU) we learnt so far to implement the algorithm for nonnegative matrix factorization (NNMF).</p>
-<p>Machine information:</p>
 
 </div>
 </div>
@@ -11850,7 +11849,7 @@ where $.*$ and $./$ are elementwise multiplication and elementwise division resp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">srand</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span> <span class="c"># seed</span>
@@ -11867,7 +11866,7 @@ where $.*$ and $./$ are elementwise multiplication and elementwise division resp
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -11981,7 +11980,7 @@ where $.*$ and $./$ are elementwise multiplication and elementwise division resp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">V0</span><span class="p">,</span> <span class="n">W0</span> <span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span> <span class="n">ones</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="c"># start point</span>
@@ -11999,13 +11998,20 @@ where $.*$ and $./$ are elementwise multiplication and elementwise division resp
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>([0.00776078 0.00776078 … 0.00776078 0.00776078; 0.00784003 0.00784003 … 0.00784003 0.00784003; … ; 0.00765134 0.00765134 … 0.00765134 0.00765134; 0.00795023 0.00795023 … 0.00795023 0.00795023], [0.999757 0.981911 … 0.973329 0.996982; 0.999757 0.981911 … 0.973329 0.996982; … ; 0.999757 0.981911 … 0.973329 0.996982; 0.999757 0.981911 … 0.973329 0.996982])</pre>
 </div>
 
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  3.228203 seconds (2.69 k allocations: 5.308 GiB, 21.77% gc time)
+</pre>
+</div>
 </div>
 
 </div>
@@ -12024,7 +12030,7 @@ where $.*$ and $./$ are elementwise multiplication and elementwise division resp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@code_warntype</span> <span class="n">nnmf1</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">V0</span><span class="p">,</span> <span class="n">W0</span><span class="p">)</span>
@@ -12040,8 +12046,7 @@ where $.*$ and $./$ are elementwise multiplication and elementwise division resp
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  3.207919 seconds (2.61 k allocations: 5.308 GiB, 21.03% gc time)
-Variables:
+<pre>Variables:
   #self# &lt;optimized out&gt;
   X::Array{Float64,2}
   r &lt;optimized out&gt;
@@ -12772,7 +12777,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">fill!</span><span class="p">(</span><span class="n">V0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -12793,72 +12798,66 @@ Body:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre> Count File                        Line Function                               
-  1055 ./&lt;missing&gt;                   -1 anonymous                              
-     7 ./In[3]                       12 nnmf1(::Array{Float64,2}, ::Int64, ... 
-   159 ./In[3]                       15 nnmf1(::Array{Float64,2}, ::Int64, ... 
-   257 ./In[3]                       16 nnmf1(::Array{Float64,2}, ::Int64, ... 
-   632 ./In[3]                       19 nnmf1(::Array{Float64,2}, ::Int64, ... 
+  1177 ./&lt;missing&gt;                   -1 anonymous                              
+     6 ./In[3]                       12 nnmf1(::Array{Float64,2}, ::Int64, ... 
+   266 ./In[3]                       15 nnmf1(::Array{Float64,2}, ::Int64, ... 
+   258 ./In[3]                       16 nnmf1(::Array{Float64,2}, ::Int64, ... 
+   647 ./In[3]                       19 nnmf1(::Array{Float64,2}, ::Int64, ... 
      1 ./abstractarray.jl           573 copy!(::Array{Any,1}, ::Core.Infere... 
      1 ./array.jl                   391 _collect(::Type{Any}, ::Core.Infere... 
      1 ./array.jl                   388 collect(::Type{Any}, ::Core.Inferen... 
-   584 ./arraymath.jl                39 -(::Array{Float64,2}, ::Array{Float... 
-   317 ./broadcast.jl               141 _broadcast!                            
-   707 ./broadcast.jl               455 broadcast                              
-   707 ./broadcast.jl               316 broadcast_c                            
-   390 ./broadcast.jl               268 broadcast_t                            
-   317 ./broadcast.jl               270 broadcast_t                            
-   317 ./broadcast.jl               149 macro expansion                        
-   167 ./broadcast.jl               153 macro expansion                        
-    38 ./broadcast.jl               155 macro expansion                        
-   109 ./broadcast.jl               156 macro expansion                        
-     1 ./checked.jl                 222 checked_sub                            
+   596 ./arraymath.jl                39 -(::Array{Float64,2}, ::Array{Float... 
+   358 ./broadcast.jl               141 _broadcast!                            
+   770 ./broadcast.jl               455 broadcast                              
+   770 ./broadcast.jl               316 broadcast_c                            
+   412 ./broadcast.jl               268 broadcast_t                            
+   358 ./broadcast.jl               270 broadcast_t                            
+   358 ./broadcast.jl               149 macro expansion                        
+   181 ./broadcast.jl               153 macro expansion                        
+    59 ./broadcast.jl               155 macro expansion                        
+   113 ./broadcast.jl               156 macro expansion                        
      1 ./generator.jl                45 next(::Core.Inference.Generator{Arr... 
-     3 ./inference.jl              1897 abstract_call(::Any, ::Array{Any,1}... 
+     4 ./inference.jl              1897 abstract_call(::Any, ::Array{Any,1}... 
+     1 ./inference.jl              1329 abstract_call_gf_by_type(::Any, ::A... 
      3 ./inference.jl              1420 abstract_call_gf_by_type(::Any, ::A... 
-     4 ./inference.jl              1950 abstract_eval(::Any, ::Array{Any,1}... 
+     5 ./inference.jl              1950 abstract_eval(::Any, ::Array{Any,1}... 
+     1 ./inference.jl              1978 abstract_eval(::Any, ::Array{Any,1}... 
      1 ./inference.jl              1901 abstract_eval_call(::Expr, ::Array{... 
-     3 ./inference.jl              1927 abstract_eval_call(::Expr, ::Array{... 
-     1 ./inference.jl              3795 inlineable(::Any, ::Any, ::Expr, ::... 
-     1 ./inference.jl              4265 inlining_pass!(::Core.Inference.Inf... 
-     1 ./inference.jl              4327 inlining_pass(::Expr, ::Core.Infere... 
-     1 ./inference.jl              4428 inlining_pass(::Expr, ::Core.Infere... 
-     1 ./inference.jl              2905 optimize(::Core.Inference.Inference... 
-     3 ./inference.jl              2787 typeinf(::Core.Inference.InferenceS... 
-     1 ./inference.jl              2816 typeinf(::Core.Inference.InferenceS... 
+     4 ./inference.jl              1927 abstract_eval_call(::Expr, ::Array{... 
+     4 ./inference.jl              2787 typeinf(::Core.Inference.InferenceS... 
      1 ./inference.jl              2583 typeinf_code(::Core.MethodInstance,... 
      3 ./inference.jl              2535 typeinf_edge(::Method, ::Any, ::Sim... 
      1 ./inference.jl              2622 typeinf_ext(::Core.MethodInstance, ... 
      1 ./inference.jl              2504 typeinf_frame(::Core.MethodInstance... 
-     3 ./inference.jl              2722 typeinf_work(::Core.Inference.Infer... 
-     1 ./inference.jl              2161 widenconst(::Core.Inference.Const)     
-   324 ./linalg/blas.jl            1027 gemm!(::Char, ::Char, ::Float64, ::... 
-     7 ./linalg/matmul.jl           146 *                                      
-   105 ./linalg/matmul.jl           191 A_mul_Bt!                              
-   106 ./linalg/matmul.jl           189 A_mul_Bt(::Array{Float64,2}, ::Arra... 
-   103 ./linalg/matmul.jl           184 At_mul_B!                              
-   103 ./linalg/matmul.jl           182 At_mul_B(::Array{Float64,2}, ::Arra... 
-   324 ./linalg/matmul.jl           367 gemm_wrapper!(::Array{Float64,2}, :... 
-    16 ./linalg/transpose.jl        121 transpose(::Array{Float64,2})          
-    16 ./linalg/transpose.jl         59 transpose_f!(::Base.#transpose, ::A... 
-     2 ./linalg/transpose.jl         67 transposeblock!(::Base.#transpose, ... 
-    13 ./linalg/transpose.jl         68 transposeblock!(::Base.#transpose, ... 
-    59 ./linalg/transpose.jl         74 transposeblock!(::Base.#transpose, ... 
-    69 ./linalg/transpose.jl         75 transposeblock!(::Base.#transpose, ... 
-    42 ./linalg/transpose.jl         78 transposeblock!(::Base.#transpose, ... 
-     6 ./linalg/transpose.jl         79 transposeblock!(::Base.#transpose, ... 
-     1 ./linalg/transpose.jl         81 transposeblock!(::Base.#transpose, ... 
-  1056 ./loading.jl                 522 include_string(::String, ::String)     
-   109 ./multidimensional.jl        300 setindex!                              
-    68 ./operators.jl               424 *                                      
-  1055 ./profile.jl                  23 macro expansion                        
-     1 ./range.jl                   721 +(::Int64, ::UnitRange{Int64})         
-     1 ./range.jl                   393 length                                 
-   314 ./simdloop.jl                 73 macro expansion                        
-     3 ./simdloop.jl                 74 macro expansion                        
-  1056 ./task.jl                    335 (::IJulia.##15#18)()                   
-  1056 ....6/Compat/src/Compat.jl   332 (::Compat.#inner#14{Array{Any,1},IJ... 
-  1056 ...IJulia/src/eventloop.jl     8 eventloop(::ZMQ.Socket)                
-  1056 .../src/execute_request.jl   180 execute_request(::ZMQ.Socket, ::IJu... 
+     4 ./inference.jl              2722 typeinf_work(::Core.Inference.Infer... 
+   350 ./linalg/blas.jl            1027 gemm!(::Char, ::Char, ::Float64, ::... 
+     6 ./linalg/matmul.jl           146 *                                      
+    93 ./linalg/matmul.jl           191 A_mul_Bt!                              
+    93 ./linalg/matmul.jl           189 A_mul_Bt(::Array{Float64,2}, ::Arra... 
+    77 ./linalg/matmul.jl           184 At_mul_B!                              
+    79 ./linalg/matmul.jl           182 At_mul_B(::Array{Float64,2}, ::Arra... 
+   351 ./linalg/matmul.jl           367 gemm_wrapper!(::Array{Float64,2}, :... 
+    48 ./linalg/transpose.jl        121 transpose(::Array{Float64,2})          
+    48 ./linalg/transpose.jl         59 transpose_f!(::Base.#transpose, ::A... 
+     2 ./linalg/transpose.jl         66 transposeblock!(::Base.#transpose, ... 
+     3 ./linalg/transpose.jl         67 transposeblock!(::Base.#transpose, ... 
+    40 ./linalg/transpose.jl         68 transposeblock!(::Base.#transpose, ... 
+   200 ./linalg/transpose.jl         74 transposeblock!(::Base.#transpose, ... 
+   176 ./linalg/transpose.jl         75 transposeblock!(::Base.#transpose, ... 
+   121 ./linalg/transpose.jl         78 transposeblock!(::Base.#transpose, ... 
+    25 ./linalg/transpose.jl         79 transposeblock!(::Base.#transpose, ... 
+  1178 ./loading.jl                 522 include_string(::String, ::String)     
+   113 ./multidimensional.jl        300 setindex!                              
+   130 ./operators.jl               424 *                                      
+  1177 ./profile.jl                  23 macro expansion                        
+     2 ./range.jl                   721 +(::Int64, ::UnitRange{Int64})         
+     1 ./simdloop.jl                 66 macro expansion                        
+   353 ./simdloop.jl                 73 macro expansion                        
+     4 ./simdloop.jl                 74 macro expansion                        
+  1178 ./task.jl                    335 (::IJulia.##15#18)()                   
+  1178 ....6/Compat/src/Compat.jl   332 (::Compat.#inner#14{Array{Any,1},IJ... 
+  1178 ...IJulia/src/eventloop.jl     8 eventloop(::ZMQ.Socket)                
+  1178 .../src/execute_request.jl   180 execute_request(::ZMQ.Socket, ::IJu... 
 </pre>
 </div>
 </div>
@@ -12879,7 +12878,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">nnmf2</span><span class="p">(</span>
@@ -12917,7 +12916,7 @@ Body:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12942,7 +12941,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">nnmf2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">V0</span><span class="p">,</span> <span class="n">W0</span><span class="p">)</span> <span class="c"># warm-up</span>
@@ -12959,7 +12958,7 @@ Body:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12970,7 +12969,7 @@ Body:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  2.025511 seconds (2.21 k allocations: 3.602 GiB, 14.73% gc time)
+<pre>  1.974857 seconds (2.21 k allocations: 3.602 GiB, 14.53% gc time)
 </pre>
 </div>
 </div>
@@ -12991,7 +12990,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">fill!</span><span class="p">(</span><span class="n">V0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -13012,40 +13011,38 @@ Body:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre> Count File                        Line Function                               
-   601 ./&lt;missing&gt;                   -1 anonymous                              
-     5 ./In[8]                       12 nnmf2(::Array{Float64,2}, ::Int64, ... 
-   136 ./In[8]                       15 nnmf2(::Array{Float64,2}, ::Int64, ... 
-    77 ./In[8]                       16 nnmf2(::Array{Float64,2}, ::Int64, ... 
-   383 ./In[8]                       19 nnmf2(::Array{Float64,2}, ::Int64, ... 
-   380 ./arraymath.jl                39 -(::Array{Float64,2}, ::Array{Float... 
-   384 ./broadcast.jl               141 _broadcast!                            
-   452 ./broadcast.jl               455 broadcast                              
-   452 ./broadcast.jl               316 broadcast_c                            
-    68 ./broadcast.jl               268 broadcast_t                            
-   384 ./broadcast.jl               270 broadcast_t                            
-   384 ./broadcast.jl               149 macro expansion                        
-   193 ./broadcast.jl               153 macro expansion                        
-    54 ./broadcast.jl               155 macro expansion                        
-   128 ./broadcast.jl               156 macro expansion                        
-   141 ./linalg/blas.jl            1027 gemm!(::Char, ::Char, ::Float64, ::... 
-     6 ./linalg/blas.jl            1207 syrk!(::Char, ::Char, ::Float64, ::... 
-    71 ./linalg/matmul.jl           191 A_mul_Bt!                              
-    71 ./linalg/matmul.jl           189 A_mul_Bt(::Array{Float64,2}, ::Arra... 
-    61 ./linalg/matmul.jl           184 At_mul_B!                              
-    61 ./linalg/matmul.jl           182 At_mul_B(::Array{Float64,2}, ::Arra... 
-     1 ./linalg/matmul.jl           239 copytri!(::Array{Float64,2}, ::Char... 
-   141 ./linalg/matmul.jl           367 gemm_wrapper!(::Array{Float64,2}, :... 
-     7 ./linalg/matmul.jl           293 syrk_wrapper!(::Array{Float64,2}, :... 
-   601 ./loading.jl                 522 include_string(::String, ::String)     
-   128 ./multidimensional.jl        300 setindex!                              
-   601 ./profile.jl                  23 macro expansion                        
+   582 ./&lt;missing&gt;                   -1 anonymous                              
+     5 ./In[7]                       12 nnmf2(::Array{Float64,2}, ::Int64, ... 
+    89 ./In[7]                       15 nnmf2(::Array{Float64,2}, ::Int64, ... 
+   102 ./In[7]                       16 nnmf2(::Array{Float64,2}, ::Int64, ... 
+   386 ./In[7]                       19 nnmf2(::Array{Float64,2}, ::Int64, ... 
+   388 ./arraymath.jl                39 -(::Array{Float64,2}, ::Array{Float... 
+   363 ./broadcast.jl               141 _broadcast!                            
+   440 ./broadcast.jl               455 broadcast                              
+   440 ./broadcast.jl               316 broadcast_c                            
+    77 ./broadcast.jl               268 broadcast_t                            
+   363 ./broadcast.jl               270 broadcast_t                            
+   363 ./broadcast.jl               149 macro expansion                        
+   192 ./broadcast.jl               153 macro expansion                        
+    58 ./broadcast.jl               155 macro expansion                        
+   112 ./broadcast.jl               156 macro expansion                        
+   138 ./linalg/blas.jl            1027 gemm!(::Char, ::Char, ::Float64, ::... 
+     3 ./linalg/blas.jl            1207 syrk!(::Char, ::Char, ::Float64, ::... 
+    69 ./linalg/matmul.jl           191 A_mul_Bt!                              
+    69 ./linalg/matmul.jl           189 A_mul_Bt(::Array{Float64,2}, ::Arra... 
+    66 ./linalg/matmul.jl           184 At_mul_B!                              
+    67 ./linalg/matmul.jl           182 At_mul_B(::Array{Float64,2}, ::Arra... 
+   138 ./linalg/matmul.jl           367 gemm_wrapper!(::Array{Float64,2}, :... 
+     3 ./linalg/matmul.jl           293 syrk_wrapper!(::Array{Float64,2}, :... 
+   582 ./loading.jl                 522 include_string(::String, ::String)     
+   112 ./multidimensional.jl        300 setindex!                              
+   582 ./profile.jl                  23 macro expansion                        
      1 ./simdloop.jl                 66 macro expansion                        
-   375 ./simdloop.jl                 73 macro expansion                        
-     8 ./simdloop.jl                 74 macro expansion                        
-   601 ./task.jl                    335 (::IJulia.##15#18)()                   
-   601 ....6/Compat/src/Compat.jl   332 (::Compat.#inner#14{Array{Any,1},IJ... 
-   601 ...IJulia/src/eventloop.jl     8 eventloop(::ZMQ.Socket)                
-   601 .../src/execute_request.jl   180 execute_request(::ZMQ.Socket, ::IJu... 
+   362 ./simdloop.jl                 73 macro expansion                        
+   582 ./task.jl                    335 (::IJulia.##15#18)()                   
+   582 ....6/Compat/src/Compat.jl   332 (::Compat.#inner#14{Array{Any,1},IJ... 
+   582 ...IJulia/src/eventloop.jl     8 eventloop(::ZMQ.Socket)                
+   582 .../src/execute_request.jl   180 execute_request(::ZMQ.Socket, ::IJu... 
 </pre>
 </div>
 </div>
@@ -13072,7 +13069,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">nnmf3</span><span class="p">(</span>
@@ -13130,7 +13127,7 @@ Body:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13155,7 +13152,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">nnmf3</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">V0</span><span class="p">,</span> <span class="n">W0</span><span class="p">)</span> <span class="c"># warm-up</span>
@@ -13172,7 +13169,7 @@ Body:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[11]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13183,7 +13180,7 @@ Body:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  1.410878 seconds (13 allocations: 17.532 MiB)
+<pre>  1.383703 seconds (13 allocations: 17.532 MiB)
 </pre>
 </div>
 </div>
@@ -13204,7 +13201,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">fill!</span><span class="p">(</span><span class="n">V0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -13226,40 +13223,37 @@ Body:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre> Count File                        Line Function                               
    348 ./&lt;missing&gt;                   -1 anonymous                              
-     2 ./In[11]                      19 nnmf3(::Array{Float64,2}, ::Int64, ... 
-    29 ./In[11]                      24 nnmf3(::Array{Float64,2}, ::Int64, ... 
-     4 ./In[11]                      25 nnmf3(::Array{Float64,2}, ::Int64, ... 
-    43 ./In[11]                      27 nnmf3(::Array{Float64,2}, ::Int64, ... 
-     5 ./In[11]                      30 nnmf3(::Array{Float64,2}, ::Int64, ... 
-     7 ./In[11]                      31 nnmf3(::Array{Float64,2}, ::Int64, ... 
-     7 ./In[11]                      32 nnmf3(::Array{Float64,2}, ::Int64, ... 
-    85 ./In[11]                      33 nnmf3(::Array{Float64,2}, ::Int64, ... 
-   166 ./In[11]                      38 nnmf3(::Array{Float64,2}, ::Int64, ... 
-   175 ./broadcast.jl               141 _broadcast!                            
-   175 ./broadcast.jl               206 broadcast!                             
-   175 ./broadcast.jl               213 broadcast_c!                           
-   175 ./broadcast.jl               149 macro expansion                        
-   134 ./broadcast.jl               153 macro expansion                        
-    24 ./broadcast.jl               155 macro expansion                        
-    12 ./broadcast.jl               156 macro expansion                        
-   138 ./linalg/blas.jl            1027 gemm!(::Char, ::Char, ::Float64, ::... 
-    31 ./linalg/blas.jl            1207 syrk!(::Char, ::Char, ::Float64, ::... 
-    72 ./linalg/matmul.jl           191 A_mul_Bt!                              
-    90 ./linalg/matmul.jl           184 At_mul_B!                              
+     2 ./In[10]                      19 nnmf3(::Array{Float64,2}, ::Int64, ... 
+    15 ./In[10]                      24 nnmf3(::Array{Float64,2}, ::Int64, ... 
+     8 ./In[10]                      25 nnmf3(::Array{Float64,2}, ::Int64, ... 
+    77 ./In[10]                      27 nnmf3(::Array{Float64,2}, ::Int64, ... 
+     5 ./In[10]                      31 nnmf3(::Array{Float64,2}, ::Int64, ... 
+     7 ./In[10]                      32 nnmf3(::Array{Float64,2}, ::Int64, ... 
+    98 ./In[10]                      33 nnmf3(::Array{Float64,2}, ::Int64, ... 
+   136 ./In[10]                      38 nnmf3(::Array{Float64,2}, ::Int64, ... 
+   145 ./broadcast.jl               141 _broadcast!                            
+   145 ./broadcast.jl               206 broadcast!                             
+   145 ./broadcast.jl               213 broadcast_c!                           
+   145 ./broadcast.jl               149 macro expansion                        
+   119 ./broadcast.jl               153 macro expansion                        
+    17 ./broadcast.jl               155 macro expansion                        
+     6 ./broadcast.jl               156 macro expansion                        
+   188 ./linalg/blas.jl            1027 gemm!(::Char, ::Char, ::Float64, ::... 
+    11 ./linalg/blas.jl            1207 syrk!(::Char, ::Char, ::Float64, ::... 
+    92 ./linalg/matmul.jl           191 A_mul_Bt!                              
+    98 ./linalg/matmul.jl           184 At_mul_B!                              
      3 ./linalg/matmul.jl           240 copytri!(::Array{Float64,2}, ::Char... 
-   138 ./linalg/matmul.jl           367 gemm_wrapper!(::Array{Float64,2}, :... 
-    34 ./linalg/matmul.jl           293 syrk_wrapper!(::Array{Float64,2}, :... 
-   349 ./loading.jl                 522 include_string(::String, ::String)     
-    12 ./multidimensional.jl        300 setindex!                              
+   188 ./linalg/matmul.jl           367 gemm_wrapper!(::Array{Float64,2}, :... 
+    15 ./linalg/matmul.jl           293 syrk_wrapper!(::Array{Float64,2}, :... 
+   348 ./loading.jl                 522 include_string(::String, ::String)     
+     6 ./multidimensional.jl        300 setindex!                              
    348 ./profile.jl                  23 macro expansion                        
-     1 ./simdloop.jl                 66 macro expansion                        
-     1 ./simdloop.jl                 71 macro expansion                        
-   170 ./simdloop.jl                 73 macro expansion                        
+   142 ./simdloop.jl                 73 macro expansion                        
      3 ./simdloop.jl                 74 macro expansion                        
-   349 ./task.jl                    335 (::IJulia.##15#18)()                   
-   349 ....6/Compat/src/Compat.jl   332 (::Compat.#inner#14{Array{Any,1},IJ... 
-   349 ...IJulia/src/eventloop.jl     8 eventloop(::ZMQ.Socket)                
-   349 .../src/execute_request.jl   180 execute_request(::ZMQ.Socket, ::IJu... 
+   348 ./task.jl                    335 (::IJulia.##15#18)()                   
+   348 ....6/Compat/src/Compat.jl   332 (::Compat.#inner#14{Array{Any,1},IJ... 
+   348 ...IJulia/src/eventloop.jl     8 eventloop(::ZMQ.Socket)                
+   348 .../src/execute_request.jl   180 execute_request(::ZMQ.Socket, ::IJu... 
 </pre>
 </div>
 </div>
@@ -13281,7 +13275,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">GPUArrays</span><span class="p">,</span> <span class="n">CLArrays</span>
@@ -13298,7 +13292,7 @@ Body:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13332,7 +13326,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">nnmf4</span><span class="p">(</span>
@@ -13360,7 +13354,7 @@ Body:
     <span class="n">A_mul_B!</span><span class="p">(</span><span class="n">storageXd</span><span class="p">,</span> <span class="n">Vd</span><span class="p">,</span> <span class="n">Wd</span><span class="p">)</span>
     <span class="n">storageXd</span> <span class="o">.=</span> <span class="n">Xd</span> <span class="o">.-</span> <span class="n">storageXd</span>
     <span class="c"># obj = vecnorm(storageXd)^2 # not working on GPU</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">storageXd</span><span class="p">)</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">abs2</span><span class="p">,</span> <span class="n">storageXd</span><span class="p">)</span>
     <span class="c"># MM loop</span>
     <span class="k">for</span> <span class="n">iter</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">maxiter</span>
         <span class="c"># V = V .* (X * W&#39;) ./ (V * (W * W&#39;))</span>
@@ -13382,7 +13376,7 @@ Body:
         <span class="n">objold</span> <span class="o">=</span> <span class="n">obj</span>
         <span class="n">storageXd</span> <span class="o">.=</span> <span class="n">Xd</span> <span class="o">.-</span> <span class="n">storageXd</span>
         <span class="c"># obj = vecnorm(storageXd)^2</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">storageXd</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">abs2</span><span class="p">,</span> <span class="n">storageXd</span><span class="p">)</span>
         <span class="n">abs</span><span class="p">(</span><span class="n">obj</span> <span class="o">-</span> <span class="n">objold</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tolfun</span> <span class="o">*</span> <span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">objold</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">break</span>
     <span class="k">end</span>
     <span class="c"># collect result from GPU</span>
@@ -13402,7 +13396,7 @@ Body:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13426,7 +13420,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">V0</span><span class="p">,</span> <span class="n">W0</span> <span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span> <span class="n">ones</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="c"># start point</span>
@@ -13444,7 +13438,7 @@ Body:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13455,7 +13449,7 @@ Body:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  1.954353 seconds (263.32 k allocations: 10.854 MiB)
+<pre>  1.961810 seconds (265.56 k allocations: 10.888 MiB, 0.58% gc time)
 </pre>
 </div>
 </div>
@@ -13486,7 +13480,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">Xsp</span> <span class="o">=</span> <span class="kt">Float32</span><span class="o">.</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -13501,7 +13495,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">nnmf4</span><span class="p">(</span><span class="n">Xsp</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">mydevices</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">10</span><span class="p">,</span> <span class="kt">Float32</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">V0sp</span><span class="p">,</span> <span class="n">W0sp</span><span class="p">)</span> <span class="c"># warm-up</span>
@@ -13518,7 +13512,7 @@ Body:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13529,7 +13523,7 @@ Body:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  0.571990 seconds (285.50 k allocations: 10.411 MiB, 1.79% gc time)
+<pre>  0.540050 seconds (261.69 k allocations: 10.048 MiB)
 </pre>
 </div>
 </div>
@@ -13559,7 +13553,7 @@ Body:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">fill!</span><span class="p">(</span><span class="n">V0sp</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -13575,7 +13569,7 @@ Body:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13586,7 +13580,7 @@ Body:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  1.346441 seconds (264.53 k allocations: 10.114 MiB)
+<pre>  1.214346 seconds (263.71 k allocations: 10.102 MiB)
 </pre>
 </div>
 </div>
