@@ -11765,7 +11765,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Parallel-Computing-in-Julia">Parallel Computing in Julia<a class="anchor-link" href="#Parallel-Computing-in-Julia">&#182;</a></h1><p>Machine information:</p>
+<h1 id="Parallel-Computing-in-Julia">Parallel Computing in Julia<a class="anchor-link" href="#Parallel-Computing-in-Julia">&#182;</a></h1><p>This lecture goes over some fundamentals of parallel computing in Julia.</p>
+<p>Machine information:</p>
 
 </div>
 </div>
@@ -11815,7 +11816,7 @@ Platform Info:
 <div class="highlight"><pre><span></span>julia -p <span class="m">4</span>
 </pre></div>
 <p>will start Julia with 4 workers on a single machine.</p>
-<p>In cluster, we may create a file named <code>$HOME/machinefile2servers</code> and add the name of both servers, one line for each processes meaning if you want to run two process per server you have to repeat the server name twice:</p>
+<p>In cluster, we may for instance create a file named <code>$HOME/machinefile2servers</code> and add the name of both servers, one line for each processes meaning if you want to run two process per server you have to repeat the server name twice:</p>
 
 <pre><code>server1
 server1
@@ -11843,7 +11844,7 @@ server2</code></pre>
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">write</span><span class="p">(</span><span class="nb">STDOUT</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">run</span><span class="p">(</span><span class="sb">`hostname`</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -11854,18 +11855,10 @@ server2</code></pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>11</pre>
-</div>
-
-</div>
-
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Hello World</pre>
+<pre>BS-HUAZHOU-LAP.local
+</pre>
 </div>
 </div>
 
@@ -11876,33 +11869,6 @@ server2</code></pre>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">print</span><span class="p">(</span><span class="n">run</span><span class="p">(</span><span class="sb">`hostname`</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>BS-HUAZHOU-LAP.attlocal.net
-nothing</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">workers</span><span class="p">()</span>
@@ -11916,7 +11882,7 @@ nothing</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[3]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -11932,39 +11898,10 @@ nothing</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">myid</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>1</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">println</span><span class="p">(</span><span class="n">myid</span><span class="p">())</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">print</span><span class="p">(</span><span class="n">myid</span><span class="p">())</span>
 </pre></div>
 
 </div>
@@ -11977,8 +11914,7 @@ nothing</pre>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>1
-</pre>
+<pre>1</pre>
 </div>
 </div>
 
@@ -11988,7 +11924,33 @@ nothing</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">print</span><span class="p">(</span><span class="n">myid</span><span class="p">())</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">addprocs</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -12002,7 +11964,7 @@ nothing</pre>
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12020,7 +11982,7 @@ nothing</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">println</span><span class="p">(</span><span class="n">myid</span><span class="p">())</span>
@@ -12037,9 +11999,9 @@ nothing</pre>
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>1
-	From worker 4:	4
 	From worker 3:	3
 	From worker 2:	2
+	From worker 4:	4
 </pre>
 </div>
 </div>
@@ -12050,10 +12012,10 @@ nothing</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">println</span><span class="p">(</span><span class="n">run</span><span class="p">(</span><span class="sb">`hostname`</span><span class="p">))</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">run</span><span class="p">(</span><span class="sb">`hostname`</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12066,14 +12028,10 @@ nothing</pre>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>BS-HUAZHOU-LAP.attlocal.net
-nothing
-	From worker 4:	BS-HUAZHOU-LAP.attlocal.net
-	From worker 3:	BS-HUAZHOU-LAP.attlocal.net
-	From worker 2:	BS-HUAZHOU-LAP.attlocal.net
-	From worker 3:	nothing
-	From worker 2:	nothing
-	From worker 4:	nothing
+<pre>BS-HUAZHOU-LAP.local
+	From worker 2:	BS-HUAZHOU-LAP.local
+	From worker 3:	BS-HUAZHOU-LAP.local
+	From worker 4:	BS-HUAZHOU-LAP.local
 </pre>
 </div>
 </div>
@@ -12087,7 +12045,7 @@ nothing
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">rmprocs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">rmprocs</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c"># remove worker 2</span>
 </pre></div>
 
 </div>
@@ -12102,7 +12060,7 @@ nothing
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Task (queued) @0x000000012336cfd0</pre>
+<pre>Task (queued) @0x0000000128587850</pre>
 </div>
 
 </div>
@@ -12116,7 +12074,7 @@ nothing
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">println</span><span class="p">(</span><span class="n">nworkers</span><span class="p">(),</span> <span class="sc">&#39;:&#39;</span><span class="p">,</span> <span class="n">nprocs</span><span class="p">(),</span> <span class="sc">&#39;:&#39;</span><span class="p">,</span> <span class="n">Sys</span><span class="o">.</span><span class="nb">CPU_CORES</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@show</span> <span class="n">nworkers</span><span class="p">(),</span> <span class="n">nprocs</span><span class="p">(),</span> <span class="n">Sys</span><span class="o">.</span><span class="nb">CPU_CORES</span><span class="p">;</span>
 </pre></div>
 
 </div>
@@ -12129,7 +12087,91 @@ nothing
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>2:3:8
+<pre>(nworkers(), nprocs(), Sys.CPU_CORES) = (2, 3, 8)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="o">?</span><span class="n">nworkers</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>search: </pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+
+<div class="output_markdown rendered_html output_subarea output_execute_result">
+
+<pre><code>nworkers()</code></pre>
+<p>Get the number of available worker processes. This is one less than <code>nprocs()</code>. Equal to <code>nprocs()</code> if <code>nprocs() == 1</code>.</p>
+
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-bold">n</span><span class="ansi-bold">w</span><span class="ansi-bold">o</span><span class="ansi-bold">r</span><span class="ansi-bold">k</span><span class="ansi-bold">e</span><span class="ansi-bold">r</span><span class="ansi-bold">s</span> i<span class="ansi-bold">n</span>it_<span class="ansi-bold">w</span><span class="ansi-bold">o</span><span class="ansi-bold">r</span><span class="ansi-bold">k</span><span class="ansi-bold">e</span><span class="ansi-bold">r</span>
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="o">?</span><span class="n">nprocs</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+
+<div class="output_markdown rendered_html output_subarea output_execute_result">
+
+<pre><code>nprocs()</code></pre>
+<p>Get the number of available processes.</p>
+
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>search: <span class="ansi-bold">n</span><span class="ansi-bold">p</span><span class="ansi-bold">r</span><span class="ansi-bold">o</span><span class="ansi-bold">c</span><span class="ansi-bold">s</span>
+
 </pre>
 </div>
 </div>
@@ -12143,17 +12185,16 @@ nothing
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="remotecall(),-@spawn"><code>remotecall()</code>, <code>@spawn</code><a class="anchor-link" href="#remotecall(),-@spawn">&#182;</a></h2><p>Remote references first argument is the function name, second argument is the processor id, the remaining are arguments</p>
-
+<h2 id="remotecall(),-@spawn"><code>remotecall()</code>, <code>@spawn</code><a class="anchor-link" href="#remotecall(),-@spawn">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">remotecall</span><span class="p">(</span><span class="n">rand</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c"># lazy evaluation</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">println</span><span class="p">(</span><span class="n">myid</span><span class="p">())</span>
 </pre></div>
 
 </div>
@@ -12164,11 +12205,51 @@ nothing
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[12]:</div>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1
+	From worker 3:	3
+	From worker 4:	4
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>remotecall()</code>: first argument is the function name, second argument is the processor id, the remaining are arguments</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="c"># rand(4, 4) on worker 3</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">remotecall</span><span class="p">(</span><span class="n">rand</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="c"># lazy evaluation</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Future(3, 1, 11, Nullable{Any}())</pre>
+<pre>Future(3, 1, 13, Nullable{Any}())</pre>
 </div>
 
 </div>
@@ -12182,17 +12263,18 @@ nothing
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>bring value of <code>r</code> from the remote processor to the master</p>
+<p>Bring value of <code>r</code> from the remote processor to the master</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">fetch</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="c"># bring to master</span>
+<span class="n">fetch</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12203,15 +12285,15 @@ nothing
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>4×4 Array{Float64,2}:
- 0.787261  0.0779991  0.731475  0.120837
- 0.542724  0.992773   0.774951  0.361337
- 0.791827  0.156149   0.657864  0.233488
- 0.924564  0.826326   0.969382  0.106976</pre>
+ 0.337651  0.253399  0.815344   0.169948
+ 0.338217  0.972971  0.204617   0.277488
+ 0.319419  0.716606  0.130429   0.734783
+ 0.261039  0.602682  0.0303147  0.887243</pre>
 </div>
 
 </div>
@@ -12232,7 +12314,7 @@ nothing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">getindex</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -12246,11 +12328,11 @@ nothing
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[18]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.7872614454821361</pre>
+<pre>0.3376511424739894</pre>
 </div>
 
 </div>
@@ -12271,10 +12353,10 @@ nothing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="nd">@spawn</span> <span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="nd">@spawn</span> <span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12285,11 +12367,11 @@ nothing
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[15]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[19]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Future(3, 1, 14, Nullable{Any}())</pre>
+<pre>Future(3, 1, 16, Nullable{Any}())</pre>
 </div>
 
 </div>
@@ -12300,7 +12382,7 @@ nothing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">fetch</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
@@ -12314,13 +12396,13 @@ nothing
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[16]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[20]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>2×2 Array{Float64,2}:
- 0.686142  0.931471
- 0.594098  0.521942</pre>
+ 0.238268  0.471547
+ 0.990627  0.282843</pre>
 </div>
 
 </div>
@@ -12341,7 +12423,7 @@ nothing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="nd">@spawnat</span> <span class="mi">3</span> <span class="mi">1</span> <span class="o">.+</span> <span class="n">fetch</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
@@ -12355,11 +12437,11 @@ nothing
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[17]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[21]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Future(3, 1, 16, Nullable{Any}())</pre>
+<pre>Future(3, 1, 18, Nullable{Any}())</pre>
 </div>
 
 </div>
@@ -12370,7 +12452,7 @@ nothing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c"># forces the assignment of p = 5 on all processors</span>
@@ -12383,7 +12465,7 @@ nothing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">println</span><span class="p">(</span><span class="nd">@sprintf</span><span class="p">(</span><span class="s">&quot;ID </span><span class="si">%d</span><span class="s">: </span><span class="si">%f</span><span class="s"> </span><span class="si">%d</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">myid</span><span class="p">(),</span> <span class="n">rand</span><span class="p">(),</span> <span class="n">p</span><span class="p">))</span>
@@ -12399,9 +12481,9 @@ nothing
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>ID 1: 0.944437 5
-	From worker 3:	ID 3: 0.775197 5
-	From worker 4:	ID 4: 0.856055 5
+<pre>ID 1: 0.713622 5
+	From worker 3:	ID 3: 0.681542 5
+	From worker 4:	ID 4: 0.183807 5
 </pre>
 </div>
 </div>
@@ -12412,7 +12494,7 @@ nothing
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">run</span><span class="p">(</span><span class="sb">`whoami`</span><span class="p">)</span>
@@ -12428,9 +12510,9 @@ nothing
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>	From worker 4:	huazhou
+<pre>huazhou
+	From worker 4:	huazhou
 	From worker 3:	huazhou
-huazhou
 </pre>
 </div>
 </div>
@@ -12441,7 +12523,7 @@ huazhou
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">run</span><span class="p">(</span><span class="sb">`hostname`</span><span class="p">)</span>
@@ -12457,9 +12539,9 @@ huazhou
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>	From worker 4:	BS-HUAZHOU-LAP.attlocal.net
-	From worker 3:	BS-HUAZHOU-LAP.attlocal.net
-BS-HUAZHOU-LAP.attlocal.net
+<pre>	From worker 4:	BS-HUAZHOU-LAP.local
+	From worker 3:	BS-HUAZHOU-LAP.local
+BS-HUAZHOU-LAP.local
 </pre>
 </div>
 </div>
@@ -12480,14 +12562,14 @@ BS-HUAZHOU-LAP.attlocal.net
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># purposefully left out @everywhere</span>
 <span class="k">function</span> <span class="n">count_heads</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
     <span class="n">println</span><span class="p">(</span><span class="s">&quot;My process id is </span><span class="si">$</span><span class="p">(</span><span class="n">myid</span><span class="p">())</span><span class="s">&quot;</span><span class="p">)</span>
     <span class="n">c</span><span class="o">::</span><span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="o">:</span><span class="n">n</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">n</span>
         <span class="n">c</span> <span class="o">+=</span> <span class="n">rand</span><span class="p">(</span><span class="kt">Bool</span><span class="p">)</span>
     <span class="k">end</span>
     <span class="n">c</span>
@@ -12502,7 +12584,7 @@ BS-HUAZHOU-LAP.attlocal.net
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[22]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[26]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12517,7 +12599,7 @@ BS-HUAZHOU-LAP.attlocal.net
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nd">@spawn</span> <span class="n">count_heads</span><span class="p">(</span><span class="mi">100000000</span><span class="p">)</span>
@@ -12531,11 +12613,11 @@ BS-HUAZHOU-LAP.attlocal.net
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[23]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Future(4, 1, 25, Nullable{Any}())</pre>
+<pre>Future(4, 1, 27, Nullable{Any}())</pre>
 </div>
 
 </div>
@@ -12546,7 +12628,7 @@ BS-HUAZHOU-LAP.attlocal.net
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="nd">@spawn</span> <span class="n">count_heads</span><span class="p">(</span><span class="mi">100000000</span><span class="p">)</span>
@@ -12560,11 +12642,11 @@ BS-HUAZHOU-LAP.attlocal.net
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[24]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>Future(3, 1, 26, Nullable{Any}())</pre>
+<pre>Future(3, 1, 28, Nullable{Any}())</pre>
 </div>
 
 </div>
@@ -12575,7 +12657,7 @@ BS-HUAZHOU-LAP.attlocal.net
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">fetch</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="n">fetch</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
@@ -12635,13 +12717,13 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="k">begin</span>
     <span class="k">function</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
         <span class="n">workernum</span> <span class="o">=</span> <span class="n">myid</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span> 
-        <span class="n">sleep</span><span class="p">(</span><span class="n">workernum</span><span class="p">)</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="n">workernum</span><span class="p">)</span> <span class="c"># sleep for wokernum seconds</span>
         <span class="n">println</span><span class="p">(</span><span class="s">&quot;job </span><span class="si">$idx</span><span class="s">&quot;</span><span class="p">)</span>
     <span class="k">end</span>
 <span class="k">end</span>
@@ -12654,11 +12736,11 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># The run below will have equal number of processors involved</span>
-<span class="nd">@parallel</span> <span class="k">for</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">12</span>
+<span class="nd">@parallel</span> <span class="k">for</span> <span class="n">idx</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">12</span>
     <span class="n">parallel_func</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
 <span class="k">end</span>
 </pre></div>
@@ -12671,15 +12753,33 @@ Stacktrace:
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[27]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[31]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>2-element Array{Future,1}:
- Future(4, 1, 30, #NULL)
- Future(3, 1, 31, #NULL)</pre>
+ Future(4, 1, 32, #NULL)
+ Future(3, 1, 33, #NULL)</pre>
 </div>
 
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>	From worker 3:	job 7
+	From worker 4:	job 1
+	From worker 3:	job 8
+	From worker 3:	job 9
+	From worker 4:	job 2
+	From worker 3:	job 10
+	From worker 4:	job 3
+	From worker 3:	job 11
+	From worker 3:	job 12
+	From worker 4:	job 4
+	From worker 4:	job 5
+	From worker 4:	job 6
+</pre>
+</div>
 </div>
 
 </div>
@@ -12688,7 +12788,7 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># The run below will have unequal number of processors involved</span>
@@ -12705,33 +12805,22 @@ Stacktrace:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>	From worker 3:	job 7
+<pre>	From worker 3:	job 2
 	From worker 4:	job 1
-	From worker 3:	job 1
-	From worker 3:	job 8
-	From worker 4:	job 2
 	From worker 3:	job 4
-	From worker 3:	job 9
-	From worker 4:	job 2
+	From worker 4:	job 5
 	From worker 3:	job 6
-	From worker 4:	job 5
-	From worker 3:	job 10
-	From worker 4:	job 3
-	From worker 3:	job 7
-	From worker 3:	job 11
-	From worker 4:	job 8
+	From worker 3:	job 8
+	From worker 4:	job 7
 	From worker 3:	job 9
-	From worker 3:	job 12
-	From worker 4:	job 4
-	From worker 3:	job 11
 	From worker 4:	job 10
-	From worker 4:	job 5
-	From worker 3:	job 12
+	From worker 3:	job 11
+	From worker 3:	job 3
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[28]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[32]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -12754,8 +12843,7 @@ Stacktrace:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>	From worker 4:	job 3
-	From worker 4:	job 6
+<pre>	From worker 4:	job 12
 </pre>
 </div>
 </div>
@@ -12775,13 +12863,13 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">findpi</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
      <span class="n">inside</span> <span class="o">=</span> <span class="mi">0</span>
      <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">n</span>
-         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(),</span> <span class="n">rand</span><span class="p">()</span>
          <span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">^</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">inside</span> <span class="o">+=</span> <span class="mi">1</span>
          <span class="k">end</span>
@@ -12790,7 +12878,7 @@ Stacktrace:
 <span class="k">end</span>
 
 <span class="n">findpi</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c"># compile</span>
-<span class="nd">@time</span> <span class="n">println</span><span class="p">(</span><span class="n">findpi</span><span class="p">(</span><span class="mi">1_000_000_000</span><span class="p">))</span>
+<span class="nd">@time</span> <span class="n">findpi</span><span class="p">(</span><span class="mi">1_000_000_000</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12801,10 +12889,18 @@ Stacktrace:
 <div class="output">
 
 
+<div class="output_area"><div class="prompt output_prompt">Out[33]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3.141656276</pre>
+</div>
+
+</div>
+
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>3.141585112
- 49.572526 seconds (1.00 G allocations: 89.408 GiB, 12.02% gc time)
+<pre>  7.068100 seconds (84 allocations: 6.107 KiB)
 </pre>
 </div>
 </div>
@@ -12815,18 +12911,18 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="k">function</span> <span class="n">parallel_findpi</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
     <span class="n">inside</span> <span class="o">=</span>  <span class="nd">@parallel</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="n">n</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(),</span> <span class="n">rand</span><span class="p">()</span>
         <span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">^</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span>
      <span class="k">end</span>
      <span class="mi">4</span> <span class="o">*</span> <span class="n">inside</span> <span class="o">/</span> <span class="n">n</span>
 <span class="k">end</span>
 
-<span class="nd">@time</span> <span class="n">println</span><span class="p">(</span><span class="n">parallel_findpi</span><span class="p">(</span><span class="mi">1000000000</span><span class="p">))</span>
+<span class="nd">@time</span> <span class="n">parallel_findpi</span><span class="p">(</span><span class="mi">1_000_000_000</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12837,10 +12933,18 @@ Stacktrace:
 <div class="output">
 
 
+<div class="output_area"><div class="prompt output_prompt">Out[34]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3.141606868</pre>
+</div>
+
+</div>
+
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>3.141672468
- 22.326746 seconds (104.83 k allocations: 5.508 MiB)
+<pre>  2.052556 seconds (104.31 k allocations: 5.497 MiB, 0.39% gc time)
 </pre>
 </div>
 </div>
@@ -12860,12 +12964,13 @@ Stacktrace:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">x_value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 <span class="n">y_value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
-<span class="nd">@everywhere</span> <span class="k">function</span> <span class="n">hypot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+
+<span class="nd">@everywhere</span> <span class="k">function</span> <span class="n">hypot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="n">println</span><span class="p">(</span><span class="s">&quot;My process id is </span><span class="si">$</span><span class="p">(</span><span class="n">myid</span><span class="p">())</span><span class="s">&quot;</span><span class="p">)</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">abs</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span>
@@ -12878,9 +12983,11 @@ Stacktrace:
     <span class="n">r</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
     <span class="k">return</span> <span class="n">y</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
 <span class="k">end</span>
+
 <span class="n">info</span><span class="p">(</span><span class="s">&quot;Serial&quot;</span><span class="p">)</span>
 <span class="n">Results</span> <span class="o">=</span> <span class="n">map</span><span class="p">(</span><span class="n">hypot</span><span class="p">,</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span><span class="p">)</span>
 <span class="n">println</span><span class="p">(</span><span class="n">Results</span><span class="p">)</span>
+
 <span class="n">info</span><span class="p">(</span><span class="s">&quot;Parallel&quot;</span><span class="p">)</span>
 <span class="n">Results</span> <span class="o">=</span> <span class="n">pmap</span><span class="p">(</span><span class="n">hypot</span><span class="p">,</span> <span class="n">x_value</span><span class="p">,</span> <span class="n">y_value</span><span class="p">)</span>
 <span class="n">println</span><span class="p">(</span><span class="n">Results</span><span class="p">)</span>
@@ -12952,11 +13059,11 @@ My process id is 1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="k">function</span> <span class="n">NotMuchToDo</span><span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="kt">Int64</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">x</span><span class="o">+</span><span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">1.0</span>
 <span class="k">end</span>
 
 <span class="nd">@everywhere</span> <span class="k">function</span> <span class="n">LotToDo</span><span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="kt">Int64</span><span class="p">)</span>
@@ -12977,20 +13084,20 @@ My process id is 1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Precompilation&quot;</span><span class="p">)</span>
 <span class="n">map</span><span class="p">(</span><span class="n">NotMuchToDo</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">1000</span><span class="p">)</span>
 <span class="n">pmap</span><span class="p">(</span><span class="n">NotMuchToDo</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">map</span><span class="p">(</span><span class="n">LotToDo</span><span class="p">,</span><span class="mi">1</span><span class="o">:</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">pmap</span><span class="p">(</span><span class="n">LotToDo</span><span class="p">,</span><span class="mi">1</span><span class="o">:</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">map</span><span class="p">(</span><span class="n">LotToDo</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">pmap</span><span class="p">(</span><span class="n">LotToDo</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">info</span><span class="p">(</span><span class="s">&quot;Timing LotToDo function&quot;</span><span class="p">)</span>
 <span class="nd">@time</span> <span class="n">map</span><span class="p">(</span><span class="n">LotToDo</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">100</span><span class="p">)</span>
-<span class="nd">@time</span> <span class="n">pmap</span><span class="p">(</span><span class="n">LotToDo</span><span class="p">,</span><span class="mi">1</span><span class="o">:</span><span class="mi">100</span><span class="p">)</span>
+<span class="nd">@time</span> <span class="n">pmap</span><span class="p">(</span><span class="n">LotToDo</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">info</span><span class="p">(</span><span class="s">&quot;Timing NotMuchToDo function&quot;</span><span class="p">)</span>
 <span class="nd">@time</span> <span class="n">map</span><span class="p">(</span><span class="n">NotMuchToDo</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">1000</span><span class="p">)</span>
-<span class="nd">@time</span> <span class="n">pmap</span><span class="p">(</span><span class="n">NotMuchToDo</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">1000</span><span class="p">)</span>
+<span class="nd">@time</span> <span class="n">pmap</span><span class="p">(</span><span class="n">NotMuchToDo</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">1000</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -13011,9 +13118,9 @@ My process id is 1
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre> 23.884060 seconds (9 allocations: 1.156 KiB)
- 12.029566 seconds (9.49 k allocations: 327.797 KiB)
-  0.000014 seconds (9 allocations: 8.219 KiB)
+<pre> 23.554665 seconds (9 allocations: 1.156 KiB)
+ 11.983971 seconds (9.47 k allocations: 326.984 KiB)
+  0.000015 seconds (9 allocations: 8.219 KiB)
 </pre>
 </div>
 </div>
@@ -13025,44 +13132,9 @@ My process id is 1
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[33]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>1000-element Array{Float64,1}:
-      3.0    
-      7.0    
-     13.0    
-     21.0    
-     31.0    
-     43.0    
-     57.0    
-     73.0    
-     91.0    
-    111.0    
-    133.0    
-    157.0    
-    183.0    
-      ⋮      
- 979111.0    
- 981091.0    
- 983073.0    
- 985057.0    
- 987043.0    
- 989031.0    
- 991021.0    
- 993013.0    
- 995007.0    
- 997003.0    
- 999001.0    
-      1.001e6</pre>
-</div>
-
-</div>
-
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>  0.091042 seconds (92.17 k allocations: 2.765 MiB)
+<pre>  0.084692 seconds (92.21 k allocations: 2.765 MiB)
 </pre>
 </div>
 </div>
@@ -13076,18 +13148,18 @@ My process id is 1
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Shared-arrays">Shared arrays<a class="anchor-link" href="#Shared-arrays">&#182;</a></h2><p>This function will print all 0.0 for <code>a</code>. That is because a at processor 2 has a different memory address from master.</p>
+<h2 id="Shared-arrays">Shared arrays<a class="anchor-link" href="#Shared-arrays">&#182;</a></h2><p>This function will print all 0.0 for <code>a</code>. That is because <code>a</code> at processor 2 has a different memory address from master.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="nd">@parallel</span> <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">10</span>
+<span class="nd">@parallel</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">10</span>
     <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
 <span class="k">end</span>
 <span class="n">a</span>
@@ -13101,7 +13173,7 @@ My process id is 1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[34]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[38]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13126,11 +13198,11 @@ My process id is 1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="kt">SharedArray</span><span class="p">{</span><span class="kt">Float64</span><span class="p">}(</span><span class="mi">10</span><span class="p">)</span>
-<span class="nd">@parallel</span> <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">10</span>
+<span class="nd">@parallel</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">10</span>
     <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
 <span class="k">end</span>
 <span class="n">a</span>
@@ -13144,7 +13216,7 @@ My process id is 1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[35]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[39]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -13169,29 +13241,34 @@ My process id is 1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="n">println</span><span class="p">(</span><span class="n">nprocs</span><span class="p">())</span>
+
 <span class="nd">@everywhere</span> <span class="k">function</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
-        <span class="n">println</span><span class="p">(</span><span class="s">&quot;job </span><span class="si">$idx</span><span class="s">&quot;</span><span class="p">)</span>
-        <span class="n">a</span> <span class="o">=</span> <span class="n">idx</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">idx</span><span class="o">-</span><span class="mi">1</span>
-        <span class="k">return</span> <span class="n">a</span>
-    <span class="k">end</span>
-<span class="n">result</span><span class="o">=</span><span class="kt">SharedArray</span><span class="p">{</span><span class="kt">Int64</span><span class="p">}(</span><span class="mi">12</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">12</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;job </span><span class="si">$idx</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">idx</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">a</span>
+<span class="k">end</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="kt">SharedArray</span><span class="p">{</span><span class="kt">Int64</span><span class="p">}(</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">idx</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">12</span>
     <span class="n">result</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">end</span>
+
 <span class="n">info</span><span class="p">(</span><span class="s">&quot;Calling @parallel&quot;</span><span class="p">)</span>
-<span class="nd">@sync</span> <span class="nd">@parallel</span> <span class="k">for</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">12</span>
-    <span class="n">result</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">=</span><span class="n">parallel_func</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+<span class="nd">@sync</span> <span class="nd">@parallel</span> <span class="k">for</span> <span class="n">idx</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">12</span>
+    <span class="n">result</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">parallel_func</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
 <span class="k">end</span>
-<span class="k">for</span> <span class="n">idx</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">12</span>
+
+<span class="k">for</span> <span class="n">idx</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">12</span>
     <span class="n">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="sc">&#39; &#39;</span><span class="p">)</span>
 <span class="k">end</span>
 <span class="n">println</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">);</span>
+
 <span class="n">info</span><span class="p">(</span><span class="s">&quot;Calling pmap()&quot;</span><span class="p">)</span>
-<span class="n">result</span><span class="o">=</span><span class="n">pmap</span><span class="p">(</span><span class="n">parallel_func</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pmap</span><span class="p">(</span><span class="n">parallel_func</span><span class="p">,</span> <span class="mi">1</span><span class="o">:</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">println</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 
@@ -13220,29 +13297,30 @@ My process id is 1
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>	From worker 4:	job 1
-	From worker 3:	job 7
 	From worker 4:	job 2
 	From worker 4:	job 3
+	From worker 4:	job 4
+	From worker 4:	job 5
+	From worker 4:	job 6
+	From worker 3:	job 7
 	From worker 3:	job 8
 	From worker 3:	job 9
 	From worker 3:	job 10
 	From worker 3:	job 11
 	From worker 3:	job 12
-	From worker 4:	job 4
-	From worker 4:	job 5
-	From worker 4:	job 6
 1 5 11 19 29 41 55 71 89 109 131 155  
-	From worker 3:	job 1
-	From worker 4:	job 2
-	From worker 3:	job 3
-	From worker 4:	job 4
-	From worker 3:	job 5
-	From worker 4:	job 6
-	From worker 3:	job 7
-	From worker 4:	job 8
-	From worker 3:	job 9
-	From worker 4:	job 10
-	From worker 3:	job 11
+	From worker 4:	job 1
+	From worker 3:	job 2
+	From worker 4:	job 3
+	From worker 3:	job 4
+	From worker 4:	job 5
+	From worker 3:	job 6
+	From worker 4:	job 7
+	From worker 3:	job 8
+	From worker 4:	job 9
+	From worker 3:	job 10
+	From worker 4:	job 11
+	From worker 3:	job 12
 </pre>
 </div>
 </div>
@@ -13257,7 +13335,6 @@ My process id is 1
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[1, 5, 11, 19, 29, 41, 55, 71, 89, 109, 131, 155]
-	From worker 4:	job 12
 </pre>
 </div>
 </div>
@@ -13277,12 +13354,12 @@ My process id is 1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-<span class="nd">@parallel</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">100000</span>
+<span class="nd">@parallel</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">100000</span>
     <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">rand</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="k">end</span><span class="p">)])</span>
 <span class="k">end</span>
 </pre></div>
@@ -13295,11 +13372,11 @@ My process id is 1
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[37]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[41]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>208925.21259916504</pre>
+<pre>193007.31449180908</pre>
 </div>
 
 </div>
@@ -13319,7 +13396,7 @@ My process id is 1
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="nd">@everywhere</span> <span class="k">using</span> <span class="n">DistributedArrays</span>
@@ -13330,19 +13407,7 @@ My process id is 1
 <span class="n">drandn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="n">dfill</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="nd">@DArray</span> <span class="p">[</span><span class="nd">@show</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="o">:</span><span class="mi">10</span><span class="p">];</span>
-<span class="n">arr</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
-
-<span class="n">dist_arr</span> <span class="o">=</span> <span class="n">distribute</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
-<span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localpart</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
-<span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localpart</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
-<span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localpart</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
-<span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localpart</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
-<span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localindexes</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
-<span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localindexes</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
-<span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localindexes</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
-
-<span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">getindex</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nd">@DArray</span> <span class="p">[</span><span class="nd">@show</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="kp">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">10</span><span class="p">];</span>
 </pre></div>
 
 </div>
@@ -13355,29 +13420,82 @@ My process id is 1
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>	From worker 4:	x ^ 2 = 36
-	From worker 4:	x ^ 2 = 49
-	From worker 4:	x ^ 2 = 64
-	From worker 4:	x ^ 2 = 81
-	From worker 4:	x ^ 2 = 100
-	From worker 3:	x ^ 2 = 1
+<pre>	From worker 3:	x ^ 2 = 1
 	From worker 3:	x ^ 2 = 4
 	From worker 3:	x ^ 2 = 9
 	From worker 3:	x ^ 2 = 16
 	From worker 3:	x ^ 2 = 25
+	From worker 4:	x ^ 2 = 36
+	From worker 4:	x ^ 2 = 49
+	From worker 4:	x ^ 2 = 64
+	From worker 4:	x ^ 2 = 81
+	From worker 4:	x ^ 2 = 100
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg">ProcessExitedException()</span>
+</div>
+</div>
 
-Stacktrace:
- [1] <span class="ansi-bold">worker_from_id</span><span class="ansi-bold">(</span>::Base.Distributed.ProcessGroup, ::Int64<span class="ansi-bold">)</span> at <span class="ansi-bold">./distributed/cluster.jl:827</span>
- [2] <span class="ansi-bold">#remotecall_fetch#144</span><span class="ansi-bold">(</span>::Array{Any,1}, ::Function, ::Function, ::Int64, ::DistributedArrays.DArray{Float64,2,Array{Float64,2}}, ::Vararg{DistributedArrays.DArray{Float64,2,Array{Float64,2}},N} where N<span class="ansi-bold">)</span> at <span class="ansi-bold">./distributed/remotecall.jl:372</span>
- [3] <span class="ansi-bold">remotecall_fetch</span><span class="ansi-bold">(</span>::Function, ::Int64, ::DistributedArrays.DArray{Float64,2,Array{Float64,2}}, ::Vararg{DistributedArrays.DArray{Float64,2,Array{Float64,2}},N} where N<span class="ansi-bold">)</span> at <span class="ansi-bold">./distributed/remotecall.jl:372</span></pre>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">rand</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">dist_arr</span> <span class="o">=</span> <span class="n">distribute</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+
+<span class="nd">@show</span> <span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localpart</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
+<span class="nd">@show</span> <span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localpart</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
+<span class="nd">@show</span> <span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localpart</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">);</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>remotecall_fetch(localpart, 1, dist_arr) = Array{Float64}(0,0)
+remotecall_fetch(localpart, 3, dist_arr) = [0.0980812 0.284683 0.566077 0.596142; 0.459033 0.229338 0.546003 0.690822; 0.210434 0.651551 0.0159821 0.331547; 0.281235 0.175543 0.669213 0.18372; 0.470449 0.358349 0.0383332 0.0737577; 0.448361 0.76366 0.078924 0.394335; 0.88439 0.247884 0.218447 0.740899; 0.590145 0.424563 0.167459 0.931794]
+remotecall_fetch(localpart, 4, dist_arr) = [0.373489 0.863888 0.0439293 0.418687; 0.517911 0.949794 0.924607 0.215549; 0.921827 0.853144 0.57837 0.37949; 0.266037 0.96486 0.268734 0.22419; 0.547293 0.142171 0.458552 0.348344; 0.793807 0.65928 0.995266 0.0301769; 0.133989 0.0444707 0.852576 0.939462; 0.326645 0.00111411 0.313047 0.324609]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-julia"><pre><span></span><span class="nd">@show</span> <span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localindexes</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
+<span class="nd">@show</span> <span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localindexes</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">)</span>
+<span class="nd">@show</span> <span class="n">remotecall_fetch</span><span class="p">(</span><span class="n">localindexes</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">dist_arr</span><span class="p">);</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>remotecall_fetch(localindexes, 1, dist_arr) = (1:0, 1:0)
+remotecall_fetch(localindexes, 3, dist_arr) = (1:8, 1:4)
+remotecall_fetch(localindexes, 4, dist_arr) = (1:8, 5:8)
+</pre>
 </div>
 </div>
 
