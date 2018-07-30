@@ -15,10 +15,10 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 | Time | Topic | Instructor |  
 |:-----------|:------------|:------------|  
 | 8:30-9:00 | participants intro., OpenMendel | Eric Sobel |  
-| 9:00-9:30 | Julia: intro. \[[ipynb](./lectures/02-juliaintro/juliaintro.ipynb)\], multiple dispatch/JIT/profiling \[[ipynb](./lectures/02-juliaintro/juliafun.ipynb)\] | Hua Zhou |  
-| 9:30-10:15 | Julia: linear algebra \[[ipynb](./lectures/03-julialinalg/numlinalg.ipynb)\], optimization \[[ipynb](./lectures/04-juliaopt/juliaopt.ipynb)\] | Hua Zhou |  
+| 9:00-9:30 | Julia: intro. \[[ipynb](./lectures/02-juliaintro/juliaintro.ipynb)\], multiple dispatch/JIT/profiling \[[ipynb](./lectures/03-juliafun/juliafun.ipynb)\] | Hua Zhou |  
+| 9:30-10:15 | Julia: linear algebra \[[ipynb](./lectures/04-julialinalg/numlinalg.ipynb)\], optimization \[[ipynb](./lectures/05-juliaopt/juliaopt.ipynb)\] | Hua Zhou |  
 | 10:15-10:30 | coffee break | |  
-| 10:30-11:15 | Julia: GPU \[[ipynb](./lectures/05-juliagpu/juliagpu.ipynb)\], NNMF \[[ipynb](./lectures/06-nnmf/nnmf.ipynb)\], parallel computing \[[ipynb](./lectures/07-juliaparallel/juliaparallel.ipynb)\] | Hua Zhou |  
+| 10:30-11:15 | Julia: GPU \[[ipynb](./lectures/06-juliagpu/juliagpu.ipynb)\], NNMF \[[ipynb](./lectures/07-nnmf/nnmf.ipynb)\], parallel computing \[[ipynb](./lectures/08-juliaparallel/juliaparallel.ipynb)\] | Hua Zhou |  
 | 11:15-noon | review of genetic and genomic concepts \[[pdf](./lectures/09-geneticsreview/reviewofGGconcepts07212018.pdf)\] | Janet Sinsheimer |  
 | noon-1:00 | lunch | |  
 | 1:00-1:30 | handling genetic data in OpenMendel \[[ipynb](./lectures/10-snparray/genedata.ipynb)\] | Hua Zhou |  
