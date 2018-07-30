@@ -22,7 +22,7 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 
 | Time | Topic | Instructor |  
 |:-----------|:------------|:------------|  
-| 8:30-9:00 | participants intro., OpenMendel | Eric Sobel |  
+| 8:30-9:00 | participants intro., OpenMendel \[[pdf](./lectures/01-workshopintro/Introductions.pdf)\] | Eric Sobel |  
 | 9:00-9:30 | Julia: intro. \[[ipynb](./lectures/02-juliaintro/juliaintro.ipynb)\], multiple dispatch/JIT/profiling \[[ipynb](./lectures/03-juliafun/juliafun.ipynb)\] | Hua Zhou |  
 | 9:30-10:15 | Julia: linear algebra \[[ipynb](./lectures/04-julialinalg/numlinalg.ipynb)\], optimization \[[ipynb](./lectures/05-juliaopt/juliaopt.ipynb)\] | Hua Zhou |  
 | 10:15-10:30 | coffee break | |  
@@ -34,7 +34,7 @@ This repo contains the materials for short course [_Julia Meets Mendel: Algorith
 | 2:30-3:15 | linear mixed models for genetic analysis \[[pdf](./lectures/12-lmm/linearmixedmodelJSM07302018.pdf), [ipynb](./lectures/12-lmm/LMM07302018JSM.ipynb)\] | Janet Sinsheimer |  
 | 3:15-3:30 | coffee break | |  
 | 3:30-4:30 | mendelian randomization \[[pdf](./lectures/13-mr/MendelRandom07302018JSM.pdf), [ipynb](./lectures/13-mr/MR_VCMnotebookWGCAC07102018.ipynb)\] | Janet Sinsheimer |  
-| 4:30-5:00 | how to contribute to OpenMendel project | Eric Sobel |  
+| 4:30-5:00 | Course wrap-up \[[pdf](./lectures/14-coda/OpenMendel_Wrap-up.pdf)\] | Eric Sobel |  
 
 ## Getting started
 
