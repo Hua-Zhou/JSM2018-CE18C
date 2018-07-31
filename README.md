@@ -44,7 +44,7 @@ There are several ways to run Jupyter notebooks in this course.
 
 The **easiest** way is to run Jupyter notebooks on a server dedicated to this course.  
 
-1. Point your browser to [http://35.233.157.190:8000/](http://35.233.157.190:8000/).  
+1. Point your browser to [http://35.233.157.190:8000/](http://35.233.157.190:8000/) (**expired 07/31/2018).  
 
 2. You'll be greeted by a JupyterHub login page:  
 ![](./jupyterlab_login.png)
